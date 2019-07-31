@@ -7,6 +7,12 @@
 ### URLs starting with a valid protocol (`http:`, `ftp:`, etc) or `www.` are autolinked:
 
 ```````````````````````````````` example
+http://example/result?things={stuff}
+.
+<p><a href="http://example/result?things=%7Bstuff%7D">http://example/result?things={stuff}</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
 http://example.com
 .
 <p><a href="http://example.com">http://example.com</a></p>
