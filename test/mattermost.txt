@@ -1128,26 +1128,44 @@ This is an </3
 <p>This is an <span data-emoji-name="broken_heart" data-literal="&lt;/3">&lt;/3</span></p>
 ````````````````````````````````
 
+```````````````````````````````` example
+This is an (:()
+.
+<p>This is an (<span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :(/:D
+.
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span>/<span data-emoji-name="smile" data-literal=":D">:D</span></p>
+````````````````````````````````
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Invalid emoticons
 
 ```````````````````````````````` example
-This is not an :(.
+This is not an:(.
 .
-<p>This is not an :(.</p>
+<p>This is not an:(.</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
-This is not an :(/:D
+This is not an :(emoticons
 .
-<p>This is not an :(/:D</p>
+<p>This is not an :(emoticons</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
-This is not an (:()
+This is not an abc:(abc
 .
-<p>This is not an (:()</p>
+<p>This is not an abc:(abc</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link https://api.example.com/:p/
+.
+<p>This is a link <a href="https://api.example.com/:p/">https://api.example.com/:p/</a></p>
 ````````````````````````````````
 
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -1157,19 +1175,19 @@ This is not an (:()
 ```````````````````````````````` example
 This is _:)_
 .
-<p>This is <em><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></em></p>
+<p>This is <em>:)</em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is _:p_
 .
-<p>This is <em><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></em></p>
+<p>This is <em>:p</em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is _<3_
 .
-<p>This is <em><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></em></p>
+<p>This is <em>&lt;3</em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -1193,19 +1211,19 @@ This is *<3*
 ```````````````````````````````` example
 This is __:)__
 .
-<p>This is <strong><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></strong></p>
+<p>This is <strong>:)</strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is __:p__
 .
-<p>This is <strong><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></strong></p>
+<p>This is <strong>:p</strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is __<3__
 .
-<p>This is <strong><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></strong></p>
+<p>This is <strong>&lt;3</strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
