@@ -1168,12 +1168,6 @@ This is a link https://api.example.com/:p/
 <p>This is a link <a href="https://api.example.com/:p/">https://api.example.com/:p/</a></p>
 ````````````````````````````````
 
-```````````````````````````````` example
-Http://community.mattermost.com/:)/
-.
-<p><a href="Http://community.mattermost.com/">Http://community.mattermost.com/</a>:)/</p>
-````````````````````````````````
-
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Formatted emoticons
