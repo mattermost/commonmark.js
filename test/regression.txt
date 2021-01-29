@@ -80,7 +80,7 @@ Issue jgm/CommonMark#468 - backslash at end of link definition
 <p>[]: test</p>
 ````````````````````````````````
 
-Issue jgm/commonmark.js#121 - punctuation set different
+Issue commonmark/commonmark.js#121 - punctuation set different
 
 ```````````````````````````````` example
 ^_test_
@@ -95,8 +95,8 @@ Issue #116 - tabs before and after ATX closing heading
 <h1>foo</h1>
 ````````````````````````````````
 
-commonmark/CommonMark#493 - escaped space not allowed in link
-destination.
+commonmark/CommonMark#493 - escaped space not allowed in link destination.
+
 ```````````````````````````````` example
 [link](a\ b)
 .
@@ -115,4 +115,63 @@ City:
 <span itemprop="contentLocation" itemscope itemtype="https://schema.org/City">
 <meta itemprop="name" content="Springfield">
 </span></p>
+````````````````````````````````
+
+Double-encoding.
+
+```````````````````````````````` example
+[XSS](javascript&amp;colon;alert%28&#039;XSS&#039;%29)
+.
+<p><a href="javascript&amp;colon;alert%28'XSS'%29">XSS</a></p>
+````````````````````````````````
+
+PR #179
+
+```````````````````````````````` example
+[link](https://www.example.com/home/%25batty)
+.
+<p><a href="https://www.example.com/home/%25batty">link</a></p>
+````````````````````````````````
+
+Issue commonamrk#517 - script, pre, style close tag without
+opener.
+
+```````````````````````````````` example
+</script>
+
+</pre>
+
+</style>
+.
+</script>
+</pre>
+</style>
+````````````````````````````````
+
+Issue #289.
+
+```````````````````````````````` example
+[a](<b) c>
+.
+<p>[a](&lt;b) c&gt;</p>
+````````````````````````````````
+
+Issue #161.
+
+```````````````````````````````` example
+*failed to be italic!*\
+text
+.
+<p><em>failed to be italic!</em><br />
+text</p>
+````````````````````````````````
+
+Issue #196.
+
+```````````````````````````````` example
+a <?
+?>
+.
+<p>a <?
+?></p>
 ````````````````````````````````

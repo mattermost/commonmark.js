@@ -3,14 +3,15 @@
 
 var util = require('util');
 var fs = require('fs');
-var commonmark = require('../lib/index.js');
+var os = require('os');
+var commonmark = require('../');
 var version = require('../package.json').version;
 var parseArgs = require('minimist');
 var args = process.argv.slice(2);
 var argv = parseArgs(args,
   {boolean: ["ast", "xml", "time", "smart",
              "safe", "sourcepos", "help", "version"],
-   string: ["to", "t"],
+   string: ["_", "to", "t"],
    unknown: function(o) {
      if (/^-/.test(o)) {
       process.stderr.write("Unknown option " + o + "\n");
@@ -80,6 +81,9 @@ if (files.length === 0) {
 
 for (i = 0; i < files.length; i++) {
   var file = files[i];
+  if (file === "/dev/stdin" && os.platform() === "win32") {
+    file = 0;
+  }
   inps.push(fs.readFileSync(file, 'utf8'));
 }
 

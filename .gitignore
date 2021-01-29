@@ -3,4 +3,5 @@
 *.diff
 *#
 node_modules/
-.ignore
+package-lock.json
+dist/*.js
