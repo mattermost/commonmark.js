@@ -309,6 +309,13 @@ for (x = 1000; x <= 10000; x *= 10) {
 //           expected: '<p>' + repeat('[](', x) + '</p>\n'
 //         });
 // }
+for (x = 10; x <= 10000; x *= 10) {
+    cases.push({
+        name: "repeated asterisks" + x + " long",
+        input: repeat("*", x) + "test" + repeat("*", x),
+        expected: "<p>" + repeat("<strong>", x / 2) + "test" + repeat("</strong>", x / 2) + "</p>\n",
+    });
+}
 var parse_and_render = function(z) {
     return writer.render(reader.parse(z));
 };
