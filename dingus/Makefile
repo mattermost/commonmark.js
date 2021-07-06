@@ -35,5 +35,5 @@ commonmark.js: ../lib/index.js $(LIBFILES)
 	cp ../dist/commonmark.js commonmark.js
 
 dingus: all
-	echo "Starting dingus server at http://localhost:9000/"; \
-	$(HTTPSERVER) -p 9000
+	echo "Starting dingus server at http://localhost:9002/"; \
+	$(HTTPSERVER) -p 9002

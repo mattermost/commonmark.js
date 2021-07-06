@@ -1,0 +1,1809 @@
+# Mattermost-specific behaviour not defined by the CommonMark spec
+
+===========================================================================================================================================
+## URL Autolinking
+===========================================================================================================================================
+
+### URLs starting with a valid protocol (`http:`, `ftp:`, etc) or `www.` are autolinked:
+
+```````````````````````````````` example
+http://example/result?things={stuff}
+.
+<p><a href="http://example/result?things=%7Bstuff%7D">http://example/result?things={stuff}</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com
+.
+<p><a href="http://example.com">http://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com
+.
+<p><a href="https://example.com">https://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+taco+what://example.com
+.
+<p><a href="taco+what://example.com">taco+what://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+taco.what://example.com
+.
+<p><a href="taco.what://example.com">taco.what://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+taco++what://example.com
+.
+<p><a href="taco++what://example.com">taco++what://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+taco..what://example.com
+.
+<p><a href="taco..what://example.com">taco..what://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+taco+what23://example.com
+.
+<p><a href="taco+what23://example.com">taco+what23://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+taco.what23://example.com
+.
+<p><a href="taco.what23://example.com">taco.what23://example.com</a></p>
+````````````````````````````````
+
+ftp://example.com
+.
+<p><a href="ftp://example.com">ftp://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+ts3server://example.com?port=9001
+.
+<p><a href="ts3server://example.com?port=9001">ts3server://example.com?port=9001</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com
+.
+<p><a href="http://www.example.com">www.example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index
+.
+<p><a href="http://www.example.com/index">www.example.com/index</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index.html
+.
+<p><a href="http://www.example.com/index.html">www.example.com/index.html</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/index/sub
+.
+<p><a href="http://example.com/index/sub">http://example.com/index/sub</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www1.example.com
+.
+<p><a href="http://www1.example.com">www1.example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://en.wikipedia.org/wiki/URLs#Syntax
+.
+<p><a href="https://en.wikipedia.org/wiki/URLs#Syntax">https://en.wikipedia.org/wiki/URLs#Syntax</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://groups.google.com/forum/#!msg
+.
+<p><a href="https://groups.google.com/forum/#!msg">https://groups.google.com/forum/#!msg</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index?params=1
+.
+<p><a href="http://www.example.com/index?params=1">www.example.com/index?params=1</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index?params=1&other=2
+.
+<p><a href="http://www.example.com/index?params=1&amp;other=2">www.example.com/index?params=1&amp;other=2</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index?params=1;other=2
+.
+<p><a href="http://www.example.com/index?params=1;other=2">www.example.com/index?params=1;other=2</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://www.example.com/_/page
+.
+<p><a href="http://www.example.com/_/page">http://www.example.com/_/page</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://en.wikipedia.org/wiki/🐬
+.
+<p><a href="https://en.wikipedia.org/wiki/%F0%9F%90%AC">https://en.wikipedia.org/wiki/🐬</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://✪df.ws/1234
+.
+<p><a href="http://%E2%9C%AAdf.ws/1234">http://✪df.ws/1234</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://groups.google.com/forum/#!msg
+.
+<p><a href="https://groups.google.com/forum/#!msg">https://groups.google.com/forum/#!msg</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://пример.срб/пример-26/
+.
+<p><a href="https://%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80.%D1%81%D1%80%D0%B1/%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80-26/">https://пример.срб/пример-26/</a></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### IP addresses starting with a valid protocol (`http:`, `ftp:`, etc) are autolinked:
+
+```````````````````````````````` example
+http://127.0.0.1
+.
+<p><a href="http://127.0.0.1">http://127.0.0.1</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://192.168.1.1:4040
+.
+<p><a href="http://192.168.1.1:4040">http://192.168.1.1:4040</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://[::1]:80
+.
+<p><a href="http://%5B::1%5D:80">http://[::1]:80</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://[::1]:80
+.
+<p><a href="https://%5B::1%5D:80">https://[::1]:80</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:8065
+.
+<p><a href="http://%5B2001:0:5ef5:79fb:303a:62d5:3312:ff42%5D:8065">http://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:8065</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:443
+.
+<p><a href="https://%5B2001:0:5ef5:79fb:303a:62d5:3312:ff42%5D:443">https://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:443</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://username:password@127.0.0.1
+.
+<p><a href="http://username:password@127.0.0.1">http://username:password@127.0.0.1</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://username:password@[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:80
+.
+<p><a href="http://username:password@%5B2001:0:5ef5:79fb:303a:62d5:3312:ff42%5D:80">http://username:password@[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:80</a></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### URLs inside of brackets are autolinked correctly
+
+```````````````````````````````` example
+https://en.wikipedia.org/wiki/Rendering_(computer_graphics)
+.
+<p><a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)">https://en.wikipedia.org/wiki/Rendering_(computer_graphics)</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/more_(than)_one_(parens)
+.
+<p><a href="http://example.com/more_(than)_one_(parens)">http://example.com/more_(than)_one_(parens)</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/(something)?after=parens
+.
+<p><a href="http://example.com/(something)?after=parens">http://example.com/(something)?after=parens</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://foo.com/unicode_(✪)_in_parens
+.
+<p><a href="http://foo.com/unicode_(%E2%9C%AA)_in_parens">http://foo.com/unicode_(✪)_in_parens</a></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Formatted URLs
+
+```````````````````````````````` example
+*https://example.com*
+.
+<p><em><a href="https://example.com">https://example.com</a></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+_https://example.com_
+.
+<p><em><a href="https://example.com">https://example.com</a></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+**https://example.com**
+.
+<p><strong><a href="https://example.com">https://example.com</a></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+__https://example.com__
+.
+<p><strong><a href="https://example.com">https://example.com</a></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+***https://example.com***
+.
+<p><em><strong><a href="https://example.com">https://example.com</a></strong></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+___https://example.com___
+.
+<p><em><strong><a href="https://example.com">https://example.com</a></strong></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link *https://example.com* in a sentence
+.
+<p>This is a link <em><a href="https://example.com">https://example.com</a></em> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link _https://example.com_ in a sentence
+.
+<p>This is a link <em><a href="https://example.com">https://example.com</a></em> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link **https://example.com** in a sentence
+.
+<p>This is a link <strong><a href="https://example.com">https://example.com</a></strong> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link __https://example.com__ in a sentence
+.
+<p>This is a link <strong><a href="https://example.com">https://example.com</a></strong> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+*https://example.com* in a sentence
+.
+<p><em><a href="https://example.com">https://example.com</a></em> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+_https://example.com_ in a sentence
+.
+<p><em><a href="https://example.com">https://example.com</a></em> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+**https://example.com** in a sentence
+.
+<p><strong><a href="https://example.com">https://example.com</a></strong> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+__https://example.com__ in a sentence
+.
+<p><strong><a href="https://example.com">https://example.com</a></strong> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link *https://example.com*
+.
+<p>This is a link <em><a href="https://example.com">https://example.com</a></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link _https://example.com_
+.
+<p>This is a link <em><a href="https://example.com">https://example.com</a></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link **https://example.com**
+.
+<p>This is a link <strong><a href="https://example.com">https://example.com</a></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link __https://example.com__
+.
+<p>This is a link <strong><a href="https://example.com">https://example.com</a></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a *link https://example.com* in a sentence
+.
+<p>This is a <em>link <a href="https://example.com">https://example.com</a></em> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a _link https://example.com_ in a sentence
+.
+<p>This is a <em>link <a href="https://example.com">https://example.com</a></em> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a **link https://example.com** in a sentence
+.
+<p>This is a <strong>link <a href="https://example.com">https://example.com</a></strong> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a __link https://example.com__ in a sentence
+.
+<p>This is a <strong>link <a href="https://example.com">https://example.com</a></strong> in a sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link *https://example.com in a* sentence
+.
+<p>This is a link <em><a href="https://example.com">https://example.com</a> in a</em> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link _https://example.com in a_ sentence
+.
+<p>This is a link <em><a href="https://example.com">https://example.com</a> in a</em> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link **https://example.com in a** sentence
+.
+<p>This is a link <strong><a href="https://example.com">https://example.com</a> in a</strong> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link __https://example.com in a__ sentence
+.
+<p>This is a link <strong><a href="https://example.com">https://example.com</a> in a</strong> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a *link https://example.com in a* sentence
+.
+<p>This is a <em>link <a href="https://example.com">https://example.com</a> in a</em> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a _link https://example.com in a_ sentence
+.
+<p>This is a <em>link <a href="https://example.com">https://example.com</a> in a</em> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a **link https://example.com in a** sentence
+.
+<p>This is a <strong>link <a href="https://example.com">https://example.com</a> in a</strong> sentence</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a __link https://example.com in a__ sentence
+.
+<p>This is a <strong>link <a href="https://example.com">https://example.com</a> in a</strong> sentence</p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Don't autolink inside another link
+
+```````````````````````````````` example
+[www.example.com](https://example.com)
+.
+<p><a href="https://example.com">www.example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[http://www.example.com](https://example.com)
+.
+<p><a href="https://example.com">http://www.example.com</a></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Links in sentences
+
+```````````````````````````````` example
+(http://example.com)
+.
+<p>(<a href="http://example.com">http://example.com</a>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+(see http://example.com)
+.
+<p>(see <a href="http://example.com">http://example.com</a>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+(http://example.com watch this)
+.
+<p>(<a href="http://example.com">http://example.com</a> watch this)</p>
+````````````````````````````````
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a http://example.com in it.
+.
+<p>This is a sentence with a <a href="http://example.com">http://example.com</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a [link](http://example.com) in it.
+.
+<p>This is a sentence with a <a href="http://example.com">link</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a http://example.com/_/underscore in it.
+.
+<p>This is a sentence with a <a href="http://example.com/_/underscore">http://example.com/_/underscore</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a link (http://example.com) in it.
+.
+<p>This is a sentence with a link (<a href="http://example.com">http://example.com</a>) in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a (https://en.wikipedia.org/wiki/Rendering_(computer_graphics)) in it.
+.
+<p>This is a sentence with a (<a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)">https://en.wikipedia.org/wiki/Rendering_(computer_graphics)</a>) in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a http://192.168.1.1:4040 in it.
+.
+<p>This is a sentence with a <a href="http://192.168.1.1:4040">http://192.168.1.1:4040</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a https://[::1]:80 in it.
+.
+<p>This is a sentence with a <a href="https://%5B::1%5D:80">https://[::1]:80</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link to http://example.com.
+.
+<p>This is a link to <a href="http://example.com">http://example.com</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link to http://example.com*
+.
+<p>This is a link to <a href="http://example.com">http://example.com</a>*</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link to http://example.com_
+.
+<p>This is a link to <a href="http://example.com">http://example.com</a>_</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link containing http://example.com/something?with,commas,in,url, but not at the end
+.
+<p>This is a link containing <a href="http://example.com/something?with,commas,in,url">http://example.com/something?with,commas,in,url</a>, but not at the end</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a question about a link http://example.com?
+.
+<p>This is a question about a link <a href="http://example.com">http://example.com</a>?</p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### PLT-7250 Links with trailing periods
+
+```````````````````````````````` example
+http://example.com.
+.
+<p><a href="http://example.com">http://example.com</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com...
+.
+<p><a href="http://example.com">http://example.com</a>...</p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/foo.
+.
+<p><a href="http://example.com/foo">http://example.com/foo</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/foo...
+.
+<p><a href="http://example.com/foo">http://example.com/foo</a>...</p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/foo.bar
+.
+<p><a href="http://example.com/foo.bar">http://example.com/foo.bar</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/foo...bar
+.
+<p><a href="http://example.com/foo...bar">http://example.com/foo...bar</a></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### RN-319 www links as part of a word
+
+```````````````````````````````` example
+testwww.example.com
+.
+<p>testwww.example.com</p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### MM-10180 Link containing period followed by non-letter
+
+```````````````````````````````` example
+https://example.com/123.+Pagetitle
+.
+<p><a href="https://example.com/123.+Pagetitle">https://example.com/123.+Pagetitle</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.?Pagetitle
+.
+<p><a href="https://example.com/123.?Pagetitle">https://example.com/123.?Pagetitle</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.-Pagetitle
+.
+<p><a href="https://example.com/123.-Pagetitle">https://example.com/123.-Pagetitle</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123._Pagetitle
+.
+<p><a href="https://example.com/123._Pagetitle">https://example.com/123._Pagetitle</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.+
+.
+<p><a href="https://example.com/123.+">https://example.com/123.+</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.?
+.
+<p><a href="https://example.com/123">https://example.com/123</a>.?</p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.-
+.
+<p><a href="https://example.com/123.-">https://example.com/123.-</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123._
+.
+<p><a href="https://example.com/123">https://example.com/123</a>._</p>
+````````````````````````````````
+
+@hmhealey - We don't match GitHub's behaviour for the following cases
+
+```````````````````````````````` example
+https://example.com/123.(Pagetitle
+.
+<p><a href="https://example.com/123">https://example.com/123</a>.(Pagetitle</p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.)Pagetitle
+.
+<p><a href="https://example.com/123">https://example.com/123</a>.)Pagetitle</p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.(
+.
+<p><a href="https://example.com/123">https://example.com/123</a>.(</p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com/123.)
+.
+<p><a href="https://example.com/123">https://example.com/123</a>.)</p>
+````````````````````````````````
+
+===========================================================================================================================================
+## At Mentions
+===========================================================================================================================================
+
+### Valid at mentions
+
+```````````````````````````````` example
+This is an @mention
+.
+<p>This is an <span data-mention-name="mention">@mention</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @mention123
+.
+<p>This is an <span data-mention-name="mention123">@mention123</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @mention.
+.
+<p>This is an <span data-mention-name="mention.">@mention.</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @me.ntion
+.
+<p>This is an <span data-mention-name="me.ntion">@me.ntion</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @me-ntion
+.
+<p>This is an <span data-mention-name="me-ntion">@me-ntion</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @men_tion
+.
+<p>This is an <span data-mention-name="men_tion">@men_tion</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @mention/@alternate
+.
+<p>This is an <span data-mention-name="mention">@mention</span>/<span data-mention-name="alternate">@alternate</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an optional mention (@mention)
+.
+<p>This is an optional mention (<span data-mention-name="mention">@mention</span>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @Mention
+.
+<p>This is an <span data-mention-name="Mention">@Mention</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @MENTION
+.
+<p>This is an <span data-mention-name="MENTION">@MENTION</span></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Invalid at mentions
+
+```````````````````````````````` example
+This is an email@address.com
+.
+<p>This is an <a href="mailto:email@address.com">email@address.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an user@host
+.
+<p>This is an user@host</p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Emojis
+===========================================================================================================================================
+
+### Valid emojis
+
+```````````````````````````````` example
+This is an :emoji:
+.
+<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :emo_ji:
+.
+<p>This is an <span data-emoji-name="emo_ji" data-literal=":emo_ji:">:emo_ji:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :emo-ji:
+.
+<p>This is an <span data-emoji-name="emo-ji" data-literal=":emo-ji:">:emo-ji:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :emoji123:
+.
+<p>This is an <span data-emoji-name="emoji123" data-literal=":emoji123:">:emoji123:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :emoji:.
+.
+<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an (:emoji:)
+.
+<p>This is an (<span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+These are some :emoji1::emoji2:
+.
+<p>These are some <span data-emoji-name="emoji1" data-literal=":emoji1:">:emoji1:</span><span data-emoji-name="emoji2" data-literal=":emoji2:">:emoji2:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+These are some :emoji1:/:emoji2:
+.
+<p>These are some <span data-emoji-name="emoji1" data-literal=":emoji1:">:emoji1:</span>/<span data-emoji-name="emoji2" data-literal=":emoji2:">:emoji2:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :+1:
+.
+<p>This is an <span data-emoji-name="+1" data-literal=":+1:">:+1:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-1:
+.
+<p>This is an <span data-emoji-name="-1" data-literal=":-1:">:-1:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :emoji: in a sentence.
+.
+<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span> in a sentence.</p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Invalid emojis
+
+```````````````````````````````` example
+This is not an :emoji
+.
+<p>This is not an :emoji</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an emoji:
+.
+<p>This is not an emoji:</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an :emo ji:
+.
+<p>This is not an :emo ji:</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an :emo'ji:
+.
+<p>This is not an :emo'ji:</p>
+````````````````````````````````
+
+```````````````````````````````` example
+Thisisnotan:emoji:
+.
+<p><a href="Thisisnotan:emoji">Thisisnotan:emoji</a>:</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an :emoji:isit
+.
+<p>This is not an :<a href="emoji:isit">emoji:isit</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an:emoji:isit
+.
+<p>This is not <a href="an:emoji:isit">an:emoji:isit</a></p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Emoticons
+===========================================================================================================================================
+
+### Valid emoticons
+
+```````````````````````````````` example
+This is an :)
+.
+<p>This is an <span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-)
+.
+<p>This is an <span data-emoji-name="slightly_smiling_face" data-literal=":-)">:-)</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an ;)
+.
+<p>This is an <span data-emoji-name="wink" data-literal=";)">;)</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an ;-)
+.
+<p>This is an <span data-emoji-name="wink" data-literal=";-)">;-)</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :o
+.
+<p>This is an <span data-emoji-name="open_mouth" data-literal=":o">:o</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :O
+.
+<p>This is an <span data-emoji-name="open_mouth" data-literal=":O">:O</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-o
+.
+<p>This is an <span data-emoji-name="scream" data-literal=":-o">:-o</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-O
+.
+<p>This is an <span data-emoji-name="scream" data-literal=":-O">:-O</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :]
+.
+<p>This is an <span data-emoji-name="smirk" data-literal=":]">:]</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-]
+.
+<p>This is an <span data-emoji-name="smirk" data-literal=":-]">:-]</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :d
+.
+<p>This is an <span data-emoji-name="smile" data-literal=":d">:d</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-d
+.
+<p>This is an <span data-emoji-name="smile" data-literal=":-d">:-d</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :D
+.
+<p>This is an <span data-emoji-name="smile" data-literal=":D">:D</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-D
+.
+<p>This is an <span data-emoji-name="smile" data-literal=":-D">:-D</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an x-d
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="x-d">x-d</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an X-d
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="X-d">X-d</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an x-D
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="x-D">x-D</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an X-D
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="X-D">X-D</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :p
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-p
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":-p">:-p</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :P
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":P">:P</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-P
+.
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":-P">:-P</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :[
+.
+<p>This is an <span data-emoji-name="rage" data-literal=":[">:[</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-[
+.
+<p>This is an <span data-emoji-name="rage" data-literal=":-[">:-[</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :@
+.
+<p>This is an <span data-emoji-name="rage" data-literal=":@">:@</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-@
+.
+<p>This is an <span data-emoji-name="rage" data-literal=":-@">:-@</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :(
+.
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-(
+.
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":-(">:-(</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :'(
+.
+<p>This is an <span data-emoji-name="cry" data-literal=":'(">:'(</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :'-(
+.
+<p>This is an <span data-emoji-name="cry" data-literal=":'-(">:'-(</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :’(
+.
+<p>This is an <span data-emoji-name="cry" data-literal=":’(">:’(</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :’-(
+.
+<p>This is an <span data-emoji-name="cry" data-literal=":’-(">:’-(</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :/
+.
+<p>This is an <span data-emoji-name="confused" data-literal=":/">:/</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-/
+.
+<p>This is an <span data-emoji-name="confused" data-literal=":-/">:-/</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :s
+.
+<p>This is an <span data-emoji-name="confounded" data-literal=":s">:s</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-s
+.
+<p>This is an <span data-emoji-name="confounded" data-literal=":-s">:-s</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :|
+.
+<p>This is an <span data-emoji-name="neutral_face" data-literal=":|">:|</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-|
+.
+<p>This is an <span data-emoji-name="neutral_face" data-literal=":-|">:-|</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :$
+.
+<p>This is an <span data-emoji-name="flushed" data-literal=":$">:$</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-$
+.
+<p>This is an <span data-emoji-name="flushed" data-literal=":-$">:-$</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-x
+.
+<p>This is an <span data-emoji-name="mask" data-literal=":-x">:-x</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :-X
+.
+<p>This is an <span data-emoji-name="mask" data-literal=":-X">:-X</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an <3
+.
+<p>This is an <span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an </3
+.
+<p>This is an <span data-emoji-name="broken_heart" data-literal="&lt;/3">&lt;/3</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an (:()
+.
+<p>This is an (<span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an :(/:D
+.
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span>/<span data-emoji-name="smile" data-literal=":D">:D</span></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Invalid emoticons
+
+```````````````````````````````` example
+This is not an:(.
+.
+<p>This is not an:(.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an :(emoticons
+.
+<p>This is not an :(emoticons</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not an abc:(abc
+.
+<p>This is not an abc:(abc</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link https://api.example.com/:p/
+.
+<p>This is a link <a href="https://api.example.com/:p/">https://api.example.com/:p/</a></p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Formatted emoticons
+
+```````````````````````````````` example
+This is _:)_
+.
+<p>This is <em>:)</em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is _:p_
+.
+<p>This is <em>:p</em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is _<3_
+.
+<p>This is <em>&lt;3</em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is *:)*
+.
+<p>This is <em><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is *:p*
+.
+<p>This is <em><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is *<3*
+.
+<p>This is <em><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is __:)__
+.
+<p>This is <strong>:)</strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is __:p__
+.
+<p>This is <strong>:p</strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is __<3__
+.
+<p>This is <strong>&lt;3</strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is **:)**
+.
+<p>This is <strong><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is **:p**
+.
+<p>This is <strong><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is **<3**
+.
+<p>This is <strong><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></strong></p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Channel links
+===========================================================================================================================================
+
+### Valid channel links
+
+```````````````````````````````` example
+This is a ~channel
+.
+<p>This is a <span data-channel-name="channel">~channel</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~channel123
+.
+<p>This is a <span data-channel-name="channel123">~channel123</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~123channel
+.
+<p>This is a <span data-channel-name="123channel">~123channel</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~channel123.
+.
+<p>This is a <span data-channel-name="channel123">~channel123</span>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~chan-nel
+.
+<p>This is a <span data-channel-name="chan-nel">~chan-nel</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~chan_nel
+.
+<p>This is a <span data-channel-name="chan_nel">~chan_nel</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~channel/~alternate
+.
+<p>This is a <span data-channel-name="channel">~channel</span>/<span data-channel-name="alternate">~alternate</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an optional (~channel)
+.
+<p>This is an optional (<span data-channel-name="channel">~channel</span>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~Channel
+.
+<p>This is a <span data-channel-name="Channel">~Channel</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a ~CHANNEL
+.
+<p>This is a <span data-channel-name="CHANNEL">~CHANNEL</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+Channel names can't contain periods ~chan.nel
+.
+<p>Channel names can't contain periods <span data-channel-name="chan">~chan</span>.nel</p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Strikethrough text
+===========================================================================================================================================
+
+### Valid strikethrough text
+
+```````````````````````````````` example
+~~Strikethrough text~~
+.
+<p><del>Strikethrough text</del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+Strikethrough ~~text~~
+.
+<p>Strikethrough <del>text</del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+~~Strikethrough~~ text
+.
+<p><del>Strikethrough</del> text</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is some ~~strikethrough text~~ in a sentence.
+.
+<p>This is some <del>strikethrough text</del> in a sentence.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is some ~~strikethrough
+text~~ on two lines.
+.
+<p>This is some <del>strikethrough
+text</del> on two lines.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+~~These are ~~nested strikethrough~~ text.~~
+.
+<p><del>These are <del>nested strikethrough</del> text.</del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+~~Strikethrough~~~~~~~ ~~text~~~~~~~ with mixed numbers of tildes
+.
+<p><del>Strikethrough</del> <del>text</del> with mixed numbers of tildes</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~strikethrough~~text~~
+.
+<p>This is <del>strikethrough</del>text~~</p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Not strikethrough text
+
+```````````````````````````````` example
+~~
+.
+<p>~~</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not ~strikethrough text~
+.
+<p>This is not <span data-channel-name="strikethrough">~strikethrough</span> text~</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not strikethrough~~text
+.
+<p>This is not strikethrough~~text</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not strikethrough text~~
+.
+<p>This is not strikethrough text~~</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not ~~ strikethrough text ~~
+.
+<p>This is not ~~ strikethrough text ~~</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not strikethrough~~ text~~
+.
+<p>This is not strikethrough~~ text~~</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is not ~~strikethrough ~~text
+.
+<p>This is not ~~strikethrough ~~text</p>
+````````````````````````````````
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+### Mixing strikethrough and other formatting
+
+```````````````````````````````` example
+This is *~~strikethrough text~~*
+.
+<p>This is <em><del>strikethrough text</del></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~*strikethrough text*~~
+.
+<p>This is <del><em>strikethrough text</em></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is **~~strikethrough text~~**
+.
+<p>This is <strong><del>strikethrough text</del></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~**strikethrough text**~~
+.
+<p>This is <del><strong>strikethrough text</strong></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is _~~strikethrough text~~_
+.
+<p>This is <em><del>strikethrough text</del></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~_strikethrough text_~~
+.
+<p>This is <del><em>strikethrough text</em></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~strikethrough ~text~~
+.
+<p>This is <del>strikethrough <span data-channel-name="text">~text</span></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~@strikethrough-text~~
+.
+<p>This is <del><span data-mention-name="strikethrough-text">@strikethrough-text</span></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~[strikethrough text](http://example.com)~~
+.
+<p>This is <del><a href="http://example.com">strikethrough text</a></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~[strikethrough text](http://example.com "title text")~~
+.
+<p>This is <del><a href="http://example.com" title="title text">strikethrough text</a></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is [~~strikethrough text~~](http://example.com)
+.
+<p>This is <a href="http://example.com"><del>strikethrough text</del></a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is [~~strikethrough text~~](http://example.com "title text")
+.
+<p>This is <a href="http://example.com" title="title text"><del>strikethrough text</del></a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~:)~~
+.
+<p>This is <del><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~:p~~
+.
+<p>This is <del><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~<3~~
+.
+<p>This is <del><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></del></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is ~~:strawberry:~~
+.
+<p>This is <del><span data-emoji-name="strawberry" data-literal=":strawberry:">:strawberry:</span></del></p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Email addresses
+===========================================================================================================================================
+
+```````````````````````````````` example
+email@example.com
+.
+<p><a href="mailto:email@example.com">email@example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is my email@example.com.
+.
+<p>This is my <a href="mailto:email@example.com">email@example.com</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+(test@example.com)
+.
+<p>(<a href="mailto:test@example.com">test@example.com</a>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+email+address@example.com
+.
+<p><a href="mailto:email+address@example.com">email+address@example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+email123@example.com
+.
+<p><a href="mailto:email123@example.com">email123@example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+email@汤.中国
+.
+<p><a href="mailto:email@%E6%B1%A4.%E4%B8%AD%E5%9B%BD">email@汤.中国</a></p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Images with explicit dimensions
+===========================================================================================================================================
+
+```````````````````````````````` example
+![alt](src =16x20)
+.
+<p><img src="src" alt="alt" width="16" height="20" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+![alt](src =x20)
+.
+<p><img src="src" alt="alt" height="20" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+![alt](src =16x)
+.
+<p><img src="src" alt="alt" width="16" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+![alt](src =16x20 "Test")
+.
+<p><img src="src" alt="alt" title="Test" width="16" height="20" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+![alt](src =x20 "Test")
+.
+<p><img src="src" alt="alt" title="Test" height="20" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+![alt](src =16x "Test")
+.
+<p><img src="src" alt="alt" title="Test" width="16" /></p>
+````````````````````````````````
+
+===========================================================================================================================================
+## Hashtags
+===========================================================================================================================================
+
+### Valid hashtags
+
+```````````````````````````````` example
+#abcd #efgh
+.
+<p><span data-hashtag="abcd">#abcd</span> <span data-hashtag="efgh">#efgh</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#abc123
+.
+<p><span data-hashtag="abc123">#abc123</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#ABC123
+.
+<p><span data-hashtag="ABC123">#ABC123</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#ABC
+.
+<p><span data-hashtag="ABC">#ABC</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+# abcd #efgh
+.
+<h1>abcd <span data-hashtag="efgh">#efgh</span></h1>
+````````````````````````````````
+
+```````````````````````````````` example
+#test-test
+.
+<p><span data-hashtag="test-test">#test-test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#test_test
+.
+<p><span data-hashtag="test_test">#test_test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#test.test
+.
+<p><span data-hashtag="test.test">#test.test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#test1/#test2
+.
+<p><span data-hashtag="test1">#test1</span>/<span data-hashtag="test2">#test2</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+(#test)
+.
+<p>(<span data-hashtag="test">#test</span>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+#test-
+.
+<p><span data-hashtag="test">#test</span>-</p>
+````````````````````````````````
+
+```````````````````````````````` example
+#test.
+.
+<p><span data-hashtag="test">#test</span>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence containing #test containing a hashtag
+.
+<p>This is a sentence containing <span data-hashtag="test">#test</span> containing a hashtag</p>
+````````````````````````````````
+
+### Not hashtags
+
+Hashtags must be at least 3 characters long by default
+
+```````````````````````````````` example
+#ab #ef
+.
+<p>#ab #ef</p>
+````````````````````````````````
+
+This is actually a heading
+
+```````````````````````````````` example
+# abcd # efgh
+.
+<h1>abcd # efgh</h1>
+````````````````````````````````
+
+Hashtags must start with a letter
+
+```````````````````````````````` example
+#123
+.
+<p>#123</p>
+````````````````````````````````
+
+```````````````````````````````` example
+#123test
+.
+<p>#123test</p>
+````````````````````````````````
+
+### Formatted hashtags
+
+```````````````````````````````` example
+*#test*
+.
+<p><em><span data-hashtag="test">#test</span></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+**#test**
+.
+<p><strong><span data-hashtag="test">#test</span></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+_#test_
+.
+<p><em><span data-hashtag="test">#test</span></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+__#test__
+.
+<p><strong><span data-hashtag="test">#test</span></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+~~#test~~
+.
+<p><del><span data-hashtag="test">#test</span></del></p>
+````````````````````````````````
+
+### Interactions between hashtags and other nodes
+
+```````````````````````````````` example
+`#test`
+.
+<p><code>#test</code></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[this is a link #test](http://example.com)
+.
+<p><a href="http://example.com">this is a link #test</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#@test
+.
+<p>#<span data-mention-name="test">@test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+@#test
+.
+<p>@<span data-hashtag="test">#test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#~test
+.
+<p>#<span data-channel-name="test">~test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+~#test
+.
+<p>~<span data-hashtag="test">#test</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+#:test:
+.
+<p>#<span data-emoji-name="test" data-literal=":test:">:test:</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+:#test:
+.
+<p>:<span data-hashtag="test">#test</span>:</p>
+````````````````````````````````
+
+```````````````````````````````` example
+#test@example.com
+.
+<p><span data-hashtag="test">#test</span>@example.com</p>
+````````````````````````````````

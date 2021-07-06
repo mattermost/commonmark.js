@@ -1,0 +1,1167 @@
+===========================================================================================================================================
+## Tables
+===========================================================================================================================================
+
+### Not tables
+
+# Almost table that's actually a heading
+
+```````````````````````````````` example
+foo
+--
+.
+<h2>foo</h2>
+````````````````````````````````
+
+# Almost table with unequal header/delimiter rows
+
+```````````````````````````````` example
+|foo|
+|--|--|
+.
+<p>|foo|
+|--|--|</p>
+````````````````````````````````
+
+```````````````````````````````` example
+|foo|bar|
+|--|
+.
+<p>|foo|bar|
+|--|</p>
+````````````````````````````````
+
+### Tables with borders
+
+```````````````````````````````` example
+|foo|
+|---|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+|foo|
+|---|
+|bar|
+|baz|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+</tr>
+<tr>
+<td>baz</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+|foo|aaa|
+|---|---|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+|foo|aaa|
+|---|---|
+|bar|bbb|
+|baz|ccc|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+<td>bbb</td>
+</tr>
+<tr>
+<td>baz</td>
+<td>ccc</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Tables without borders
+
+```````````````````````````````` example
+foo|aaa
+---|---
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+---|---
+bar|bbb
+baz|ccc
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+<td>bbb</td>
+</tr>
+<tr>
+<td>baz</td>
+<td>ccc</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Tables with mixed borders
+
+```````````````````````````````` example
+|foo
+|---
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|
+---|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo
+---|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo
+---|
+bar|
+baz
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+</tr>
+<tr>
+<td>baz</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+|foo
+|---
+bar
+|baz
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+</tr>
+<tr>
+<td>baz</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|
+|---
+|bar
+baz
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+</tr>
+<tr>
+<td>baz</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+---|---
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+---|---
+bar|bbb
+baz|ccc
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bar</td>
+<td>bbb</td>
+</tr>
+<tr>
+<td>baz</td>
+<td>ccc</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+aa|foo|bb
+--|---|--
+cc|bar|dd
+ee|baz|ff
+.
+<table>
+<thead>
+<tr>
+<th>aa</th>
+<th>foo</th>
+<th>bb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cc</td>
+<td>bar</td>
+<td>dd</td>
+</tr>
+<tr>
+<td>ee</td>
+<td>baz</td>
+<td>ff</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Table with alignment
+
+```````````````````````````````` example
+|foo|bar|baz|qwe|
+|--:|:--|:-:|---|
+|a|b|c|d
+4|3|2|1|
+.
+<table>
+<thead>
+<tr>
+<th align="right">foo</th>
+<th align="left">bar</th>
+<th align="center">baz</th>
+<th>qwe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">a</td>
+<td align="left">b</td>
+<td align="center">c</td>
+<td>d</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">3</td>
+<td align="center">2</td>
+<td>1</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Table with uneven rows
+
+```````````````````````````````` example
+|foo|bar|baz|
+|---|---|---|
+a
+b | c | d | e | f
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+<th>baz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Tables followed by other text
+
+```````````````````````````````` example
+foo|bar
+---|---
+aaa|bbb
+
+other text
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aaa</td>
+<td>bbb</td>
+</tr></tbody></table>
+<p>other text</p>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|bar
+---|---
+aaa|bbb
+
+1. other text
+2. other text
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aaa</td>
+<td>bbb</td>
+</tr></tbody></table>
+<ol>
+<li>other text</li>
+<li>other text</li>
+</ol>
+````````````````````````````````
+
+### Tables with whitespace
+
+```````````````````````````````` example
+  foo|bar
+  ---|---
+  aaa|bbb
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aaa</td>
+<td>bbb</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+| foo | bar |
+| --- | --- |
+| aaa | bbb |
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aaa</td>
+<td>bbb</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+|	foo	|	bar	|
+|	---	|	---	|
+|	aaa	|	bbb	|
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aaa</td>
+<td>bbb</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+   foo|aaa
+---|---
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+    foo|aaa
+---|---
+.
+<pre><code>foo|aaa
+</code></pre>
+<p>---|---</p>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+   ---|---
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+    ---|---
+.
+<p>foo|aaa
+---|---</p>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+---|---
+   123|45
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>123</td>
+<td>45</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+foo|aaa
+---|---
+    123|45
+.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+<pre><code>123|45
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+ | A  | B  | C  |
+ |:---|:---|:---|
+ | 1  | Name | Toast |
+ | 2  | Name | Server |
+.
+<table>
+<thead>
+<tr>
+<th align="left">A</th>
+<th align="left">B</th>
+<th align="left">C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">Name</td>
+<td align="left">Toast</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Name</td>
+<td align="left">Server</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Tables with escaped pipes
+
+```````````````````````````````` example
+|\|oo|a\|a|
+|---|---|
+|ba\||\|bb|
+|b\|z|cc\||
+.
+<table>
+<thead>
+<tr>
+<th>|oo</th>
+<th>a|a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ba|</td>
+<td>|bb</td>
+</tr>
+<tr>
+<td>b|z</td>
+<td>cc|</td>
+</tr></tbody></table>
+````````````````````````````````
+
+```````````````````````````````` example
+\|oo|a\|a\|
+---|---
+ba\||\|bb\|
+b\|z|cc\|
+.
+<table>
+<thead>
+<tr>
+<th>|oo</th>
+<th>a|a|</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ba|</td>
+<td>|bb|</td>
+</tr>
+<tr>
+<td>b|z</td>
+<td>cc|</td>
+</tr></tbody></table>
+````````````````````````````````
+
+@hmhealey - The following section is copied from GitHub's tests for cmark available at
+https://github.com/github/cmark/blob/master/test/extensions.txt
+
+## Tables
+
+Here's a well-formed table, doing everything it should.
+
+```````````````````````````````` example
+| abc | def |
+| --- | --- |
+| ghi | jkl |
+| mno | pqr |
+.
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghi</td>
+<td>jkl</td>
+</tr>
+<tr>
+<td>mno</td>
+<td>pqr</td>
+</tr></tbody></table>
+````````````````````````````````
+
+We're going to mix up the table now; we'll demonstrate that inline formatting
+works fine, but block elements don't.  You can also have empty cells, and the
+textual alignment of the columns is shown to be irrelevant.
+
+```````````````````````````````` example
+Hello!
+
+| _abc_ | セン |
+| ----- | ---- |
+| 1. Block elements inside cells don't work. | |
+| But _**inline elements do**_. | x |
+
+Hi!
+.
+<p>Hello!</p>
+<table>
+<thead>
+<tr>
+<th><em>abc</em></th>
+<th>セン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Block elements inside cells don't work.</td>
+<td></td>
+</tr>
+<tr>
+<td>But <em><strong>inline elements do</strong></em>.</td>
+<td>x</td>
+</tr></tbody></table>
+<p>Hi!</p>
+````````````````````````````````
+
+Here we demonstrate some edge cases about what is and isn't a table.
+
+```````````````````````````````` example
+| Not enough table | to be considered table |
+
+| Not enough table | to be considered table |
+| Not enough table | to be considered table |
+
+| Just enough table | to be considered table |
+| ----------------- | ---------------------- |
+
+| ---- | --- |
+
+|x|
+|-|
+
+| xyz |
+| --- |
+.
+<p>| Not enough table | to be considered table |</p>
+<p>| Not enough table | to be considered table |
+| Not enough table | to be considered table |</p>
+<table>
+<thead>
+<tr>
+<th>Just enough table</th>
+<th>to be considered table</th>
+</tr>
+</thead></table>
+<p>| ---- | --- |</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+</tr>
+</thead></table>
+<table>
+<thead>
+<tr>
+<th>xyz</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+A "simpler" table, GFM style:
+
+```````````````````````````````` example
+abc | def
+--- | ---
+xyz | ghi
+.
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xyz</td>
+<td>ghi</td>
+</tr></tbody></table>
+````````````````````````````````
+
+We are making the parser slighly more lax here. Here is a table with spaces at
+the end:
+
+```````````````````````````````` example
+Hello!
+
+| _abc_ | セン |
+| ----- | ---- |
+| this row has a space at the end | | 
+| But _**inline elements do**_. | x |
+
+Hi!
+.
+<p>Hello!</p>
+<table>
+<thead>
+<tr>
+<th><em>abc</em></th>
+<th>セン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>this row has a space at the end</td>
+<td></td>
+</tr>
+<tr>
+<td>But <em><strong>inline elements do</strong></em>.</td>
+<td>x</td>
+</tr></tbody></table>
+<p>Hi!</p>
+````````````````````````````````
+
+Table alignment:
+
+```````````````````````````````` example
+aaa | bbb | ccc | ddd | eee
+:-- | --- | :-: | --- | --:
+fff | ggg | hhh | iii | jjj
+.
+<table>
+<thead>
+<tr>
+<th align="left">aaa</th>
+<th>bbb</th>
+<th align="center">ccc</th>
+<th>ddd</th>
+<th align="right">eee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">fff</td>
+<td>ggg</td>
+<td align="center">hhh</td>
+<td>iii</td>
+<td align="right">jjj</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Table cell count mismatches
+
+The header and marker row must match.
+
+```````````````````````````````` example
+| a | b | c |
+| --- | --- |
+| this | isn't | okay |
+.
+<p>| a | b | c |
+| --- | --- |
+| this | isn't | okay |</p>
+````````````````````````````````
+
+But any of the body rows can be shorter. Rows longer
+than the header are truncated.
+
+```````````````````````````````` example
+| a | b | c |
+| --- | --- | ---
+| x
+| a | b
+| 1 | 2 | 3 | 4 | 5 |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a</td>
+<td>b</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Embedded pipes
+
+Tables with embedded pipes could be tricky.
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+| Escaped pipes are \|okay\|. | Like \| this. |
+| Within `\|code\| is okay` too. |
+| _**`c\|`**_ \| complex
+| don't **\_reparse\_**
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escaped pipes are |okay|.</td>
+<td>Like | this.</td>
+</tr>
+<tr>
+<td>Within <code>|code| is okay</code> too.</td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong><code>c|</code></strong></em> | complex</td>
+<td></td>
+</tr>
+<tr>
+<td>don't <strong>_reparse_</strong></td>
+<td></td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Oddly-formatted markers
+
+This shouldn't assert.
+
+```````````````````````````````` example
+| a |
+--- |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+</tr>
+</thead></table>
+````````````````````````````````
+
+### Escaping
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+| \\ | `\\` |
+| \\\\ | `\\\\` |
+| \_ | `\_` |
+| \| | `\|` |
+| \a | `\a` |
+
+\\ `\\`
+
+\\\\ `\\\\`
+
+\_ `\_`
+
+\| `\|`
+
+\a `\a`
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td><code>\\</code></td>
+</tr>
+<tr>
+<td>\\</td>
+<td><code>\\\\</code></td>
+</tr>
+<tr>
+<td>_</td>
+<td><code>\_</code></td>
+</tr>
+<tr>
+<td>|</td>
+<td><code>|</code></td>
+</tr>
+<tr>
+<td>\a</td>
+<td><code>\a</code></td>
+</tr></tbody></table>
+<p>\ <code>\\</code></p>
+<p>\\ <code>\\\\</code></p>
+<p>_ <code>\_</code></p>
+<p>| <code>\|</code></p>
+<p>\a <code>\a</code></p>
+````````````````````````````````
+
+### Embedded HTML
+
+```````````````````````````````` example
+| a |
+| --- |
+| <strong>hello</strong> |
+| ok <br> sure |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hello</strong></td>
+</tr>
+<tr>
+<td>ok <br> sure</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Reference-style links
+
+```````````````````````````````` example
+Here's a link to [Freedom Planet 2][].
+
+| Here's a link to [Freedom Planet 2][] in a table header. |
+| --- |
+| Here's a link to [Freedom Planet 2][] in a table row. |
+
+[Freedom Planet 2]: http://www.freedomplanet2.com/
+.
+<p>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a> in a table header.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a> in a table row.</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Empty cells
+
+```````````````````````````````` example
+| a | b | c |
+| --- | --- | --- |
+| d || e |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td></td>
+<td>e</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Interaction with emphasis
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+|***(a)***|
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em><strong>(a)</strong></em></td>
+<td></td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Table without space at the end
+
+```````````````````````````````` example
+| Header 1 | Header 2 |
+| :--: | :--: |
+| r1c1 | r1c2 |
+| r2c1 | r2c2 |
+| r3c1 | r3c2 |
+.
+<table>
+<thead>
+<tr>
+<th align="center">Header 1</th>
+<th align="center">Header 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">r1c1</td>
+<td align="center">r1c2</td>
+</tr>
+<tr>
+<td align="center">r2c1</td>
+<td align="center">r2c2</td>
+</tr>
+<tr>
+<td align="center">r3c1</td>
+<td align="center">r3c2</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Table with space at the end
+
+```````````````````````````````` example
+| Header 1 | Header 2 | 
+| :--: | :--: | 
+| r1c1 | r1c2 | 
+| r2c1 | r2c2 | 
+| r3c1 | r3c2 | 
+.
+<table>
+<thead>
+<tr>
+<th align="center">Header 1</th>
+<th align="center">Header 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">r1c1</td>
+<td align="center">r1c2</td>
+</tr>
+<tr>
+<td align="center">r2c1</td>
+<td align="center">r2c2</td>
+</tr>
+<tr>
+<td align="center">r3c1</td>
+<td align="center">r3c2</td>
+</tr></tbody></table>
+````````````````````````````````
+
+### Table with multiple spaces at the end
+
+```````````````````````````````` example
+| Header 1 | Header 2 |   
+| :--: | :--: |
+| r1c1 | r1c2 |         
+| r2c1 | r2c2 |    
+| r3c1 | r3c2 | 
+.
+<table>
+<thead>
+<tr>
+<th align="center">Header 1</th>
+<th align="center">Header 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">r1c1</td>
+<td align="center">r1c2</td>
+</tr>
+<tr>
+<td align="center">r2c1</td>
+<td align="center">r2c2</td>
+</tr>
+<tr>
+<td align="center">r3c1</td>
+<td align="center">r3c2</td>
+</tr></tbody></table>
+````````````````````````````````

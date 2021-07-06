@@ -1,0 +1,3494 @@
+#### amps_and_angles_encoding
+
+```````````````````````````````` example
+AT&T has an ampersand in their name.
+.
+<p>AT&amp;T has an ampersand in their name.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+AT&amp;T is another way to write it.
+.
+<p>AT&amp;T is another way to write it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This & that.
+.
+<p>This &amp; that.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+4 < 5.
+.
+<p>4 &lt; 5.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+6 > 5.
+.
+<p>6 &gt; 5.</p>
+````````````````````````````````
+
+@hmhealey - Marked allows spaces between [link] and [1] for reference links
+and escapes lone single quotes as in "Here's".
+
+```````````````````````````````` example
+Here's a [link][1] with an ampersand in the URL.
+
+Here's a link with an amersand in the link text: [AT&T][2].
+
+Here's an inline [link](/script?foo=1&bar=2).
+
+Here's an inline [link](</script?foo=1&bar=2>).
+
+[1]: http://example.com/?foo=1&bar=2
+[2]: http://att.com/  "AT&T"
+.
+<p>Here's a <a href="http://example.com/?foo=1&amp;bar=2">link</a> with an ampersand in the URL.</p>
+<p>Here's a link with an amersand in the link text: <a href="http://att.com/" title="AT&amp;T">AT&amp;T</a>.</p>
+<p>Here's an inline <a href="/script?foo=1&amp;bar=2">link</a>.</p>
+<p>Here's an inline <a href="/script?foo=1&amp;bar=2">link</a>.</p>
+````````````````````````````````
+
+### auto_links
+
+```````````````````````````````` example
+Link: <http://example.com/>.
+.
+<p>Link: <a href="http://example.com/">http://example.com/</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+With an ampersand: <http://example.com/?foo=1&bar=2>
+.
+<p>With an ampersand: <a href="http://example.com/?foo=1&amp;bar=2">http://example.com/?foo=1&amp;bar=2</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+* In a list?
+* <http://example.com/>
+* It should.
+.
+<ul>
+<li>In a list?</li>
+<li><a href="http://example.com/">http://example.com/</a></li>
+<li>It should.</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+> Blockquoted: <http://example.com/>
+.
+<blockquote>
+<p>Blockquoted: <a href="http://example.com/">http://example.com/</a></p>
+</blockquote>
+````````````````````````````````
+
+```````````````````````````````` example
+Auto-links should not occur here: `<http://example.com/>`
+.
+<p>Auto-links should not occur here: <code>&lt;http://example.com/&gt;</code></p>
+````````````````````````````````
+
+```````````````````````````````` example
+	or here: <http://example.com/>
+.
+<pre><code>or here: &lt;http://example.com/&gt;
+</code></pre>
+````````````````````````````````
+
+@hmhealey - commonmark/GitHub disagree with marked that this shouldn't render as
+an email link containing a < in the address.
+
+```````````````````````````````` example
+<noreply@example.com<mailto:noreply@example.com>>
+.
+<p>&lt;<a href="mailto:noreply@example.com">noreply@example.com</a><a href="mailto:noreply@example.com">mailto:noreply@example.com</a>&gt;</p>
+````````````````````````````````
+
+### autolink_lines
+
+```````````````````````````````` example
+hello world
+<http://example.com>
+.
+<p>hello world
+<a href="http://example.com">http://example.com</a></p>
+````````````````````````````````
+
+### backslash_escapes
+
+```````````````````````````````` example
+These should all get escaped:
+
+Backslash: \\
+
+Backtick: \`
+
+Asterisk: \*
+
+Underscore: \_
+
+Left brace: \{
+
+Right brace: \}
+
+Left bracket: \[
+
+Right bracket: \]
+
+Left paren: \(
+
+Right paren: \)
+
+Greater-than: \>
+
+Hash: \#
+
+Period: \.
+
+Bang: \!
+
+Plus: \+
+
+Minus: \-
+.
+<p>These should all get escaped:</p>
+<p>Backslash: \</p>
+<p>Backtick: `</p>
+<p>Asterisk: *</p>
+<p>Underscore: _</p>
+<p>Left brace: {</p>
+<p>Right brace: }</p>
+<p>Left bracket: [</p>
+<p>Right bracket: ]</p>
+<p>Left paren: (</p>
+<p>Right paren: )</p>
+<p>Greater-than: &gt;</p>
+<p>Hash: #</p>
+<p>Period: .</p>
+<p>Bang: !</p>
+<p>Plus: +</p>
+<p>Minus: -</p>
+````````````````````````````````
+
+```````````````````````````````` example
+These should not, because they occur within a code block:
+
+	Backslash: \\
+
+	Backtick: \`
+
+	Asterisk: \*
+
+	Underscore: \_
+
+	Left brace: \{
+
+	Right brace: \}
+
+	Left bracket: \[
+
+	Right bracket: \]
+
+	Left paren: \(
+
+	Right paren: \)
+
+	Greater-than: \>
+
+	Hash: \#
+
+	Period: \.
+
+	Bang: \!
+
+	Plus: \+
+
+	Minus: \-
+.
+<p>These should not, because they occur within a code block:</p>
+<pre><code>Backslash: \\
+
+Backtick: \`
+
+Asterisk: \*
+
+Underscore: \_
+
+Left brace: \{
+
+Right brace: \}
+
+Left bracket: \[
+
+Right bracket: \]
+
+Left paren: \(
+
+Right paren: \)
+
+Greater-than: \&gt;
+
+Hash: \#
+
+Period: \.
+
+Bang: \!
+
+Plus: \+
+
+Minus: \-
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+Nor should these, which occur in code spans:
+
+Backslash: `\\`
+
+Backtick: `` \` ``
+
+Asterisk: `\*`
+
+Underscore: `\_`
+
+Left brace: `\{`
+
+Right brace: `\}`
+
+Left bracket: `\[`
+
+Right bracket: `\]`
+
+Left paren: `\(`
+
+Right paren: `\)`
+
+Greater-than: `\>`
+
+Hash: `\#`
+
+Period: `\.`
+
+Bang: `\!`
+
+Plus: `\+`
+
+Minus: `\-`
+.
+<p>Nor should these, which occur in code spans:</p>
+<p>Backslash: <code>\\</code></p>
+<p>Backtick: <code>\`</code></p>
+<p>Asterisk: <code>\*</code></p>
+<p>Underscore: <code>\_</code></p>
+<p>Left brace: <code>\{</code></p>
+<p>Right brace: <code>\}</code></p>
+<p>Left bracket: <code>\[</code></p>
+<p>Right bracket: <code>\]</code></p>
+<p>Left paren: <code>\(</code></p>
+<p>Right paren: <code>\)</code></p>
+<p>Greater-than: <code>\&gt;</code></p>
+<p>Hash: <code>\#</code></p>
+<p>Period: <code>\.</code></p>
+<p>Bang: <code>\!</code></p>
+<p>Plus: <code>\+</code></p>
+<p>Minus: <code>\-</code></p>
+````````````````````````````````
+
+```````````````````````````````` example
+These should get escaped, even though they're matching pairs for
+other Markdown constructs:
+
+\*asterisks\*
+
+\_underscores\_
+
+\`backticks\`
+
+This is a code span with a literal backslash-backtick sequence: `` \` ``
+
+This is a tag with unescaped backticks <span attr='`ticks`'>bar</span>.
+
+This is a tag with backslashes <span attr='\\backslashes\\'>bar</span>.
+.
+<p>These should get escaped, even though they're matching pairs for
+other Markdown constructs:</p>
+<p>*asterisks*</p>
+<p>_underscores_</p>
+<p>`backticks`</p>
+<p>This is a code span with a literal backslash-backtick sequence: <code>\`</code></p>
+<p>This is a tag with unescaped backticks <span attr='`ticks`'>bar</span>.</p>
+<p>This is a tag with backslashes <span attr='\\backslashes\\'>bar</span>.</p>
+````````````````````````````````
+
+### blockquote_list_item
+
+```````````````````````````````` example
+This fails in markdown.pl and upskirt:
+
+* hello
+  > world
+.
+<p>This fails in markdown.pl and upskirt:</p>
+<ul>
+<li>hello
+<blockquote>
+<p>world</p>
+</blockquote>
+</li>
+</ul>
+````````````````````````````````
+
+### blockquotes_with_code_blocks
+
+```````````````````````````````` example
+> Example:
+> 
+>     sub status {
+>         print "working";
+>     }
+> 
+> Or:
+> 
+>     sub status {
+>         return "working";
+>     }
+.
+<blockquote>
+<p>Example:</p>
+<pre><code>sub status {
+    print &quot;working&quot;;
+}
+</code></pre>
+<p>Or:</p>
+<pre><code>sub status {
+    return &quot;working&quot;;
+}
+</code></pre>
+</blockquote>
+````````````````````````````````
+
+### case_insensitive_refs
+
+```````````````````````````````` example
+[hi]
+
+[HI]: /url
+.
+<p><a href="/url">hi</a></p>
+````````````````````````````````
+
+### code_blocks
+
+```````````````````````````````` example
+	code block on the first line
+	
+Regular text.
+
+    code block indented by spaces
+
+Regular text.
+
+	the lines in this block  
+	all contain trailing spaces  
+
+Regular Text.
+
+	code block on the last line
+.
+<pre><code>code block on the first line
+</code></pre>
+<p>Regular text.</p>
+<pre><code>code block indented by spaces
+</code></pre>
+<p>Regular text.</p>
+<pre><code>the lines in this block  
+all contain trailing spaces  
+</code></pre>
+<p>Regular Text.</p>
+<pre><code>code block on the last line
+</code></pre>
+````````````````````````````````
+
+### code_blocks__whitespace
+
+```````````````````````````````` example
+```
+   
+  ssdfsdf   
+                 aa   
+```
+.
+<pre><code>   
+  ssdfsdf   
+                 aa   
+</code></pre>
+````````````````````````````````
+
+### code_spans
+
+```````````````````````````````` example
+`<test a="` content of attribute `">`
+.
+<p><code>&lt;test a=&quot;</code> content of attribute <code>&quot;&gt;</code></p>
+````````````````````````````````
+
+```````````````````````````````` example
+Fix for backticks within HTML tag: <span attr='`ticks`'>like this</span>
+.
+<p>Fix for backticks within HTML tag: <span attr='`ticks`'>like this</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+Here's how you put `` `backticks` `` in a code span.
+.
+<p>Here's how you put <code>`backticks`</code> in a code span.</p>
+````````````````````````````````
+
+### def_blocks
+
+@hmhealey - marked treats the [2] as a link definition, but commonmark doesn't.
+
+```````````````````````````````` example
+> hello
+> [1]: hello
+
+* * *
+
+> hello
+[2]: hello
+.
+<blockquote>
+<p>hello
+[1]: hello</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>hello
+[2]: hello</p>
+</blockquote>
+````````````````````````````````
+
+@hmhealey - marked doesn't treat the [3] as a link definition, but commonmark does?
+
+```````````````````````````````` example
+* hello
+* [3]: hello
+.
+<ul>
+<li>hello</li>
+<li></li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+* hello
+[4]: hello
+.
+<ul>
+<li>hello</li>
+</ul>
+````````````````````````````````
+
+@hmhealey - marked treats the [1] as a link definition, but commonmark doesn't.
+
+```````````````````````````````` example
+> foo
+> bar
+[1]: foo
+> bar
+.
+<blockquote>
+<p>foo
+bar
+[1]: foo
+bar</p>
+</blockquote>
+````````````````````````````````
+
+### double_link
+
+```````````````````````````````` example
+<p>Already linked: <a href="http://example.com/">http://example.com/</a>.</p>
+.
+<p>Already linked: <a href="http://example.com/">http://example.com/</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+Already linked: [http://example.com/](http://example.com/).
+.
+<p>Already linked: <a href="http://example.com/">http://example.com/</a>.</p>
+````````````````````````````````
+
+@hmhealey - We don't handle this correctly. Our autolinking captures the asterisks
+and the closing tag as part of the URL. The correct version should be:
+
+<p>Already linked: <a href="http://example.com/"><strong>http://example.com/</strong></a>.</p>
+
+```````````````````````````````` example
+Already linked: <a href="http://example.com/">**http://example.com/**</a>.
+.
+<p>Already linked: <a href="http://example.com/">**<a href="http://example.com/**%3C/a%3E">http://example.com/**&lt;/a&gt;</a>.</p>
+````````````````````````````````
+
+### escaped_angles
+
+@hmhealey - marked doesn't escape this.
+
+```````````````````````````````` example
+\>
+.
+<p>&gt;</p>
+````````````````````````````````
+
+### gfm_breaks
+
+@hmhealey - commonmark properly adds softbreaks between the lines here, but doesn't
+render them in the HTML.
+
+```````````````````````````````` example
+Look at the
+pretty line
+breaks.
+.
+<p>Look at the
+pretty line
+breaks.</p>
+````````````````````````````````
+
+### gfm_code
+
+@hmhealey - commonmark adds "language-js" as a CSS class instead of "lang-js". It also
+doesn't HTML escape single quotes within code blocks like marked does
+
+```````````````````````````````` example
+``` js
+var a = 'hello';
+console.log(a + ' world');
+```
+.
+<pre><code class="language-js">var a = 'hello';
+console.log(a + ' world');
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+~~~bash
+echo "hello, ${WORLD}"
+~~~
+.
+<pre><code class="language-bash">echo &quot;hello, ${WORLD}&quot;
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+```````longfence
+Q: What do you call a tall person who sells stolen goods?
+```````
+.
+<pre><code class="language-longfence">Q: What do you call a tall person who sells stolen goods?
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+~~~~~~~~~~  ManyTildes
+A longfence!
+~~~~~~~~~~
+.
+<pre><code class="language-ManyTildes">A longfence!
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+How about an empty code block?
+
+```js
+```
+.
+<p>How about an empty code block?</p>
+<pre><code class="language-js"></code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+How about a code block with only an empty line?
+
+```js
+
+```
+.
+<p>How about a code block with only an empty line?</p>
+<pre><code class="language-js">
+</code></pre>
+````````````````````````````````
+
+### gfm_code_hr_list
+
+```````````````````````````````` example
+## foo
+
+1. bar:
+
+    > - one
+        - two
+            - three
+            - four
+            - five
+
+1. foo:
+
+    ```
+    line 1
+    line 2
+    ```
+
+1. foo:
+
+    1. foo `bar` bar:
+
+        ``` erb
+        some code here
+        ```
+
+    2. foo `bar` bar:
+
+        ``` erb
+        foo
+        ---
+        bar
+        ---
+        foo
+        bar
+        ```
+
+    3. foo `bar` bar:
+
+        ``` html
+        ---
+        foo
+        foo
+        ---
+        bar
+        ```
+
+    4. foo `bar` bar:
+
+            foo
+            ---
+            bar
+
+    5. foo
+.
+<h2>foo</h2>
+<ol>
+<li>
+<p>bar:</p>
+<blockquote>
+<ul>
+<li>one
+- two
+- three
+- four
+- five</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>foo:</p>
+<pre><code>line 1
+line 2
+</code></pre>
+</li>
+<li>
+<p>foo:</p>
+<ol>
+<li>
+<p>foo <code>bar</code> bar:</p>
+<pre><code class="language-erb">some code here
+</code></pre>
+</li>
+<li>
+<p>foo <code>bar</code> bar:</p>
+<pre><code class="language-erb">foo
+---
+bar
+---
+foo
+bar
+</code></pre>
+</li>
+<li>
+<p>foo <code>bar</code> bar:</p>
+<pre><code class="language-html">---
+foo
+foo
+---
+bar
+</code></pre>
+</li>
+<li>
+<p>foo <code>bar</code> bar:</p>
+<pre><code> foo
+ ---
+ bar
+</code></pre>
+</li>
+<li>
+<p>foo</p>
+</li>
+</ol>
+</li>
+</ol>
+````````````````````````````````
+
+### gfm_del
+
+```````````````````````````````` example
+hello ~~hi~~ world
+.
+<p>hello <del>hi</del> world</p>
+````````````````````````````````
+
+### gfm_em
+
+```````````````````````````````` example
+These words should_not_be_emphasized.
+.
+<p>These words should_not_be_emphasized.</p>
+````````````````````````````````
+
+### gfm_hashtag
+
+```````````````````````````````` example
+#header
+.
+<p><span data-hashtag="header">#header</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+# header1
+.
+<h1>header1</h1>
+````````````````````````````````
+
+```````````````````````````````` example
+#  header2
+.
+<h1>header2</h1>
+````````````````````````````````
+
+### gfm_links
+
+```````````````````````````````` example
+This should be a link: http://example.com/hello-world.
+.
+<p>This should be a link: <a href="http://example.com/hello-world">http://example.com/hello-world</a>.</p>
+````````````````````````````````
+
+### hard_wrapped_paragraphs
+
+@hmhealey - commonmark treats the second part as containing a list item.
+
+```````````````````````````````` example
+In Markdown 1.0.0 and earlier. Version
+8. This line turns into a list item.
+Because a hard-wrapped line in the
+middle of a paragraph looked like a
+list item.
+
+Here's one with a bullet.
+* criminey.
+.
+<p>In Markdown 1.0.0 and earlier. Version
+8. This line turns into a list item.
+Because a hard-wrapped line in the
+middle of a paragraph looked like a
+list item.</p>
+<p>Here's one with a bullet.</p>
+<ul>
+<li>criminey.</li>
+</ul>
+````````````````````````````````
+
+### gfm_tables
+
+// ```````````````````````````````` example
+// | Heading 1 | Heading 2
+// | --------- | ---------
+// | Cell 1    | Cell 2
+// | Cell 3    | Cell 4
+// .
+// <table>
+// <thead>
+// <tr>
+// <th>Heading 1</th>
+// <th>Heading 2</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td>Cell 1</td>
+// <td>Cell 2</td>
+// </tr>
+// <tr>
+// <td>Cell 3</td>
+// <td>Cell 4</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+// ```````````````````````````````` example
+// | Header 1 | Header 2 | Header 3 | Header 4 |
+// | :------: | -------: | :------- | -------- |
+// | Cell 1   | Cell 2   | Cell 3   | Cell 4   |
+// | Cell 5   | Cell 6   | Cell 7   | Cell 8   |
+// .
+// <table>
+// <thead>
+// <tr>
+// <th style="text-align:center">Header 1</th>
+// <th style="text-align:right">Header 2</th>
+// <th style="text-align:left">Header 3</th>
+// <th>Header 4</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td style="text-align:center">Cell 1</td>
+// <td style="text-align:right">Cell 2</td>
+// <td style="text-align:left">Cell 3</td>
+// <td>Cell 4</td>
+// </tr>
+// <tr>
+// <td style="text-align:center">Cell 5</td>
+// <td style="text-align:right">Cell 6</td>
+// <td style="text-align:left">Cell 7</td>
+// <td>Cell 8</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+// ```````````````````````````````` example
+// Header 1 | Header 2
+// -------- | --------
+// Cell 1   | Cell 2
+// Cell 3   | Cell 4
+// .
+// <table>
+// <thead>
+// <tr>
+// <th>Header 1</th>
+// <th>Header 2</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td>Cell 1</td>
+// <td>Cell 2</td>
+// </tr>
+// <tr>
+// <td>Cell 3</td>
+// <td>Cell 4</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+// ```````````````````````````````` example
+// Header 1|Header 2|Header 3|Header 4
+// :-------|:------:|-------:|--------
+// Cell 1  |Cell 2  |Cell 3  |Cell 4
+// *Cell 5*|Cell 6  |Cell 7  |Cell 8
+// .
+// <table>
+// <thead>
+// <tr>
+// <th style="text-align:left">Header 1</th>
+// <th style="text-align:center">Header 2</th>
+// <th style="text-align:right">Header 3</th>
+// <th>Header 4</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td style="text-align:left">Cell 1</td>
+// <td style="text-align:center">Cell 2</td>
+// <td style="text-align:right">Cell 3</td>
+// <td>Cell 4</td>
+// </tr>
+// <tr>
+// <td style="text-align:left">
+// <em>Cell 5</em>
+// </td>
+// <td style="text-align:center">Cell 6</td>
+// <td style="text-align:right">Cell 7</td>
+// <td>Cell 8</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+### horizontal_rules
+
+```````````````````````````````` example
+Dashes:
+
+---
+
+ ---
+ 
+  ---
+
+   ---
+
+	---
+
+- - -
+
+ - - -
+ 
+  - - -
+
+   - - -
+
+	- - -
+.
+<p>Dashes:</p>
+<hr />
+<hr />
+<hr />
+<hr />
+<pre><code>---
+</code></pre>
+<hr />
+<hr />
+<hr />
+<hr />
+<pre><code>- - -
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+Asterisks:
+
+***
+
+ ***
+ 
+  ***
+
+   ***
+
+	***
+
+* * *
+
+ * * *
+ 
+  * * *
+
+   * * *
+
+	* * *
+.
+<p>Asterisks:</p>
+<hr />
+<hr />
+<hr />
+<hr />
+<pre><code>***
+</code></pre>
+<hr />
+<hr />
+<hr />
+<hr />
+<pre><code>* * *
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+Underscores:
+
+___
+
+ ___
+ 
+  ___
+
+   ___
+
+    ___
+
+_ _ _
+
+ _ _ _
+ 
+  _ _ _
+
+   _ _ _
+
+    _ _ _
+.
+<p>Underscores:</p>
+<hr />
+<hr />
+<hr />
+<hr />
+<pre><code>___
+</code></pre>
+<hr />
+<hr />
+<hr />
+<hr />
+<pre><code>_ _ _
+</code></pre>
+````````````````````````````````
+
+### hr_list_break
+
+```````````````````````````````` example
+* hello
+  world
+* how
+  are
+* * *
+  you today?
+.
+<ul>
+<li>hello
+world</li>
+<li>how
+are</li>
+</ul>
+<hr />
+<p>you today?</p>
+````````````````````````````````
+
+### inline_html_advanced
+
+```````````````````````````````` example
+Simple block on one line:
+
+<div>foo</div>
+.
+<p>Simple block on one line:</p>
+<div>foo</div>
+````````````````````````````````
+
+```````````````````````````````` example
+And nested without indentation:
+
+<div>
+<div>
+<div>
+foo
+</div>
+<div style=">"/>
+</div>
+<div>bar</div>
+</div>
+.
+<p>And nested without indentation:</p>
+<div>
+<div>
+<div>
+foo
+</div>
+<div style=">"/>
+</div>
+<div>bar</div>
+</div>
+````````````````````````````````
+
+### inline_html_comments
+
+```````````````````````````````` example
+Paragraph one.
+
+<!-- This is a simple comment -->
+
+<!--
+	This is another comment.
+-->
+
+Paragraph two.
+
+<!-- one comment block -- -- with two comments -->
+
+The end.
+.
+<p>Paragraph one.</p>
+<!-- This is a simple comment -->
+<!--
+	This is another comment.
+-->
+<p>Paragraph two.</p>
+<!-- one comment block -- -- with two comments -->
+<p>The end.</p>
+````````````````````````````````
+
+### inline_html_simple
+
+```````````````````````````````` example
+Here's a simple block:
+
+<div>
+	foo
+</div>
+.
+<p>Here's a simple block:</p>
+<div>
+	foo
+</div>
+````````````````````````````````
+
+```````````````````````````````` example
+This should be a code block, though:
+
+	<div>
+		foo
+	</div>
+.
+<p>This should be a code block, though:</p>
+<pre><code>&lt;div&gt;
+	foo
+&lt;/div&gt;
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+As should this:
+
+	<div>foo</div>
+.
+<p>As should this:</p>
+<pre><code>&lt;div&gt;foo&lt;/div&gt;
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+Now, nested:
+
+<div>
+	<div>
+		<div>
+			foo
+		</div>
+	</div>
+</div>
+.
+<p>Now, nested:</p>
+<div>
+	<div>
+		<div>
+			foo
+		</div>
+	</div>
+</div>
+````````````````````````````````
+
+```````````````````````````````` example
+This should just be an HTML comment:
+
+<!-- Comment -->
+.
+<p>This should just be an HTML comment:</p>
+<!-- Comment -->
+````````````````````````````````
+
+```````````````````````````````` example
+Multiline:
+
+<!--
+Blah
+Blah
+-->
+.
+<p>Multiline:</p>
+<!--
+Blah
+Blah
+-->
+````````````````````````````````
+
+```````````````````````````````` example
+Code block:
+
+	<!-- Comment -->
+.
+<p>Code block:</p>
+<pre><code>&lt;!-- Comment --&gt;
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+Just plain comment, with trailing spaces on the line:
+
+<!-- foo -->   
+.
+<p>Just plain comment, with trailing spaces on the line:</p>
+<!-- foo -->   
+````````````````````````````````
+
+```````````````````````````````` example
+Code:
+
+	<hr>
+.
+<p>Code:</p>
+<pre><code>&lt;hr&gt;
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+Hr's:
+
+<hr>
+
+<hr>
+
+<hr>
+
+<hr>   
+
+<hr>  
+
+<hr> 
+
+<hr class="foo" id="bar" />
+
+<hr class="foo" id="bar"/>
+
+<hr class="foo" id="bar" >
+.
+<p>Hr's:</p>
+<hr>
+<hr>
+<hr>
+<hr>   
+<hr>  
+<hr> 
+<hr class="foo" id="bar" />
+<hr class="foo" id="bar"/>
+<hr class="foo" id="bar" >
+````````````````````````````````
+
+### lazy_blockquotes
+
+```````````````````````````````` example
+> hi there
+bud
+.
+<blockquote>
+<p>hi there
+bud</p>
+</blockquote>
+````````````````````````````````
+
+### links
+
+@hmhealey - These links should all be sanitized out, but commonmark
+doesn't do that by default
+
+```````````````````````````````` example
+[URL](javascript:alert)
+.
+<p><a href="javascript:alert">URL</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL](vbscript:alert)
+.
+<p><a href="vbscript:alert">URL</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL](javascript&colon;alert&#40;1&#41;)
+.
+<p><a href="javascript:alert(1)">URL</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL](javascript&#58;document;alert&#40;1&#41;)
+.
+<p><a href="javascript:document;alert(1)">URL</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL](data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K)
+.
+<p><a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K">URL</a></p>
+````````````````````````````````
+
+### links_inline_style
+
+```````````````````````````````` example
+Just a [URL](/url/).
+.
+<p>Just a <a href="/url/">URL</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL and title](/url/ "title").
+.
+<p><a href="/url/" title="title">URL and title</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL and title](/url/  "title preceded by two spaces").
+.
+<p><a href="/url/" title="title preceded by two spaces">URL and title</a>.</p>
+````````````````````````````````
+
+@hmhealey - commonmark doesn't support this case, but Github does.
+
+// ```````````````````````````````` example
+// [URL and title](/url/	"title preceded by a tab").
+// .
+// <p><a href="/url/" title="title preceded by a tab">URL and title</a>.</p>
+// ````````````````````````````````
+
+```````````````````````````````` example
+[URL and title](/url/ "title has spaces afterward"  ).
+.
+<p><a href="/url/" title="title has spaces afterward">URL and title</a>.</p>
+````````````````````````````````
+
+@hmhealey - marked supports URLs with spaces, but commonmark and GitHub don't.
+
+```````````````````````````````` example
+[URL and title]( /url/has space ).
+.
+<p>[URL and title]( /url/has space ).</p>
+````````````````````````````````
+
+```````````````````````````````` example
+[URL and title]( /url/has space/ "url has space and title").
+.
+<p>[URL and title]( /url/has space/ &quot;url has space and title&quot;).</p>
+````````````````````````````````
+
+```````````````````````````````` example
+[Empty]().
+.
+<p><a href="">Empty</a>.</p>
+````````````````````````````````
+
+### links_reference_style
+
+@hmhealey - commonmark and GitHub don't support spaces in between the two
+parts of a reference link. It instead renders the second part as a link
+on its own.
+
+```````````````````````````````` example
+Foo [bar] [1].
+
+Foo [bar][1].
+
+Foo [bar]
+[1].
+
+[1]: /url/  "Title"
+.
+<p>Foo [bar] <a href="/url/" title="Title">1</a>.</p>
+<p>Foo <a href="/url/" title="Title">bar</a>.</p>
+<p>Foo [bar]
+<a href="/url/" title="Title">1</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+With [embedded [brackets]] [b].
+
+With [embedded [brackets]][b].
+
+[b]: /url/
+.
+<p>With [embedded [brackets]] <a href="/url/">b</a>.</p>
+<p>With <a href="/url/">embedded [brackets]</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+Indented [once][].
+
+Indented [twice][].
+
+Indented [thrice][].
+
+Indented [four][] times.
+
+ [once]: /url
+
+  [twice]: /url
+
+   [thrice]: /url
+
+    [four]: /url
+.
+<p>Indented <a href="/url">once</a>.</p>
+<p>Indented <a href="/url">twice</a>.</p>
+<p>Indented <a href="/url">thrice</a>.</p>
+<p>Indented [four][] times.</p>
+<pre><code>[four]: /url
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+[this] [this] should work
+
+So should [this][this].
+
+And [this] [].
+
+And [this][].
+
+And [this].
+
+But not [that] [].
+
+Nor [that][].
+
+Nor [that].
+
+[Something in brackets like [this][] should work]
+
+[Same with [this].]
+
+In this case, [this](/somethingelse/) points to something else.
+
+Backslashing should suppress \[this] and [this\].
+
+[this]: /foo
+.
+<p><a href="/foo">this</a> <a href="/foo">this</a> should work</p>
+<p>So should <a href="/foo">this</a>.</p>
+<p>And <a href="/foo">this</a> [].</p>
+<p>And <a href="/foo">this</a>.</p>
+<p>And <a href="/foo">this</a>.</p>
+<p>But not [that] [].</p>
+<p>Nor [that][].</p>
+<p>Nor [that].</p>
+<p>[Something in brackets like <a href="/foo">this</a> should work]</p>
+<p>[Same with <a href="/foo">this</a>.]</p>
+<p>In this case, <a href="/somethingelse/">this</a> points to something else.</p>
+<p>Backslashing should suppress [this] and [this].</p>
+````````````````````````````````
+
+```````````````````````````````` example
+Here's one where the [link
+breaks] across lines.
+
+Here's another where the [link
+breaks] across lines, but with a line-ending space.
+
+[link breaks]: /url/
+.
+<p>Here's one where the <a href="/url/">link
+breaks</a> across lines.</p>
+<p>Here's another where the <a href="/url/">link
+breaks</a> across lines, but with a line-ending space.</p>
+````````````````````````````````
+
+### links_shortcut_references
+
+```````````````````````````````` example
+This is the [simple case].
+
+[simple case]: /simple
+.
+<p>This is the <a href="/simple">simple case</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This one has a [line
+break].
+
+This one has a [line
+break] with a line-ending space.
+
+[line break]: /foo
+.
+<p>This one has a <a href="/foo">line
+break</a>.</p>
+<p>This one has a <a href="/foo">line
+break</a> with a line-ending space.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+[this] [that] and the [other]
+
+[this]: /this
+[that]: /that
+[other]: /other
+.
+<p><a href="/this">this</a> <a href="/that">that</a> and the <a href="/other">other</a></p>
+````````````````````````````````
+
+### list_item_text
+
+@hmhealey - This matches commonmark and GitHub, but not marked for where
+the paragraph sits.
+
+```````````````````````````````` example
+  * item1
+
+    * item2
+
+  text
+.
+<ul>
+<li>
+<p>item1</p>
+<ul>
+<li>item2</li>
+</ul>
+</li>
+</ul>
+<p>text</p>
+````````````````````````````````
+
+### literal_quotes_in_titles
+
+@hmhealey - Neither commonmark nor GitHub support the behaviour marked's
+behaviour on this.
+
+```````````````````````````````` example
+Foo [bar][].
+
+Foo [bar](/url/ "Title with "quotes" inside").
+
+  [bar]: /url/ "Title with "quotes" inside"
+.
+<p>Foo [bar][].</p>
+<p>Foo [bar](/url/ &quot;Title with &quot;quotes&quot; inside&quot;).</p>
+<p>[bar]: /url/ &quot;Title with &quot;quotes&quot; inside&quot;</p>
+````````````````````````````````
+
+### loose_lists
+
+@hmhealey - marked treats individual items as loose while (ie. items
+are wrapped in p tags) while commonmark and GitHub make every item loose
+at the same time
+
+```````````````````````````````` example
+* hello
+  world
+
+  how
+  are
+* you
+.
+<ul>
+<li>
+<p>hello
+world</p>
+<p>how
+are</p>
+</li>
+<li>
+<p>you</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+* hello
+  * world
+    how
+
+    are
+    you
+
+  * today
+* hi
+.
+<ul>
+<li>hello
+<ul>
+<li>
+<p>world
+how</p>
+<p>are
+you</p>
+</li>
+<li>
+<p>today</p>
+</li>
+</ul>
+</li>
+<li>hi</li>
+</ul>
+````````````````````````````````
+
+@hmhealey - As a result, the following two examples render the same.
+
+```````````````````````````````` example
+* hello
+
+* world
+* hi
+.
+<ul>
+<li>
+<p>hello</p>
+</li>
+<li>
+<p>world</p>
+</li>
+<li>
+<p>hi</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+* hello
+* world
+
+* hi
+.
+<ul>
+<li>
+<p>hello</p>
+</li>
+<li>
+<p>world</p>
+</li>
+<li>
+<p>hi</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+* hello
+* world
+
+  how
+* hi
+.
+<ul>
+<li>
+<p>hello</p>
+</li>
+<li>
+<p>world</p>
+<p>how</p>
+</li>
+<li>
+<p>hi</p>
+</li>
+</ul>
+````````````````````````````````
+
+@hmhealey - As do these two
+
+```````````````````````````````` example
+* hello
+* world
+* how
+
+  are
+.
+<ul>
+<li>
+<p>hello</p>
+</li>
+<li>
+<p>world</p>
+</li>
+<li>
+<p>how</p>
+<p>are</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+* hello
+* world
+
+* how
+
+  are
+.
+<ul>
+<li>
+<p>hello</p>
+</li>
+<li>
+<p>world</p>
+</li>
+<li>
+<p>how</p>
+<p>are</p>
+</li>
+</ul>
+````````````````````````````````
+
+### main
+
+@hmhealey - There's some inconsistencies here between marked and
+commonmark/GitHub, but I'm not going to worry about listing them here.
+
+```````````````````````````````` example
+[test]: http://google.com/ "Google"
+
+# A heading
+
+Just a note, I've found that I can't test my markdown parser vs others.
+For example, both markdown.js and showdown code blocks in lists wrong. They're
+also completely [inconsistent][test] with regards to paragraphs in list items.
+
+A link. Not anymore.
+
+<aside>This will make me fail the test because
+markdown.js doesnt acknowledge arbitrary html blocks =/</aside>
+.
+<h1>A heading</h1>
+<p>Just a note, I've found that I can't test my markdown parser vs others.
+For example, both markdown.js and showdown code blocks in lists wrong. They're
+also completely <a href="http://google.com/" title="Google">inconsistent</a> with regards to paragraphs in list items.</p>
+<p>A link. Not anymore.</p>
+<aside>This will make me fail the test because
+markdown.js doesnt acknowledge arbitrary html blocks =/</aside>
+````````````````````````````````
+
+```````````````````````````````` example
+* List Item 1
+
+* List Item 2
+  * New List Item 1
+    Hi, this is a list item.
+  * New List Item 2
+    Another item
+        Code goes here.
+        Lots of it...
+  * New List Item 3
+    The last item
+
+* List Item 3
+ The final item.
+
+* List Item 4
+ The real final item.
+
+Paragraph.
+.
+<ul>
+<li>
+<p>List Item 1</p>
+</li>
+<li>
+<p>List Item 2</p>
+<ul>
+<li>New List Item 1
+Hi, this is a list item.</li>
+<li>New List Item 2
+Another item
+Code goes here.
+Lots of it...</li>
+<li>New List Item 3
+The last item</li>
+</ul>
+</li>
+<li>
+<p>List Item 3
+The final item.</p>
+</li>
+<li>
+<p>List Item 4
+The real final item.</p>
+</li>
+</ul>
+<p>Paragraph.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+> * bq Item 1
+> * bq Item 2
+>   * New bq Item 1
+>   * New bq Item 2
+>    Text here
+
+* * *
+.
+<blockquote>
+<ul>
+<li>bq Item 1</li>
+<li>bq Item 2
+<ul>
+<li>New bq Item 1</li>
+<li>New bq Item 2
+Text here</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr />
+````````````````````````````````
+
+```````````````````````````````` example
+> Another blockquote!
+> I really need to get
+> more creative with
+> mockup text..
+> markdown.js breaks here again
+
+Another Heading
+-------------
+
+Hello *world*. Here is a [link](//hello).
+And an image ![alt](src).
+
+    Code goes here.
+    Lots of it...
+.
+<blockquote>
+<p>Another blockquote!
+I really need to get
+more creative with
+mockup text..
+markdown.js breaks here again</p>
+</blockquote>
+<h2>Another Heading</h2>
+<p>Hello <em>world</em>. Here is a <a href="//hello">link</a>.
+And an image <img src="src" alt="alt" />.</p>
+<pre><code>Code goes here.
+Lots of it...
+</code></pre>
+````````````````````````````````
+
+### nested_blockquotes
+
+```````````````````````````````` example
+> foo
+>
+> > bar
+>
+> foo
+.
+<blockquote>
+<p>foo</p>
+<blockquote>
+<p>bar</p>
+</blockquote>
+<p>foo</p>
+</blockquote>
+````````````````````````````````
+
+### nested_code
+
+```````````````````````````````` example
+````` hi ther `` ok ``` `````
+.
+<p><code>hi ther `` ok ```</code></p>
+````````````````````````````````
+
+### nested_em
+
+```````````````````````````````` example
+*test **test** test*
+.
+<p><em>test <strong>test</strong> test</em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+_test __test__ test_
+.
+<p><em>test <strong>test</strong> test</em></p>
+````````````````````````````````
+
+### nested_square_link
+
+```````````````````````````````` example
+[the `]` character](/url)
+.
+<p><a href="/url">the <code>]</code> character</a></p>
+````````````````````````````````
+
+### not_a_link
+
+```````````````````````````````` example
+\[test](not a link)
+.
+<p>[test](not a link)</p>
+````````````````````````````````
+
+### ordered_and_unordered_lists
+
+```````````````````````````````` example
+## Unordered
+
+Asterisks tight:
+
+*	asterisk 1
+*	asterisk 2
+*	asterisk 3
+.
+<h2>Unordered</h2>
+<p>Asterisks tight:</p>
+<ul>
+<li>asterisk 1</li>
+<li>asterisk 2</li>
+<li>asterisk 3</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Asterisks loose:
+
+*	asterisk 1
+
+*	asterisk 2
+
+*	asterisk 3
+.
+<p>Asterisks loose:</p>
+<ul>
+<li>
+<p>asterisk 1</p>
+</li>
+<li>
+<p>asterisk 2</p>
+</li>
+<li>
+<p>asterisk 3</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Pluses tight:
+
++	Plus 1
++	Plus 2
++	Plus 3
+.
+<p>Pluses tight:</p>
+<ul>
+<li>Plus 1</li>
+<li>Plus 2</li>
+<li>Plus 3</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Pluses loose:
+
++	Plus 1
+
++	Plus 2
+
++	Plus 3
+.
+<p>Pluses loose:</p>
+<ul>
+<li>
+<p>Plus 1</p>
+</li>
+<li>
+<p>Plus 2</p>
+</li>
+<li>
+<p>Plus 3</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Minuses tight:
+
+-	Minus 1
+-	Minus 2
+-	Minus 3
+.
+<p>Minuses tight:</p>
+<ul>
+<li>Minus 1</li>
+<li>Minus 2</li>
+<li>Minus 3</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Minuses loose:
+
+-	Minus 1
+
+-	Minus 2
+
+-	Minus 3
+.
+<p>Minuses loose:</p>
+<ul>
+<li>
+<p>Minus 1</p>
+</li>
+<li>
+<p>Minus 2</p>
+</li>
+<li>
+<p>Minus 3</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+## Ordered
+
+Tight:
+
+1.	First
+2.	Second
+3.	Third
+.
+<h2>Ordered</h2>
+<p>Tight:</p>
+<ol>
+<li>First</li>
+<li>Second</li>
+<li>Third</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+and:
+
+1. One
+2. Two
+3. Three
+.
+<p>and:</p>
+<ol>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+Loose using tabs:
+
+1.	First
+
+2.	Second
+
+3.	Third
+.
+<p>Loose using tabs:</p>
+<ol>
+<li>
+<p>First</p>
+</li>
+<li>
+<p>Second</p>
+</li>
+<li>
+<p>Third</p>
+</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+and using spaces:
+
+1. One
+
+2. Two
+
+3. Three
+.
+<p>and using spaces:</p>
+<ol>
+<li>
+<p>One</p>
+</li>
+<li>
+<p>Two</p>
+</li>
+<li>
+<p>Three</p>
+</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+Multiple paragraphs:
+
+1.	Item 1, graf one.
+
+	Item 2. graf two. The quick brown fox jumped over the lazy dog's
+	back.
+	
+2.	Item 2.
+
+3.	Item 3.
+.
+<p>Multiple paragraphs:</p>
+<ol>
+<li>
+<p>Item 1, graf one.</p>
+<p>Item 2. graf two. The quick brown fox jumped over the lazy dog's
+back.</p>
+</li>
+<li>
+<p>Item 2.</p>
+</li>
+<li>
+<p>Item 3.</p>
+</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+## Nested
+
+*	Tab
+	*	Tab
+		*	Tab
+.
+<h2>Nested</h2>
+<ul>
+<li>Tab
+<ul>
+<li>Tab
+<ul>
+<li>Tab</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Here's another:
+
+1. First
+2. Second:
+	* Fee
+	* Fie
+	* Foe
+3. Third
+.
+<p>Here's another:</p>
+<ol>
+<li>First</li>
+<li>Second:
+<ul>
+<li>Fee</li>
+<li>Fie</li>
+<li>Foe</li>
+</ul>
+</li>
+<li>Third</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+Same thing but with paragraphs:
+
+1. First
+
+2. Second:
+	* Fee
+	* Fie
+	* Foe
+
+3. Third
+.
+<p>Same thing but with paragraphs:</p>
+<ol>
+<li>
+<p>First</p>
+</li>
+<li>
+<p>Second:</p>
+<ul>
+<li>Fee</li>
+<li>Fie</li>
+<li>Foe</li>
+</ul>
+</li>
+<li>
+<p>Third</p>
+</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+This was an error in Markdown 1.0.1:
+
+*	this
+
+	*	sub
+
+	that
+.
+<p>This was an error in Markdown 1.0.1:</p>
+<ul>
+<li>
+<p>this</p>
+<ul>
+<li>sub</li>
+</ul>
+<p>that</p>
+</li>
+</ul>
+````````````````````````````````
+
+### PLT-3482 adjacent_lists
+
+```````````````````````````````` example
+List A:
+- apple
+List B:
+- banana
+
+List C:
+- apple
+- banana
+List D:
+- cat
+- dog
+.
+<p>List A:</p>
+<ul>
+<li>apple</li>
+</ul>
+<p>List B:</p>
+<ul>
+<li>banana</li>
+</ul>
+<p>List C:</p>
+<ul>
+<li>apple</li>
+<li>banana</li>
+</ul>
+<p>List D:</p>
+<ul>
+<li>cat</li>
+<li>dog</li>
+</ul>
+````````````````````````````````
+
+### PLT-3690 links_with_exclamation
+
+```````````````````````````````` example
+This is an excited link http://google.ca!
+.
+<p>This is an excited link <a href="http://google.ca">http://google.ca</a>!</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a boring link with an exclamation mark https://groups.google.com/forum/#!overview.
+.
+<p>This is a boring link with an exclamation mark <a href="https://groups.google.com/forum/#!overview">https://groups.google.com/forum/#!overview</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is [a link which hides the exclamation mark](https://groups.google.com/forum/#!overview).
+.
+<p>This is <a href="https://groups.google.com/forum/#!overview">a link which hides the exclamation mark</a>.</p>
+````````````````````````````````
+
+### PLT-3818 windows_network_path
+
+@hmhealey - This is some special handling to not escape the first
+backslash on anything that looks like a Windows network share.
+
+// ```````````````````````````````` example
+// \\teamlinux\IT-Stuff\WorkingStuff
+// .
+// <p>\\teamlinux\IT-Stuff\WorkingStuff</p>
+// ````````````````````````````````
+
+### PLT-5034 underscores_within_words
+
+```````````````````````````````` example
+_aaa_
+
+aaa_bbb
+
+_aaa_bbb
+
+aaa_bbb_
+
+_aaa_bbb_
+.
+<p><em>aaa</em></p>
+<p>aaa_bbb</p>
+<p>_aaa_bbb</p>
+<p>aaa_bbb_</p>
+<p><em>aaa_bbb</em></p>
+````````````````````````````````
+
+### PLT-5332 smarter_reference_links
+
+// ```````````````````````````````` example
+// [def]: this isn't a link
+// 
+// [def2]: http://example.com/but/this/is
+// 
+// [def3]: /and/this/is/too
+// 
+// [def4]: #as-is-this
+// 
+// [test]: test
+// 
+// [def use][def]
+// 
+// [def2 use][def2]
+// 
+// [def3 use][def3]
+// 
+// [def4 use][def4]
+// 
+// [test use][test]
+// .
+// <p>[def]: this isn't a link</p>
+// <p>[test]: test</p>
+// <p>[def use][def]</p>
+// <p><a href="http://example.com/but/this/is">def2 use</a></p>
+// <p><a href="/and/this/is/too">def3 use</a></p>
+// <p><a href="#as-is-this">def4 use</a></p>
+// <p>[test use] [test]</p>
+// ````````````````````````````````
+
+### PLT-5362 escape_pipes_in_tables
+
+// ```````````````````````````````` example
+// | \|Heading1 |\|Heading\|| Heading \||
+// | --------- | --------- | --------- |
+// | Ce\|ll    | Cell \|   | Ce \| ll  |
+// | Ce\| ll   | \|Cell    | Ce\|\|ll  |
+// |\|CellCel\|| Celllll \||\| Cell    |
+// .
+// <p>We don't actually support escaping pipes by default: |</p>
+// <table>
+// <thead>
+// <tr>
+// <th>|Heading1</th>
+// <th>|Heading|</th>
+// <th>Heading |</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td>Ce|ll</td>
+// <td>Cell |</td>
+// <td>Ce | ll</td>
+// </tr>
+// <tr>
+// <td>Ce| ll</td>
+// <td>|Cell</td>
+// <td>Ce||ll</td>
+// </tr>
+// <tr>
+// <td>|CellCel|</td>
+// <td>Celllll |</td>
+// <td>| Cell</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+// ```````````````````````````````` example
+// Headi\|ng1|\|Heading\|| Heading \|
+// --------- | --------- | ---------
+// Ce\|ll    | Cell \|   | Ce \| ll
+// Ce\| ll   | \|Cell    | Ce\|\|ll
+// \|CellCe\|| Celllll \||\| Cell
+// .
+// <table>
+// <thead>
+// <tr>
+// <th>Headi|ng 1</th>
+// <th>|Heading|</th>
+// <th>Heading |</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td>Ce|ll</td>
+// <td>Cell |</td>
+// <td>Ce | ll</td>
+// </tr>
+// <tr>
+// <td>Ce| ll</td>
+// <td>|Cell</td>
+// <td>Ce||ll</td>
+// </tr>
+// <tr>
+// <td>|CellCe|</td>
+// <td>Celllll |</td>
+// <td>| Cell</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+// ```````````````````````````````` example
+// | \| |\||
+// |---|---|
+// |\| |\| |
+// | \|| \||
+// |\||\||
+// .
+// <table>
+// <thead>
+// <tr>
+// <th>|</th>
+// <th>|</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td>|</td>
+// <td>|</td>
+// </tr>
+// <tr>
+// <td>|</td>
+// <td>|</td>
+// </tr>
+// <tr>
+// <td>|</td>
+// <td>|</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+### PLT-7155 empty_table_cells
+
+// ```````````````````````````````` example
+// |   | Two |
+// |---|---|
+// | a |  |
+// |  | b|
+// .
+// <table>
+// <thead>
+// <tr>
+// <th></th>
+// <th>Two</th>
+// </tr>
+// </thead>
+// <tbody>
+// <tr>
+// <td>a</td>
+// <td></td>
+// </tr>
+// <tr>
+// <td></td>
+// <td>b</td>
+// </tr>
+// </tbody>
+// </table>
+// ````````````````````````````````
+
+### PLT-7250 urls_with_trailing_periods
+
+```````````````````````````````` example
+Periods are followed by other word characters, so they should be part of the URL
+
+http://example.com/aaaaa.b
+
+http://example.com/aaaaa.....bbbb
+.
+<p>Periods are followed by other word characters, so they should be part of the URL</p>
+<p><a href="http://example.com/aaaaa.b">http://example.com/aaaaa.b</a></p>
+<p><a href="http://example.com/aaaaa.....bbbb">http://example.com/aaaaa.....bbbb</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+Periods are not followed by other word characters, so they should not be part of the URL
+
+http://example.com/aaaaa.
+
+http://example.com/aaaaa.....
+.
+<p>Periods are not followed by other word characters, so they should not be part of the URL</p>
+<p><a href="http://example.com/aaaaa">http://example.com/aaaaa</a>.</p>
+<p><a href="http://example.com/aaaaa">http://example.com/aaaaa</a>.....</p>
+````````````````````````````````
+
+### PLT-7250 urls_with_trailing_periods
+
+```````````````````````````````` example
+[Poe's law in action](https://en.wikipedia.org/wiki/Poe's_law)
+.
+<p><a href="https://en.wikipedia.org/wiki/Poe's_law">Poe's law in action</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[Poe's law in action](https://en.wikipedia.org/wiki/Poe's_law 'This is the title')
+.
+<p><a href="https://en.wikipedia.org/wiki/Poe's_law" title="This is the title">Poe's law in action</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[Poe"s law in action](https://en.wikipedia.org/wiki/Poe"s_law)
+.
+<p><a href="https://en.wikipedia.org/wiki/Poe%22s_law">Poe&quot;s law in action</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[Poe"s law in action](https://en.wikipedia.org/wiki/Poe"s_law "This is the title")
+.
+<p><a href="https://en.wikipedia.org/wiki/Poe%22s_law" title="This is the title">Poe&quot;s law in action</a></p>
+````````````````````````````````
+
+### ref_paren
+
+```````````````````````````````` example
+[hi]
+
+[hi]: /url (there)
+.
+<p><a href="/url" title="there">hi</a></p>
+````````````````````````````````
+
+### same_bullet
+
+@hmhealey - Switching bullet types in commonmark and GitHub causes
+new lists to be formed.
+
+```````````````````````````````` example
+* test
++ test
+- test
+.
+<ul>
+<li>test</li>
+</ul>
+<ul>
+<li>test</li>
+</ul>
+<ul>
+<li>test</li>
+</ul>
+````````````````````````````````
+
+### strong_and_em_together
+
+@hmhealey - commonmark and marked render <em> and <strong> tags
+in the opposite order...
+
+```````````````````````````````` example
+***This is strong and em.***
+
+So is ***this*** word.
+.
+<p><em><strong>This is strong and em.</strong></em></p>
+<p>So is <em><strong>this</strong></em> word.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+___This is strong and em.___
+
+So is ___this___ word.
+.
+<p><em><strong>This is strong and em.</strong></em></p>
+<p>So is <em><strong>this</strong></em> word.</p>
+````````````````````````````````
+
+### tabs
+
+```````````````````````````````` example
++	this is a list item
+	indented with tabs
+
++   this is a list item
+    indented with spaces
+.
+<ul>
+<li>
+<p>this is a list item
+indented with tabs</p>
+</li>
+<li>
+<p>this is a list item
+indented with spaces</p>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+Code:
+
+	this code block is indented by one tab
+
+And:
+
+		this code block is indented by two tabs
+.
+<p>Code:</p>
+<pre><code>this code block is indented by one tab
+</code></pre>
+<p>And:</p>
+<pre><code>	this code block is indented by two tabs
+</code></pre>
+````````````````````````````````
+
+```````````````````````````````` example
+And:
+
+	+	this is an example list item
+		indented with tabs
+	
+	+   this is an example list item
+	    indented with spaces
+.
+<p>And:</p>
+<pre><code>+	this is an example list item
+	indented with tabs
+
++   this is an example list item
+    indented with spaces
+</code></pre>
+````````````````````````````````
+
+#### test-links
+
+```````````````````````````````` example
+http://example.com
+.
+<p><a href="http://example.com">http://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://example.com
+.
+<p><a href="https://example.com">https://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com
+.
+<p><a href="http://www.example.com">www.example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index
+.
+<p><a href="http://www.example.com/index">www.example.com/index</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index.html
+.
+<p><a href="http://www.example.com/index.html">www.example.com/index.html</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index/sub
+.
+<p><a href="http://www.example.com/index/sub">www.example.com/index/sub</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index?params=1
+.
+<p><a href="http://www.example.com/index?params=1">www.example.com/index?params=1</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index?params=1&other=2
+.
+<p><a href="http://www.example.com/index?params=1&amp;other=2">www.example.com/index?params=1&amp;other=2</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/index?params=1;other=2
+.
+<p><a href="http://www.example.com/index?params=1;other=2">www.example.com/index?params=1;other=2</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com:8065
+.
+<p><a href="http://example.com:8065">http://example.com:8065</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://www.example.com/_/page
+.
+<p><a href="http://www.example.com/_/page">http://www.example.com/_/page</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.example.com/_/page
+.
+<p><a href="http://www.example.com/_/page">www.example.com/_/page</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://en.wikipedia.org/wiki/🐬
+.
+<p><a href="https://en.wikipedia.org/wiki/%F0%9F%90%AC">https://en.wikipedia.org/wiki/🐬</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://en.wikipedia.org/wiki/Rendering_(computer_graphics)
+.
+<p><a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)">https://en.wikipedia.org/wiki/Rendering_(computer_graphics)</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://127.0.0.1
+.
+<p><a href="http://127.0.0.1">http://127.0.0.1</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://192.168.1.1:4040
+.
+<p><a href="http://192.168.1.1:4040">http://192.168.1.1:4040</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://[::1]:80
+.
+<p><a href="http://%5B::1%5D:80">http://[::1]:80</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://[::1]:8065
+.
+<p><a href="http://%5B::1%5D:8065">http://[::1]:8065</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://[::1]:80
+.
+<p><a href="https://%5B::1%5D:80">https://[::1]:80</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]
+.
+<p><a href="http://%5B2001:0:5ef5:79fb:303a:62d5:3312:ff42%5D">http://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:8065
+.
+<p><a href="http://%5B2001:0:5ef5:79fb:303a:62d5:3312:ff42%5D:8065">http://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]:8065</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]
+.
+<p><a href="https://%5B2001:0:5ef5:79fb:303a:62d5:3312:ff42%5D">https://[2001:0:5ef5:79fb:303a:62d5:3312:ff42]</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+test@example.com
+.
+<p><a href="mailto:test@example.com">test@example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/more_(than)_one_(parens)
+.
+<p><a href="http://example.com/more_(than)_one_(parens)">http://example.com/more_(than)_one_(parens)</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://example.com/(something)?after=parens
+.
+<p><a href="http://example.com/(something)?after=parens">http://example.com/(something)?after=parens</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://foo.com/unicode_(✪)_in_parens
+.
+<p><a href="http://foo.com/unicode_(%E2%9C%AA)_in_parens">http://foo.com/unicode_(✪)_in_parens</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://✪df.ws/1234
+.
+<p><a href="http://%E2%9C%AAdf.ws/1234">http://✪df.ws/1234</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+*https://example.com*
+.
+<p><em><a href="https://example.com">https://example.com</a></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+_https://example.com_
+.
+<p><em><a href="https://example.com">https://example.com</a></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+**https://example.com**
+.
+<p><strong><a href="https://example.com">https://example.com</a></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+__https://example.com__
+.
+<p><strong><a href="https://example.com">https://example.com</a></strong></p>
+````````````````````````````````
+
+```````````````````````````````` example
+***https://example.com***
+.
+<p><em><strong><a href="https://example.com">https://example.com</a></strong></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+___https://example.com___
+.
+<p><em><strong><a href="https://example.com">https://example.com</a></strong></em></p>
+````````````````````````````````
+
+```````````````````````````````` example
+<https://example.com>
+.
+<p><a href="https://example.com">https://example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+<https://en.wikipedia.org/wiki/Rendering_(computer_graphics)>
+.
+<p><a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)">https://en.wikipedia.org/wiki/Rendering_(computer_graphics)</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www1.example.com
+.
+<p><a href="http://www1.example.com">www1.example.com</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+[This whole #sentence should be a link](https://example.com)
+.
+<p><a href="https://example.com">This whole #sentence should be a link</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+https://groups.google.com/forum/#!msg
+.
+<p><a href="https://groups.google.com/forum/#!msg">https://groups.google.com/forum/#!msg</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+www.
+.
+<p>www.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+http:
+.
+<p>http:</p>
+````````````````````````````````
+
+@hmhealey - These probably shouldn't auto link, but it doesn't hurt that they do
+
+```````````````````````````````` example
+www.asdf
+.
+<p><a href="http://www.asdf">www.asdf</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+http://
+.
+<p><a href="http://">http://</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+example.com
+.
+<p>example.com</p>
+````````````````````````````````
+
+```````````````````````````````` example
+readme.md
+.
+<p>readme.md</p>
+````````````````````````````````
+
+```````````````````````````````` example
+@example.com
+.
+<p><span data-mention-name="example.com">@example.com</span></p>
+````````````````````````````````
+
+```````````````````````````````` example
+./make-compiled-client.sh
+.
+<p>./make-compiled-client.sh</p>
+````````````````````````````````
+
+```````````````````````````````` example
+test.:test
+.
+<p><a href="test.:test">test.:test</a></p>
+````````````````````````````````
+
+```````````````````````````````` example
+`https://example.com`
+.
+<p><code>https://example.com</code></p>
+````````````````````````````````
+
+```````````````````````````````` example
+(http://example.com)
+.
+<p>(<a href="http://example.com">http://example.com</a>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+(see http://example.com)
+.
+<p>(see <a href="http://example.com">http://example.com</a>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+(http://example.com watch this)
+.
+<p>(<a href="http://example.com">http://example.com</a> watch this)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+(test@example.com)
+.
+<p>(<a href="mailto:test@example.com">test@example.com</a>)</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a http://example.com in it.
+.
+<p>This is a sentence with a <a href="http://example.com">http://example.com</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a [link](http://example.com) in it.
+.
+<p>This is a sentence with a <a href="http://example.com">link</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a http://example.com/_/underscore in it.
+.
+<p>This is a sentence with a <a href="http://example.com/_/underscore">http://example.com/_/underscore</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a link (http://example.com) in it.
+.
+<p>This is a sentence with a link (<a href="http://example.com">http://example.com</a>) in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a (https://en.wikipedia.org/wiki/Rendering_(computer_graphics)) in it.
+.
+<p>This is a sentence with a (<a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)">https://en.wikipedia.org/wiki/Rendering_(computer_graphics)</a>) in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a http://192.168.1.1:4040 in it.
+.
+<p>This is a sentence with a <a href="http://192.168.1.1:4040">http://192.168.1.1:4040</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a sentence with a https://[::1]:80 in it.
+.
+<p>This is a sentence with a <a href="https://%5B::1%5D:80">https://[::1]:80</a> in it.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link to http://example.com.
+.
+<p>This is a link to <a href="http://example.com">http://example.com</a>.</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a link containing http://example.com/something?with,commas,in,url, but not at end
+.
+<p>This is a link containing <a href="http://example.com/something?with,commas,in,url">http://example.com/something?with,commas,in,url</a>, but not at end</p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is a question about a link http://example.com?
+.
+<p>This is a question about a link <a href="http://example.com">http://example.com</a>?</p>
+````````````````````````````````
+
+```````````````````````````````` example
+[link](example.com "catch phrase!")
+.
+<p><a href="example.com" title="catch phrase!">link</a></p>
+````````````````````````````````
+
+@hmhealey - Neither commonmark nor GitHub support the behaviour marked's
+behaviour on these two.
+
+```````````````````````````````` example
+[link](example.com "title with "quotes"")
+.
+<p>[link](example.com &quot;title with &quot;quotes&quot;&quot;)</p>
+````````````````````````````````
+
+@hmhealey - Seriously, who uses spaces in a URL
+
+```````````````````````````````` example
+[link with spaces](example.com/ spaces in the url "and a title")
+.
+<p>[link with spaces](example.com/ spaces in the url &quot;and a title&quot;)</p>
+````````````````````````````````
+
+#### test-markdown-lists
+
+```````````````````````````````` example
+### Single-Item Ordered List
+
+7. Single Item
+.
+<h3>Single-Item Ordered List</h3>
+<ol start="7">
+<li>Single Item</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+### Multi-Item Ordered List
+
+1. One
+1. Two
+1. Three
+.
+<h3>Multi-Item Ordered List</h3>
+<ol>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+### Nested Ordered List
+
+1. Alpha
+	1. Bravo
+1. Charlie
+1. Delta
+	1. Echo
+	1. Foxtrot
+.
+<h3>Nested Ordered List</h3>
+<ol>
+<li>Alpha
+<ol>
+<li>Bravo</li>
+</ol>
+</li>
+<li>Charlie</li>
+<li>Delta
+<ol>
+<li>Echo</li>
+<li>Foxtrot</li>
+</ol>
+</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+### Single-Item Unordered List
+
+* Single Item
+.
+<h3>Single-Item Unordered List</h3>
+<ul>
+<li>Single Item</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+### Multi-Item Unordered List
+
+* One
+* Two
+* Three
+.
+<h3>Multi-Item Unordered List</h3>
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+### Nested Unordered List
+
+* Alpha
+	* Bravo
+* Charlie
+* Delta
+	- Echo
+	- Foxtrot
+.
+<h3>Nested Unordered List</h3>
+<ul>
+<li>Alpha
+<ul>
+<li>Bravo</li>
+</ul>
+</li>
+<li>Charlie</li>
+<li>Delta
+<ul>
+<li>Echo</li>
+<li>Foxtrot</li>
+</ul>
+</li>
+</ul>
+````````````````````````````````
+
+@hmhealey - As mentioned above, mixed bullets are now turned into
+separate lists
+
+```````````````````````````````` example
+### Multi-Item Unordered List With Mixed Bullets
+
+* One
+- Two
++ Three
+.
+<h3>Multi-Item Unordered List With Mixed Bullets</h3>
+<ul>
+<li>One</li>
+</ul>
+<ul>
+<li>Two</li>
+</ul>
+<ul>
+<li>Three</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+### Mixed List Starting Ordered
+
+1. One
++ Two
+- Three
+.
+<h3>Mixed List Starting Ordered</h3>
+<ol>
+<li>One</li>
+</ol>
+<ul>
+<li>Two</li>
+</ul>
+<ul>
+<li>Three</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+### Mixed List Starting Unordered
+
++ Monday
+1. Tuesday
+* Wednesday
+.
+<h3>Mixed List Starting Unordered</h3>
+<ul>
+<li>Monday</li>
+</ul>
+<ol>
+<li>Tuesday</li>
+</ol>
+<ul>
+<li>Wednesday</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+### Nested Mixed List
+
+- Alpha
+    1. Bravo
+        * Charlie
+        + Delta
+- Echo
+* Foxtrot
+    + Golf
+        1. Hotel
+    - India
+        1. Juliet
+        2. Kilo
+    * Lima
+1. Mike
+    1. November
+        1. Oscar
+            1. Papa
+.
+<h3>Nested Mixed List</h3>
+<ul>
+<li>Alpha
+<ol>
+<li>Bravo
+<ul>
+<li>Charlie</li>
+</ul>
+<ul>
+<li>Delta</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Echo</li>
+</ul>
+<ul>
+<li>Foxtrot
+<ul>
+<li>Golf
+<ol>
+<li>Hotel</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>India
+<ol>
+<li>Juliet</li>
+<li>Kilo</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>Lima</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Mike
+<ol>
+<li>November
+<ol>
+<li>Oscar
+<ol>
+<li>Papa</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+````````````````````````````````
+
+```````````````````````````````` example
+### New Line After a List
+
+1. One
+2. Two
+This text should be on a new line.
+.
+<h3>New Line After a List</h3>
+<ol>
+<li>One</li>
+<li>Two</li>
+</ol>
+<p>This text should be on a new line.</p>
+````````````````````````````````
+
+@hmhealey - We should support these properly eventually
+
+```````````````````````````````` example
+### Task Lists
+
+- [ ] One
+  - [ ] Subpoint one
+  - Normal Bullet
+- [ ] Two
+- [x] Completed item
+.
+<h3>Task Lists</h3>
+<ul>
+<li>[ ] One
+<ul>
+<li>[ ] Subpoint one</li>
+<li>Normal Bullet</li>
+</ul>
+</li>
+<li>[ ] Two</li>
+<li>[x] Completed item</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+### Numbered Task Lists
+
+1. [ ] One
+2. [ ] Two
+3. [x] Completed item
+.
+<h3>Numbered Task Lists</h3>
+<ol>
+<li>[ ] One</li>
+<li>[ ] Two</li>
+<li>[x] Completed item</li>
+</ol>
+````````````````````````````````
+
+@hmhealey - This does not match default commonmark or GitHub
+because the laziness causes "List B:" to be considered as part
+of the first list item.
+
+```````````````````````````````` example
+### Multiple Lists
+
+List A:
+1. One
+List B:
+1. Two
+.
+<h3>Multiple Lists</h3>
+<p>List A:</p>
+<ol>
+<li>One</li>
+</ol>
+<p>List B:</p>
+<ol>
+<li>Two</li>
+</ol>
+````````````````````````````````
+
+### tidyness
+
+```````````````````````````````` example
+> A list within a blockquote:
+> 
+> *	asterisk 1
+> *	asterisk 2
+> *	asterisk 3
+.
+<blockquote>
+<p>A list within a blockquote:</p>
+<ul>
+<li>asterisk 1</li>
+<li>asterisk 2</li>
+<li>asterisk 3</li>
+</ul>
+</blockquote>
+````````````````````````````````
+
+### toplevel_paragraphs
+
+```````````````````````````````` example
+hello world
+    how are you
+    how are you
+
+hello world
+```
+how are you
+```
+
+hello world
+* * *
+
+hello world
+# how are you
+
+hello world
+how are you
+===========
+
+hello world
+> how are you
+
+hello world
+* how are you
+
+hello world
+<div>how are you</div>
+
+hello world
+<span>how are you</span>
+
+<div>hello</div>
+
+<span>hello</span>
+.
+<p>hello world
+how are you
+how are you</p>
+<p>hello world</p>
+<pre><code>how are you
+</code></pre>
+<p>hello world</p>
+<hr />
+<p>hello world</p>
+<h1>how are you</h1>
+<h1>hello world
+how are you</h1>
+<p>hello world</p>
+<blockquote>
+<p>how are you</p>
+</blockquote>
+<p>hello world</p>
+<ul>
+<li>how are you</li>
+</ul>
+<p>hello world</p>
+<div>how are you</div>
+<p>hello world
+<span>how are you</span></p>
+<div>hello</div>
+<p><span>hello</span></p>
+````````````````````````````````
+
+### tricky_list
+
+```````````````````````````````` example
+**hello** _world_
+
+* hello world
+
+**hello** _world_
+
+* hello world
+
+**hello** _world_
+
+* Hello world
+
+**hello** _world_
+
+* hello world
+.
+<p><strong>hello</strong> <em>world</em></p>
+<ul>
+<li>hello world</li>
+</ul>
+<p><strong>hello</strong> <em>world</em></p>
+<ul>
+<li>hello world</li>
+</ul>
+<p><strong>hello</strong> <em>world</em></p>
+<ul>
+<li>Hello world</li>
+</ul>
+<p><strong>hello</strong> <em>world</em></p>
+<ul>
+<li>hello world</li>
+</ul>
+````````````````````````````````
