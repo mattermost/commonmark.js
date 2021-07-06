@@ -696,7 +696,7 @@ Here are some nonentities:
 .
 <p>&amp;nbsp &amp;x; &amp;#; &amp;#x;
 &amp;#87654321;
-&amp;#abcdef0;
+&amp;<span data-hashtag="abcdef0">#abcdef0</span>;
 &amp;ThisIsNotDefined; &amp;hi?;</p>
 ````````````````````````````````
 
@@ -1150,7 +1150,7 @@ headings:
 #hashtag
 .
 <p>#5 bolt</p>
-<p>#hashtag</p>
+<p><span data-hashtag="hashtag">#hashtag</span></p>
 ````````````````````````````````
 
 
@@ -4835,16 +4835,13 @@ with two lines.
       > A block quote.
 .
 <ol>
-<li>
-<p>A paragraph
-with two lines.</p>
-<pre><code>indented code
-</code></pre>
-<blockquote>
-<p>A block quote.</p>
-</blockquote>
-</li>
+<li>A paragraph</li>
 </ol>
+<p>with two lines.</p>
+<pre><code>      indented code
+
+  &gt; A block quote.
+</code></pre>
 ````````````````````````````````
 
 
@@ -8834,7 +8831,7 @@ Spaces are not allowed in autolinks:
 ```````````````````````````````` example
 <http://foo.bar/baz bim>
 .
-<p>&lt;http://foo.bar/baz bim&gt;</p>
+<p>&lt;<a href="http://foo.bar/baz">http://foo.bar/baz</a> bim&gt;</p>
 ````````````````````````````````
 
 
@@ -8881,7 +8878,7 @@ Backslash-escapes do not work inside email autolinks:
 ```````````````````````````````` example
 <foo\+@bar.example.com>
 .
-<p>&lt;foo+@bar.example.com&gt;</p>
+<p>&lt;foo+<span data-mention-name="bar.example.com">@bar.example.com</span>&gt;</p>
 ````````````````````````````````
 
 
@@ -8897,7 +8894,7 @@ These are not autolinks:
 ```````````````````````````````` example
 < http://foo.bar >
 .
-<p>&lt; http://foo.bar &gt;</p>
+<p>&lt; <a href="http://foo.bar">http://foo.bar</a> &gt;</p>
 ````````````````````````````````
 
 
@@ -8918,14 +8915,14 @@ These are not autolinks:
 ```````````````````````````````` example
 http://example.com
 .
-<p>http://example.com</p>
+<p><a href="http://example.com">http://example.com</a></p>
 ````````````````````````````````
 
 
 ```````````````````````````````` example
 foo@bar.example.com
 .
-<p>foo@bar.example.com</p>
+<p><a href="mailto:foo@bar.example.com">foo@bar.example.com</a></p>
 ````````````````````````````````
 
 
@@ -9062,9 +9059,9 @@ Illegal tag names, not parsed as HTML:
 Illegal attribute names:
 
 ```````````````````````````````` example
-<a h*#ref="hi">
+<a h*ref="hi">
 .
-<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>
+<p>&lt;a h*ref=&quot;hi&quot;&gt;</p>
 ````````````````````````````````
 
 

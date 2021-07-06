@@ -38,7 +38,8 @@
     "entities": "~2.0",
     "mdurl": "~1.0.1",
     "minimist": ">=1.2.2",
-    "string.prototype.repeat": "^0.2.0"
+    "string.prototype.repeat": "^0.2.0",
+    "xregexp": "4.1.1"
   },
   "directories": {
     "lib": "./lib"
@@ -62,8 +63,8 @@
     "mem": ">=4.0.0",
     "rollup": "^1.29.0",
     "rollup-plugin-uglify": "^6.0.4",
+    "serialize-javascript": ">=3.1.0",
     "showdown": "^1.9.1",
-    "uglify-js": "^3.4.0",
-    "serialize-javascript": ">=3.1.0"
+    "uglify-js": "^3.4.0"
   }
 }
