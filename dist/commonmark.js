@@ -1,4 +1,4 @@
-/* commonmark 0.29.3 https://github.com/commonmark/commonmark.js @license BSD3 */
+/* commonmark 0.30.0 https://github.com/commonmark/commonmark.js @license BSD3 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -12611,7 +12611,21 @@
 
     var reNonWord = /^\W+$/;
 
-    var reLinkLabel = /^\[(?:[^\\\[\]]|\\.){0,1000}\]/;
+    var reLinkLabel = /^\[(?:[^\\\[\]]|\\.){0,1000}\]/s;
+
+    var reDelimChar = /^[*_~]/;
+
+    var reDelimCharAll = /^[\W]/;
+
+    // Adapted from https://github.com/gregjacobs/Autolinker.js
+    var emailAlphaNumericChars = "\\p{L}\\p{Nd}";
+    var emailSpecialCharacters = '!#$%&\'*+\\-\\/=?^_`{|}~';
+    var emailRestrictedSpecialCharacters = "\\s(),:;<>@\\[\\]";
+    var emailValidCharacters = emailAlphaNumericChars + emailSpecialCharacters;
+    var emailValidRestrictedCharacters = emailValidCharacters + emailRestrictedSpecialCharacters;
+
+    // Matches a proper email address
+    var emailStartPattern = "(?:[" + emailValidCharacters + "](?:[" + emailValidCharacters + ']|\\.(?!\\.|@))*|\\"[' + emailValidRestrictedCharacters + '.]+\\")@';
 
     var reDelimChar = /^[*_~]/;
 
@@ -12945,15 +12959,12 @@
         var use_delims;
         var tmp, next;
         var opener_found;
-        var openers_bottom = [[], [], []];
+        var openers_bottom = [];
+        var openers_bottom_index;
         var odd_match = false;
 
-        for (var i = 0; i < 3; i++) {
-            openers_bottom[i][C_UNDERSCORE] = stack_bottom;
-            openers_bottom[i][C_ASTERISK] = stack_bottom;
-            openers_bottom[i][C_TILDE] = stack_bottom;
-            openers_bottom[i][C_SINGLEQUOTE] = stack_bottom;
-            openers_bottom[i][C_DOUBLEQUOTE] = stack_bottom;
+        for (var i = 0; i < 8; i++) {
+            openers_bottom[i] = stack_bottom;
         }
         // find first closer above stack_bottom:
         closer = this.delimiters;
@@ -12969,10 +12980,25 @@
                 // found emphasis closer. now look back for first matching opener:
                 opener = closer.previous;
                 opener_found = false;
+                switch (closercc) {
+                   case C_SINGLEQUOTE:
+                     openers_bottom_index = 0;
+                     break;
+                   case C_DOUBLEQUOTE:
+                     openers_bottom_index = 1;
+                     break;
+                   case C_UNDERSCORE:
+                     openers_bottom_index = 2;
+                     break;
+                   case C_ASTERISK:
+                     openers_bottom_index = 3 + (closer.can_open ? 3 : 0)
+                                              + (closer.origdelims % 3);
+                     break;
+                }
                 while (
                     opener !== null &&
                     opener !== stack_bottom &&
-                    opener !== openers_bottom[closer.origdelims % 3][closercc]
+                    opener !== openers_bottom[openers_bottom_index]
                 ) {
                     odd_match =
                         (closer.can_open || opener.can_close) &&
@@ -13087,7 +13113,7 @@
                 }
                 if (!opener_found) {
                     // Set lower bound for future searches for openers:
-                    openers_bottom[old_closer.origdelims % 3][closercc] =
+                    openers_bottom[openers_bottom_index] =
                         old_closer.previous;
                     if (!old_closer.can_open) {
                         // We can remove a closer that can't be an opener,
@@ -13938,7 +13964,7 @@
         /\]\]>/
     ];
 
-    var reThematicBreak = /^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/;
+    var reThematicBreak = /^(?:\*[ \t]*){3,}$|^(?:_[ \t]*){3,}$|^(?:-[ \t]*){3,}$/;
 
     var reMaybeSpecial = /^[#`~*+_=<>0-9-|]/;
 
@@ -14543,7 +14569,10 @@
                 for (blockType = 1; blockType <= 7; blockType++) {
                     if (
                         reHtmlBlockOpen[blockType].test(s) &&
-                        (blockType < 7 || container.type !== "paragraph")
+                        (blockType < 7 || (container.type !== "paragraph" &&
+                         !(!parser.allClosed && !parser.blank &&
+                           parser.tip.type === "paragraph") // maybe lazy
+                        ))
                     ) {
                         parser.closeUnmatchedBlocks();
                         // We don't adjust parser.offset;
@@ -15246,6 +15275,9 @@
         options.softbreak = options.softbreak || "\n";
         // set to "<br />" to make them hard breaks
         // set to " " if you want to ignore line wrapping in source
+        this.esc = options.esc || escapeXml;
+        // escape html with a custom function
+        // else use escapeXml
 
         this.disableTags = 0;
         this.lastOut = "\n";
@@ -15650,6 +15682,10 @@
 
         this.indentLevel = 0;
         this.indent = "  ";
+        
+        this.esc = options.esc || escapeXml;
+        // escape html with a custom function
+        // else use escapeXml
 
         this.options = options;
     }

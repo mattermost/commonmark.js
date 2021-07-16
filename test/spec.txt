@@ -1,8 +1,8 @@
 ---
 title: CommonMark Spec
 author: John MacFarlane
-version: 0.29
-date: '2019-04-06'
+version: '0.30'
+date: '2021-06-19'
 license: '[CC-BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)'
 ...
 
@@ -269,6 +269,16 @@ representation of the syntax tree instead of HTML.  But HTML is capable
 of representing the structural distinctions we need to make, and the
 choice of HTML for the tests makes it possible to run the tests against
 an implementation without writing an abstract syntax tree renderer.
+
+Note that not every feature of the HTML samples is mandated by
+the spec.  For example, the spec says what counts as a link
+destination, but it doesn't mandate that non-ASCII characters in
+the URL be percent-encoded.  To use the automatic tests,
+implementers will need to provide a renderer that conforms to
+the expectations of the spec examples (percent-encoding
+non-ASCII characters in URLs).  But a conforming implementation
+can use a different renderer and may choose not to
+percent-encode non-ASCII characters in URLs.
 
 This document is generated from a text file, `spec.txt`, written
 in Markdown with a small extension for the side-by-side tests.
@@ -678,8 +688,6 @@ time specified with a hexadecimal numeral instead of decimal).
 
 Here are some nonentities:
 
-@hmhealey - There's an extra hashtag here in our version
-
 ```````````````````````````````` example
 &nbsp &x; &#; &#x;
 &#87654321;
@@ -691,6 +699,7 @@ Here are some nonentities:
 &amp;<span data-hashtag="abcdef0">#abcdef0</span>;
 &amp;ThisIsNotDefined; &amp;hi?;</p>
 ````````````````````````````````
+
 
 Although HTML5 does accept some entity references
 without a trailing semicolon (such as `&copy`), these are not
@@ -852,8 +861,8 @@ one block element does not affect the inline parsing of any other.
 ## Container blocks and leaf blocks
 
 We can divide blocks into two types:
-[container blocks](@),
-which can contain other blocks, and [leaf blocks](@),
+[container blocks](#container-blocks),
+which can contain other blocks, and [leaf blocks](#leaf-blocks),
 which cannot.
 
 # Leaf blocks
@@ -2360,18 +2369,18 @@ as raw HTML (and will not be escaped in HTML output).
 There are seven kinds of [HTML block], which can be defined by their
 start and end conditions.  The block begins with a line that meets a
 [start condition](@) (after up to three optional spaces of indentation).
-It ends with the first subsequent line that meets a matching [end
-condition](@), or the last line of the document, or the last line of
+It ends with the first subsequent line that meets a matching
+[end condition](@), or the last line of the document, or the last line of
 the [container block](#container-blocks) containing the current HTML
 block, if no line is encountered that meets the [end condition].  If
 the first line meets both the [start condition] and the [end
 condition], the block will contain just that line.
 
-1.  **Start condition:**  line begins with the string `<script`,
-`<pre`, `<textarea`, or `<style` (case-insensitive), followed by a space,
+1.  **Start condition:**  line begins with the string `<pre`,
+`<script`, `<style`, or `<textarea` (case-insensitive), followed by a space,
 a tab, the string `>`, or the end of the line.\
 **End condition:**  line contains an end tag
-`</script>`, `</pre>`, `</textarea>`, or `</style>` (case-insensitive; it
+`</pre>`, `</script>`, `</style>`, or `</textarea>` (case-insensitive; it
 need not match the start tag).
 
 2.  **Start condition:** line begins with the string `<!--`.\
@@ -2404,9 +2413,9 @@ the string `/>`.\
 **End condition:** line is followed by a [blank line].
 
 7.  **Start condition:**  line begins with a complete [open tag]
-(with any [tag name] other than `script`,
-`style`, or `pre`) or a complete [closing tag],
-followed only by a space, a tab, or the end of the line.\
+(with any [tag name] other than `pre`, `script`,
+`style`, or `textarea`) or a complete [closing tag],
+followed by zero or more spaces and tabs, followed by the end of the line.\
 **End condition:** line is followed by a [blank line].
 
 HTML blocks continue until they are closed by their appropriate
@@ -2715,7 +2724,7 @@ rather than an [HTML block].)
 
 
 HTML tags designed to contain literal content
-(`script`, `style`, `pre`), comments, processing instructions,
+(`pre`, `script`, `style`, `textarea`), comments, processing instructions,
 and declarations are treated somewhat differently.
 Instead of ending at the first blank line, these blocks
 end at the first line containing a corresponding end tag.
@@ -3349,8 +3358,11 @@ case-insensitive (see [matches]).
 ````````````````````````````````
 
 
-Here is a link reference definition with no corresponding link.
-It contributes nothing to the document.
+Whether something is a [link reference definition] is
+independent of whether the link reference it defines is
+used in the document.  Thus, for example, the following
+document contains just a link reference definition, and
+no visible content:
 
 ```````````````````````````````` example
 [foo]: /url
@@ -3503,18 +3515,6 @@ are defined:
 ````````````````````````````````
 
 
-Whether something is a [link reference definition] is
-independent of whether the link reference it defines is
-used in the document.  Thus, for example, the following
-document contains just a link reference definition, and
-no visible content:
-
-```````````````````````````````` example
-[foo]: /url
-.
-````````````````````````````````
-
-
 ## Paragraphs
 
 A sequence of non-blank lines that cannot be interpreted as other
@@ -3647,205 +3647,7 @@ aaa
 <h1>aaa</h1>
 ````````````````````````````````
 
-<div class="extension">
 
-## Tables (extension)
-
-@hmhealey - This section copied from the Github-Flavored Markdown spec
-available here: https://github.github.com/gfm
-
-GFM enables the `table` extension, where an additional leaf block type is
-available.
-
-A [table](@) is an arrangement of data with rows and columns, consisting of a
-single header row, a [delimiter row] separating the header from the data, and
-zero or more data rows.
-
-Each row consists of cells containing arbitrary text, in which [inlines] are
-parsed, separated by pipes (`|`).  A leading and trailing pipe is also
-recommended for clarity of reading, and if there's otherwise parsing ambiguity.
-Spaces between pipes and cell content are trimmed.  Block-level elements cannot
-be inserted in a table.
-
-The [delimiter row](@) consists of cells whose only content are hyphens (`-`),
-and optionally, a leading or trailing colon (`:`), or both, to indicate left,
-right, or center alignment respectively.
-
-```````````````````````````````` example table
-| foo | bar |
-| --- | --- |
-| baz | bim |
-.
-<table>
-<thead>
-<tr>
-<th>foo</th>
-<th>bar</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>baz</td>
-<td>bim</td>
-</tr></tbody></table>
-````````````````````````````````
-
-Cells in one column don't need to match length, though it's easier to read if
-they are. Likewise, use of leading and trailing pipes may be inconsistent:
-
-```````````````````````````````` example table
-| abc | defghi |
-:-: | -----------:
-bar | baz
-.
-<table>
-<thead>
-<tr>
-<th align="center">abc</th>
-<th align="right">defghi</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">bar</td>
-<td align="right">baz</td>
-</tr></tbody></table>
-````````````````````````````````
-
-Include a pipe in a cell's content by escaping it, including inside other
-inline spans:
-
-```````````````````````````````` example table
-| f\|oo  |
-| ------ |
-| b `\|` az |
-| b **\|** im |
-.
-<table>
-<thead>
-<tr>
-<th>f|oo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>b <code>|</code> az</td>
-</tr>
-<tr>
-<td>b <strong>|</strong> im</td>
-</tr></tbody></table>
-````````````````````````````````
-
-The table is broken at the first empty line, or beginning of another
-block-level structure:
-
-```````````````````````````````` example table
-| abc | def |
-| --- | --- |
-| bar | baz |
-> bar
-.
-<table>
-<thead>
-<tr>
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bar</td>
-<td>baz</td>
-</tr></tbody></table>
-<blockquote>
-<p>bar</p>
-</blockquote>
-````````````````````````````````
-
-```````````````````````````````` example table
-| abc | def |
-| --- | --- |
-| bar | baz |
-bar
-
-bar
-.
-<table>
-<thead>
-<tr>
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bar</td>
-<td>baz</td>
-</tr>
-<tr>
-<td>bar</td>
-<td></td>
-</tr></tbody></table>
-<p>bar</p>
-````````````````````````````````
-
-The header row must match the [delimiter row] in the number of cells.  If not,
-a table will not be recognized:
-
-```````````````````````````````` example table
-| abc | def |
-| --- |
-| bar |
-.
-<p>| abc | def |
-| --- |
-| bar |</p>
-````````````````````````````````
-
-The remainder of the table's rows may vary in the number of cells.  If there
-are a number of cells fewer than the number of cells in the header row, empty
-cells are inserted.  If there are greater, the excess is ignored:
-
-```````````````````````````````` example table
-| abc | def |
-| --- | --- |
-| bar |
-| bar | baz | boo |
-.
-<table>
-<thead>
-<tr>
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>bar</td>
-<td></td>
-</tr>
-<tr>
-<td>bar</td>
-<td>baz</td>
-</tr></tbody></table>
-````````````````````````````````
-
-If there are no rows in the body, no `<tbody>` is generated in HTML output:
-
-```````````````````````````````` example table
-| abc | def |
-| --- | --- |
-.
-<table>
-<thead>
-<tr>
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead></table>
-````````````````````````````````
-
-</div>
 
 # Container blocks
 
@@ -5022,42 +4824,26 @@ Four spaces indent gives a code block:
     lines are called
     [lazy continuation line](@)s.
 
-// Here is an example with [lazy continuation lines]:
-//
-// ```````````````````````````````` example
-//   1.  A paragraph
-// with two lines.
-//
-//           indented code
-//
-//       > A block quote.
-// .
-// <ol>
-// <li>
-// <p>A paragraph
-// with two lines.</p>
-// <pre><code>indented code
-// </code></pre>
-// <blockquote>
-// <p>A block quote.</p>
-// </blockquote>
-// </li>
-// </ol>
-// ````````````````````````````````
-
-@hmhealey - We've changed laziness to not apply in lists when
-the following line has no indentation since users kept reporting
-it as a bug:
+Here is an example with [lazy continuation lines]:
 
 ```````````````````````````````` example
   1.  A paragraph
 with two lines.
+
+          indented code
+
+      > A block quote.
 .
 <ol>
 <li>A paragraph</li>
 </ol>
 <p>with two lines.</p>
+<pre><code>      indented code
+
+  &gt; A block quote.
+</code></pre>
 ````````````````````````````````
+
 
 Indentation can be partially deleted:
 
@@ -5071,17 +4857,6 @@ with two lines.</li>
 </ol>
 ````````````````````````````````
 
-@hmhealey - Or you can indent it to match the list:
-
-```````````````````````````````` example
-  1.  A paragraph
-      with two lines.
-.
-<ol>
-<li>A paragraph
-with two lines.</li>
-</ol>
-````````````````````````````````
 
 These examples show how laziness can work in nested structures:
 
@@ -9143,7 +8918,6 @@ http://example.com
 <p><a href="http://example.com">http://example.com</a></p>
 ````````````````````````````````
 
-@hmhealey - We support email autolinking:
 
 ```````````````````````````````` example
 foo@bar.example.com
@@ -9284,12 +9058,10 @@ Illegal tag names, not parsed as HTML:
 
 Illegal attribute names:
 
-@hmhealey - Hashtags change how this renders from the original spec
-
 ```````````````````````````````` example
-<a h*#ref="hi">
+<a h*ref="hi">
 .
-<p>&lt;a h*<span data-hashtag="ref">#ref</span>=&quot;hi&quot;&gt;</p>
+<p>&lt;a h*ref=&quot;hi&quot;&gt;</p>
 ````````````````````````````````
 
 
@@ -9510,10 +9282,10 @@ bar</em></p>
 Hard line breaks do not occur inside code spans
 
 ```````````````````````````````` example
-`code 
+`code  
 span`
 .
-<p><code>code  span</code></p>
+<p><code>code   span</code></p>
 ````````````````````````````````
 
 
@@ -9931,8 +9703,9 @@ just above `stack_bottom` (or the first element if `stack_bottom`
 is NULL).
 
 We keep track of the `openers_bottom` for each delimiter
-type (`*`, `_`) and each length of the closing delimiter run
-(modulo 3).  Initialize this to `stack_bottom`.
+type (`*`, `_`), indexed to the length of the closing delimiter run
+(modulo 3) and to whether the closing delimiter can also be an
+opener.  Initialize this to `stack_bottom`.
 
 Then we repeat the following until we run out of potential
 closers:
