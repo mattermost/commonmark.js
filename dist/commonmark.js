@@ -109,6 +109,7 @@
         this._emojiName = null;
         this._hashtag = null;
         this._latexCode = null;
+        this._isChecked = false;
 
         // used by tables
         this._alignColumns = [];
@@ -286,6 +287,12 @@
     Object.defineProperty(proto, "latexCode", {
         get: function() {
             return this._latexCode;
+        },
+    });
+
+    Object.defineProperty(proto, "isChecked", {
+        get: function() {
+            return this._isChecked;
         },
     });
 
@@ -13256,7 +13263,7 @@
             return null;
         } else {
             // chop off quotes from title and unescape:
-            return unescapeString$1(title.substr(1, title.length - 2));
+            return unescapeString$1(title.slice(1, -1));
         }
     };
 
@@ -13303,11 +13310,11 @@
             if (openparens !== 0) {
                 return null;
             }
-            res = this.subject.substr(savepos, this.pos - savepos);
+            res = this.subject.slice(savepos, this.pos);
             return normalizeURI$1(unescapeString$1(res));
         } else {
             // chop off surrounding <..>:
-            return normalizeURI$1(unescapeString$1(res.substr(1, res.length - 2)));
+            return normalizeURI$1(unescapeString$1(res.slice(1, -1)));
         }
     };
 
@@ -13856,7 +13863,7 @@
         if (matchChars === 0) {
             return 0;
         } else {
-            rawlabel = this.subject.substr(0, matchChars);
+            rawlabel = this.subject.slice(0, matchChars);
         }
 
         // colon:
