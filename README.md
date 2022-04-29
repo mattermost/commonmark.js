@@ -156,6 +156,10 @@ The parser returns a Node.  The following public properties are defined
   `html_inline`, `link`, `image`, `code`, `document`, `paragraph`,
   `block_quote`, `item`, `list`, `heading`, `code_block`,
   `html_block`, `thematic_break`.
+    - (**Mattermost**) This fork also adds `at_mention`,
+    `channel_link`, `emoji`, `hashtag`, `latex_inline`, 
+    `mention_highlight`, `search_highlight`, `table`, `table_row`,
+    `table_cell`, `edited_indicator`, `checkbox`.
 - `firstChild` (read-only):  a Node or null.
 - `lastChild` (read-only): a Node or null.
 - `next` (read-only): a Node or null.
@@ -174,6 +178,23 @@ The parser returns a Node.  The following public properties are defined
 - `listTight`: `true` if list is tight.
 - `listStart`: a Number, the starting number of an ordered list.
 - `listDelimiter`: a String, either `)` or `.` for an ordered list.
+- (**Mattermost**) `mentionName`: a String containing the
+   at-mentioned user/group or null.
+- (**Mattermost**) `channelName`: a String containing the linked
+   channel or null.
+- (**Mattermost**) `emojiName`: a String containing the name of
+   the emoji or null.
+- (**Mattermost**) `hashtag`: a String containing the hashtag text
+   or null.
+- (**Mattermost**) `latexCode`: a String containing the Latex content
+   of this Node or null.
+- (**Mattermost**) `isChecked`: `true` if this is a checked `checkbox`.
+- (**Mattermost**) `alignColumns`: if this is a `table_row`, an array of
+   Strings containing the alignment of each column.
+- (**Mattermost**) `isHeading`: if this is a `table_row` or `table_cell`,
+   whether or not this is part of the first row of the table.
+- (**Mattermost**) `align`: if this is a `table_cell`, the alignment of
+   this cell, either the empty string, `center`, `left`, or `right`.
 - `onEnter`, `onExit`: Strings, used only for `custom_block` or
   `custom_inline`.
 
