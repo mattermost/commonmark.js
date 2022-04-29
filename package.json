@@ -1,6 +1,6 @@
 {
-  "name": "commonmark",
-  "description": "a strongly specified, highly compatible variant of Markdown",
+  "name": "@mattermost/commonmark",
+  "description": "the Mattermost fork of a strongly specified, highly compatible variant of Markdown",
   "version": "0.30.0",
   "homepage": "https://commonmark.org",
   "keywords": [
@@ -9,10 +9,10 @@
     "md",
     "stmd"
   ],
-  "repository": "commonmark/commonmark.js",
+  "repository": "mattermost/commonmark.js",
   "author": "John MacFarlane",
   "bugs": {
-    "url": "https://github.com/commonmark/commonmark.js/issues"
+    "url": "https://github.com/mattermost/commonmark.js/issues"
   },
   "license": "BSD-2-Clause",
   "type": "commonjs",
