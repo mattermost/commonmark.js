@@ -763,7 +763,7 @@ These words should_not_be_emphasized.
 ```````````````````````````````` example
 #header
 .
-<p><span data-hashtag="header">#header</span></p>
+<p><span data-hashtag="header" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -2923,7 +2923,7 @@ readme.md
 ```````````````````````````````` example
 @example.com
 .
-<p><span data-mention-name="example.com">@example.com</span></p>
+<p><span data-mention-name="example.com" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example

@@ -673,61 +673,61 @@ https://example.com/123.)
 ```````````````````````````````` example
 This is an @mention
 .
-<p>This is an <span data-mention-name="mention">@mention</span></p>
+<p>This is an <span data-mention-name="mention" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @mention123
 .
-<p>This is an <span data-mention-name="mention123">@mention123</span></p>
+<p>This is an <span data-mention-name="mention123" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @mention.
 .
-<p>This is an <span data-mention-name="mention.">@mention.</span></p>
+<p>This is an <span data-mention-name="mention." /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @me.ntion
 .
-<p>This is an <span data-mention-name="me.ntion">@me.ntion</span></p>
+<p>This is an <span data-mention-name="me.ntion" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @me-ntion
 .
-<p>This is an <span data-mention-name="me-ntion">@me-ntion</span></p>
+<p>This is an <span data-mention-name="me-ntion" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @men_tion
 .
-<p>This is an <span data-mention-name="men_tion">@men_tion</span></p>
+<p>This is an <span data-mention-name="men_tion" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @mention/@alternate
 .
-<p>This is an <span data-mention-name="mention">@mention</span>/<span data-mention-name="alternate">@alternate</span></p>
+<p>This is an <span data-mention-name="mention" />/<span data-mention-name="alternate" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an optional mention (@mention)
 .
-<p>This is an optional mention (<span data-mention-name="mention">@mention</span>)</p>
+<p>This is an optional mention (<span data-mention-name="mention" />)</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @Mention
 .
-<p>This is an <span data-mention-name="Mention">@Mention</span></p>
+<p>This is an <span data-mention-name="Mention" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an @MENTION
 .
-<p>This is an <span data-mention-name="MENTION">@MENTION</span></p>
+<p>This is an <span data-mention-name="MENTION" /></p>
 ````````````````````````````````
 
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -755,67 +755,67 @@ This is an user@host
 ```````````````````````````````` example
 This is an :emoji:
 .
-<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span></p>
+<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :emo_ji:
 .
-<p>This is an <span data-emoji-name="emo_ji" data-literal=":emo_ji:">:emo_ji:</span></p>
+<p>This is an <span data-emoji-name="emo_ji" data-literal=":emo_ji:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :emo-ji:
 .
-<p>This is an <span data-emoji-name="emo-ji" data-literal=":emo-ji:">:emo-ji:</span></p>
+<p>This is an <span data-emoji-name="emo-ji" data-literal=":emo-ji:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :emoji123:
 .
-<p>This is an <span data-emoji-name="emoji123" data-literal=":emoji123:">:emoji123:</span></p>
+<p>This is an <span data-emoji-name="emoji123" data-literal=":emoji123:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :emoji:.
 .
-<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span>.</p>
+<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:" />.</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an (:emoji:)
 .
-<p>This is an (<span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span>)</p>
+<p>This is an (<span data-emoji-name="emoji" data-literal=":emoji:" />)</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 These are some :emoji1::emoji2:
 .
-<p>These are some <span data-emoji-name="emoji1" data-literal=":emoji1:">:emoji1:</span><span data-emoji-name="emoji2" data-literal=":emoji2:">:emoji2:</span></p>
+<p>These are some <span data-emoji-name="emoji1" data-literal=":emoji1:" /><span data-emoji-name="emoji2" data-literal=":emoji2:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 These are some :emoji1:/:emoji2:
 .
-<p>These are some <span data-emoji-name="emoji1" data-literal=":emoji1:">:emoji1:</span>/<span data-emoji-name="emoji2" data-literal=":emoji2:">:emoji2:</span></p>
+<p>These are some <span data-emoji-name="emoji1" data-literal=":emoji1:" />/<span data-emoji-name="emoji2" data-literal=":emoji2:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :+1:
 .
-<p>This is an <span data-emoji-name="+1" data-literal=":+1:">:+1:</span></p>
+<p>This is an <span data-emoji-name="+1" data-literal=":+1:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-1:
 .
-<p>This is an <span data-emoji-name="-1" data-literal=":-1:">:-1:</span></p>
+<p>This is an <span data-emoji-name="-1" data-literal=":-1:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :emoji: in a sentence.
 .
-<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:">:emoji:</span> in a sentence.</p>
+<p>This is an <span data-emoji-name="emoji" data-literal=":emoji:" /> in a sentence.</p>
 ````````````````````````````````
 
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -873,277 +873,277 @@ This is not an:emoji:isit
 ```````````````````````````````` example
 This is an :)
 .
-<p>This is an <span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></p>
+<p>This is an <span data-emoji-name="slightly_smiling_face" data-literal=":)" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-)
 .
-<p>This is an <span data-emoji-name="slightly_smiling_face" data-literal=":-)">:-)</span></p>
+<p>This is an <span data-emoji-name="slightly_smiling_face" data-literal=":-)" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an ;)
 .
-<p>This is an <span data-emoji-name="wink" data-literal=";)">;)</span></p>
+<p>This is an <span data-emoji-name="wink" data-literal=";)" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an ;-)
 .
-<p>This is an <span data-emoji-name="wink" data-literal=";-)">;-)</span></p>
+<p>This is an <span data-emoji-name="wink" data-literal=";-)" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :o
 .
-<p>This is an <span data-emoji-name="open_mouth" data-literal=":o">:o</span></p>
+<p>This is an <span data-emoji-name="open_mouth" data-literal=":o" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :O
 .
-<p>This is an <span data-emoji-name="open_mouth" data-literal=":O">:O</span></p>
+<p>This is an <span data-emoji-name="open_mouth" data-literal=":O" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-o
 .
-<p>This is an <span data-emoji-name="scream" data-literal=":-o">:-o</span></p>
+<p>This is an <span data-emoji-name="scream" data-literal=":-o" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-O
 .
-<p>This is an <span data-emoji-name="scream" data-literal=":-O">:-O</span></p>
+<p>This is an <span data-emoji-name="scream" data-literal=":-O" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :]
 .
-<p>This is an <span data-emoji-name="smirk" data-literal=":]">:]</span></p>
+<p>This is an <span data-emoji-name="smirk" data-literal=":]" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-]
 .
-<p>This is an <span data-emoji-name="smirk" data-literal=":-]">:-]</span></p>
+<p>This is an <span data-emoji-name="smirk" data-literal=":-]" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :d
 .
-<p>This is an <span data-emoji-name="smile" data-literal=":d">:d</span></p>
+<p>This is an <span data-emoji-name="smile" data-literal=":d" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-d
 .
-<p>This is an <span data-emoji-name="smile" data-literal=":-d">:-d</span></p>
+<p>This is an <span data-emoji-name="smile" data-literal=":-d" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :D
 .
-<p>This is an <span data-emoji-name="smile" data-literal=":D">:D</span></p>
+<p>This is an <span data-emoji-name="smile" data-literal=":D" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-D
 .
-<p>This is an <span data-emoji-name="smile" data-literal=":-D">:-D</span></p>
+<p>This is an <span data-emoji-name="smile" data-literal=":-D" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an x-d
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="x-d">x-d</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="x-d" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an X-d
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="X-d">X-d</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="X-d" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an x-D
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="x-D">x-D</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="x-D" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an X-D
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="X-D">X-D</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue_closed_eyes" data-literal="X-D" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :p
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":p" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-p
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":-p">:-p</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":-p" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :P
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":P">:P</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":P" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-P
 .
-<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":-P">:-P</span></p>
+<p>This is an <span data-emoji-name="stuck_out_tongue" data-literal=":-P" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :[
 .
-<p>This is an <span data-emoji-name="rage" data-literal=":[">:[</span></p>
+<p>This is an <span data-emoji-name="rage" data-literal=":[" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-[
 .
-<p>This is an <span data-emoji-name="rage" data-literal=":-[">:-[</span></p>
+<p>This is an <span data-emoji-name="rage" data-literal=":-[" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :@
 .
-<p>This is an <span data-emoji-name="rage" data-literal=":@">:@</span></p>
+<p>This is an <span data-emoji-name="rage" data-literal=":@" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-@
 .
-<p>This is an <span data-emoji-name="rage" data-literal=":-@">:-@</span></p>
+<p>This is an <span data-emoji-name="rage" data-literal=":-@" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :(
 .
-<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span></p>
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-(
 .
-<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":-(">:-(</span></p>
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":-(" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :'(
 .
-<p>This is an <span data-emoji-name="cry" data-literal=":'(">:'(</span></p>
+<p>This is an <span data-emoji-name="cry" data-literal=":'(" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :'-(
 .
-<p>This is an <span data-emoji-name="cry" data-literal=":'-(">:'-(</span></p>
+<p>This is an <span data-emoji-name="cry" data-literal=":'-(" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :’(
 .
-<p>This is an <span data-emoji-name="cry" data-literal=":’(">:’(</span></p>
+<p>This is an <span data-emoji-name="cry" data-literal=":’(" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :’-(
 .
-<p>This is an <span data-emoji-name="cry" data-literal=":’-(">:’-(</span></p>
+<p>This is an <span data-emoji-name="cry" data-literal=":’-(" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :/
 .
-<p>This is an <span data-emoji-name="confused" data-literal=":/">:/</span></p>
+<p>This is an <span data-emoji-name="confused" data-literal=":/" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-/
 .
-<p>This is an <span data-emoji-name="confused" data-literal=":-/">:-/</span></p>
+<p>This is an <span data-emoji-name="confused" data-literal=":-/" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :s
 .
-<p>This is an <span data-emoji-name="confounded" data-literal=":s">:s</span></p>
+<p>This is an <span data-emoji-name="confounded" data-literal=":s" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-s
 .
-<p>This is an <span data-emoji-name="confounded" data-literal=":-s">:-s</span></p>
+<p>This is an <span data-emoji-name="confounded" data-literal=":-s" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :|
 .
-<p>This is an <span data-emoji-name="neutral_face" data-literal=":|">:|</span></p>
+<p>This is an <span data-emoji-name="neutral_face" data-literal=":|" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-|
 .
-<p>This is an <span data-emoji-name="neutral_face" data-literal=":-|">:-|</span></p>
+<p>This is an <span data-emoji-name="neutral_face" data-literal=":-|" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :$
 .
-<p>This is an <span data-emoji-name="flushed" data-literal=":$">:$</span></p>
+<p>This is an <span data-emoji-name="flushed" data-literal=":$" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-$
 .
-<p>This is an <span data-emoji-name="flushed" data-literal=":-$">:-$</span></p>
+<p>This is an <span data-emoji-name="flushed" data-literal=":-$" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-x
 .
-<p>This is an <span data-emoji-name="mask" data-literal=":-x">:-x</span></p>
+<p>This is an <span data-emoji-name="mask" data-literal=":-x" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :-X
 .
-<p>This is an <span data-emoji-name="mask" data-literal=":-X">:-X</span></p>
+<p>This is an <span data-emoji-name="mask" data-literal=":-X" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an <3
 .
-<p>This is an <span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></p>
+<p>This is an <span data-emoji-name="heart" data-literal="&lt;3" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an </3
 .
-<p>This is an <span data-emoji-name="broken_heart" data-literal="&lt;/3">&lt;/3</span></p>
+<p>This is an <span data-emoji-name="broken_heart" data-literal="&lt;/3" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an (:()
 .
-<p>This is an (<span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span>)</p>
+<p>This is an (<span data-emoji-name="slightly_frowning_face" data-literal=":(" />)</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an :(/:D
 .
-<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(">:(</span>/<span data-emoji-name="smile" data-literal=":D">:D</span></p>
+<p>This is an <span data-emoji-name="slightly_frowning_face" data-literal=":(" />/<span data-emoji-name="smile" data-literal=":D" /></p>
 ````````````````````````````````
 
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -1199,19 +1199,19 @@ This is _<3_
 ```````````````````````````````` example
 This is *:)*
 .
-<p>This is <em><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></em></p>
+<p>This is <em><span data-emoji-name="slightly_smiling_face" data-literal=":)" /></em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is *:p*
 .
-<p>This is <em><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></em></p>
+<p>This is <em><span data-emoji-name="stuck_out_tongue" data-literal=":p" /></em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is *<3*
 .
-<p>This is <em><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></em></p>
+<p>This is <em><span data-emoji-name="heart" data-literal="&lt;3" /></em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -1235,19 +1235,19 @@ This is __<3__
 ```````````````````````````````` example
 This is **:)**
 .
-<p>This is <strong><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></strong></p>
+<p>This is <strong><span data-emoji-name="slightly_smiling_face" data-literal=":)" /></strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is **:p**
 .
-<p>This is <strong><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></strong></p>
+<p>This is <strong><span data-emoji-name="stuck_out_tongue" data-literal=":p" /></strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is **<3**
 .
-<p>This is <strong><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></strong></p>
+<p>This is <strong><span data-emoji-name="heart" data-literal="&lt;3" /></strong></p>
 ````````````````````````````````
 
 ===========================================================================================================================================
@@ -1259,67 +1259,67 @@ This is **<3**
 ```````````````````````````````` example
 This is a ~channel
 .
-<p>This is a <span data-channel-name="channel">~channel</span></p>
+<p>This is a <span data-channel-name="channel" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~channel123
 .
-<p>This is a <span data-channel-name="channel123">~channel123</span></p>
+<p>This is a <span data-channel-name="channel123" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~123channel
 .
-<p>This is a <span data-channel-name="123channel">~123channel</span></p>
+<p>This is a <span data-channel-name="123channel" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~channel123.
 .
-<p>This is a <span data-channel-name="channel123">~channel123</span>.</p>
+<p>This is a <span data-channel-name="channel123" />.</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~chan-nel
 .
-<p>This is a <span data-channel-name="chan-nel">~chan-nel</span></p>
+<p>This is a <span data-channel-name="chan-nel" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~chan_nel
 .
-<p>This is a <span data-channel-name="chan_nel">~chan_nel</span></p>
+<p>This is a <span data-channel-name="chan_nel" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~channel/~alternate
 .
-<p>This is a <span data-channel-name="channel">~channel</span>/<span data-channel-name="alternate">~alternate</span></p>
+<p>This is a <span data-channel-name="channel" />/<span data-channel-name="alternate" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is an optional (~channel)
 .
-<p>This is an optional (<span data-channel-name="channel">~channel</span>)</p>
+<p>This is an optional (<span data-channel-name="channel" />)</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~Channel
 .
-<p>This is a <span data-channel-name="Channel">~Channel</span></p>
+<p>This is a <span data-channel-name="Channel" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a ~CHANNEL
 .
-<p>This is a <span data-channel-name="CHANNEL">~CHANNEL</span></p>
+<p>This is a <span data-channel-name="CHANNEL" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 Channel names can't contain periods ~chan.nel
 .
-<p>Channel names can't contain periods <span data-channel-name="chan">~chan</span>.nel</p>
+<p>Channel names can't contain periods <span data-channel-name="chan" />.nel</p>
 ````````````````````````````````
 
 ===========================================================================================================================================
@@ -1391,7 +1391,7 @@ This is ~~strikethrough~~text~~
 ```````````````````````````````` example
 This is not ~strikethrough text~
 .
-<p>This is not <span data-channel-name="strikethrough">~strikethrough</span> text~</p>
+<p>This is not <span data-channel-name="strikethrough" /> text~</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -1467,13 +1467,13 @@ This is ~~_strikethrough text_~~
 ```````````````````````````````` example
 This is ~~strikethrough ~text~~
 .
-<p>This is <del>strikethrough <span data-channel-name="text">~text</span></del></p>
+<p>This is <del>strikethrough <span data-channel-name="text" /></del></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is ~~@strikethrough-text~~
 .
-<p>This is <del><span data-mention-name="strikethrough-text">@strikethrough-text</span></del></p>
+<p>This is <del><span data-mention-name="strikethrough-text" /></del></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -1503,25 +1503,25 @@ This is [~~strikethrough text~~](http://example.com "title text")
 ```````````````````````````````` example
 This is ~~:)~~
 .
-<p>This is <del><span data-emoji-name="slightly_smiling_face" data-literal=":)">:)</span></del></p>
+<p>This is <del><span data-emoji-name="slightly_smiling_face" data-literal=":)" /></del></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is ~~:p~~
 .
-<p>This is <del><span data-emoji-name="stuck_out_tongue" data-literal=":p">:p</span></del></p>
+<p>This is <del><span data-emoji-name="stuck_out_tongue" data-literal=":p" /></del></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is ~~<3~~
 .
-<p>This is <del><span data-emoji-name="heart" data-literal="&lt;3">&lt;3</span></del></p>
+<p>This is <del><span data-emoji-name="heart" data-literal="&lt;3" /></del></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is ~~:strawberry:~~
 .
-<p>This is <del><span data-emoji-name="strawberry" data-literal=":strawberry:">:strawberry:</span></del></p>
+<p>This is <del><span data-emoji-name="strawberry" data-literal=":strawberry:" /></del></p>
 ````````````````````````````````
 
 ===========================================================================================================================================
@@ -1613,79 +1613,79 @@ email@汤.中国
 ```````````````````````````````` example
 #abcd #efgh
 .
-<p><span data-hashtag="abcd">#abcd</span> <span data-hashtag="efgh">#efgh</span></p>
+<p><span data-hashtag="abcd" /> <span data-hashtag="efgh" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #abc123
 .
-<p><span data-hashtag="abc123">#abc123</span></p>
+<p><span data-hashtag="abc123" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #ABC123
 .
-<p><span data-hashtag="ABC123">#ABC123</span></p>
+<p><span data-hashtag="ABC123" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #ABC
 .
-<p><span data-hashtag="ABC">#ABC</span></p>
+<p><span data-hashtag="ABC" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 # abcd #efgh
 .
-<h1>abcd <span data-hashtag="efgh">#efgh</span></h1>
+<h1>abcd <span data-hashtag="efgh" /></h1>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test-test
 .
-<p><span data-hashtag="test-test">#test-test</span></p>
+<p><span data-hashtag="test-test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test_test
 .
-<p><span data-hashtag="test_test">#test_test</span></p>
+<p><span data-hashtag="test_test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test.test
 .
-<p><span data-hashtag="test.test">#test.test</span></p>
+<p><span data-hashtag="test.test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test1/#test2
 .
-<p><span data-hashtag="test1">#test1</span>/<span data-hashtag="test2">#test2</span></p>
+<p><span data-hashtag="test1" />/<span data-hashtag="test2" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 (#test)
 .
-<p>(<span data-hashtag="test">#test</span>)</p>
+<p>(<span data-hashtag="test" />)</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test-
 .
-<p><span data-hashtag="test">#test</span>-</p>
+<p><span data-hashtag="test" />-</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test.
 .
-<p><span data-hashtag="test">#test</span>.</p>
+<p><span data-hashtag="test" />.</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 This is a sentence containing #test containing a hashtag
 .
-<p>This is a sentence containing <span data-hashtag="test">#test</span> containing a hashtag</p>
+<p>This is a sentence containing <span data-hashtag="test" /> containing a hashtag</p>
 ````````````````````````````````
 
 ### Not hashtags
@@ -1725,31 +1725,31 @@ Hashtags must start with a letter
 ```````````````````````````````` example
 *#test*
 .
-<p><em><span data-hashtag="test">#test</span></em></p>
+<p><em><span data-hashtag="test" /></em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 **#test**
 .
-<p><strong><span data-hashtag="test">#test</span></strong></p>
+<p><strong><span data-hashtag="test" /></strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 _#test_
 .
-<p><em><span data-hashtag="test">#test</span></em></p>
+<p><em><span data-hashtag="test" /></em></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 __#test__
 .
-<p><strong><span data-hashtag="test">#test</span></strong></p>
+<p><strong><span data-hashtag="test" /></strong></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 ~~#test~~
 .
-<p><del><span data-hashtag="test">#test</span></del></p>
+<p><del><span data-hashtag="test" /></del></p>
 ````````````````````````````````
 
 ### Interactions between hashtags and other nodes
@@ -1769,41 +1769,41 @@ __#test__
 ```````````````````````````````` example
 #@test
 .
-<p>#<span data-mention-name="test">@test</span></p>
+<p>#<span data-mention-name="test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 @#test
 .
-<p>@<span data-hashtag="test">#test</span></p>
+<p>@<span data-hashtag="test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #~test
 .
-<p>#<span data-channel-name="test">~test</span></p>
+<p>#<span data-channel-name="test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 ~#test
 .
-<p>~<span data-hashtag="test">#test</span></p>
+<p>~<span data-hashtag="test" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #:test:
 .
-<p>#<span data-emoji-name="test" data-literal=":test:">:test:</span></p>
+<p>#<span data-emoji-name="test" data-literal=":test:" /></p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 :#test:
 .
-<p>:<span data-hashtag="test">#test</span>:</p>
+<p>:<span data-hashtag="test" />:</p>
 ````````````````````````````````
 
 ```````````````````````````````` example
 #test@example.com
 .
-<p><span data-hashtag="test">#test</span>@example.com</p>
+<p><span data-hashtag="test" />@example.com</p>
 ````````````````````````````````
