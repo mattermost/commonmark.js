@@ -14114,6 +14114,8 @@
 
     var reTablePipeSpaceEnding = /\|\s+$/;
 
+    var MAX_AUTOCOMPLETED_CELLS = 1000;
+
     // Returns true if string contains only space characters.
     var isBlank = function(s) {
         return !reNonSpace.test(s);
@@ -14511,6 +14513,8 @@
             finalize: function(parser, block) {
                 var numberOfColumns = block.alignColumns.length;
 
+                var numberOfAutocompletedCells = 0;
+
                 for (var row = block.firstChild; row; row = row.next) {
                     var i = 0;
                     for (var cell = row.firstChild; cell; cell = cell.next) {
@@ -14529,6 +14533,11 @@
 
                     // GitHub adds extra empty cells to make sure all rows are equal width
                     while (i < numberOfColumns) {
+                        numberOfAutocompletedCells += 1;
+                        if (numberOfAutocompletedCells > MAX_AUTOCOMPLETED_CELLS) {
+                            break;
+                        }
+
                         var cell = new Node("table_cell");
 
                         cell._string_content = "";
