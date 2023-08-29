@@ -21,10 +21,6 @@
             case "del":
             case "link":
             case "image":
-            case "at_mention":
-            case "channel_link":
-            case "emoji":
-            case "hashtag":
             case "latex_inline":
             case "mention_highlight":
             case "search_highlight":
@@ -13256,7 +13252,7 @@
             return null;
         } else {
             // chop off quotes from title and unescape:
-            return unescapeString$1(title.substr(1, title.length - 2));
+            return unescapeString$1(title.slice(1, -1));
         }
     };
 
@@ -13303,11 +13299,11 @@
             if (openparens !== 0) {
                 return null;
             }
-            res = this.subject.substr(savepos, this.pos - savepos);
+            res = this.subject.slice(savepos, this.pos);
             return normalizeURI$1(unescapeString$1(res));
         } else {
             // chop off surrounding <..>:
-            return normalizeURI$1(unescapeString$1(res.substr(1, res.length - 2)));
+            return normalizeURI$1(unescapeString$1(res.slice(1, -1)));
         }
     };
 
@@ -13573,7 +13569,6 @@
                 // It's up to the renderer to determine what part of this is actually a username
                 var node = new Node("at_mention");
                 node._mentionName = m[1];
-                node.appendChild(text(m[0]));
                 block.appendChild(node);
                 return true;
             } else {
@@ -13601,7 +13596,6 @@
                 // It's up to the renderer to determine if this is actually a channel link
                 var node = new Node("channel_link");
                 node._channelName = m[1];
-                node.appendChild(text(m[0]));
                 block.appendChild(node);
                 return true;
             } else {
@@ -13625,7 +13619,6 @@
                 var node = new Node("emoji");
                 node._literal = m[0];
                 node._emojiName = m[1];
-                node.appendChild(text(m[0]));
                 block.appendChild(node);
                 return true;
             } else {
@@ -13675,7 +13668,6 @@
                     }
                 }
 
-                node.appendChild(text(m[0]));
                 block.appendChild(node);
                 return true;
             } else {
@@ -13856,7 +13848,7 @@
         if (matchChars === 0) {
             return 0;
         } else {
-            rawlabel = this.subject.substr(0, matchChars);
+            rawlabel = this.subject.slice(0, matchChars);
         }
 
         // colon:
@@ -14121,6 +14113,8 @@
     var reTableRow = /^(\|?)(?:(?:\\\||[^|])*\|?)+$/;
 
     var reTablePipeSpaceEnding = /\|\s+$/;
+
+    var MAX_AUTOCOMPLETED_CELLS = 1000;
 
     // Returns true if string contains only space characters.
     var isBlank = function(s) {
@@ -14519,6 +14513,8 @@
             finalize: function(parser, block) {
                 var numberOfColumns = block.alignColumns.length;
 
+                var numberOfAutocompletedCells = 0;
+
                 for (var row = block.firstChild; row; row = row.next) {
                     var i = 0;
                     for (var cell = row.firstChild; cell; cell = cell.next) {
@@ -14537,6 +14533,11 @@
 
                     // GitHub adds extra empty cells to make sure all rows are equal width
                     while (i < numberOfColumns) {
+                        numberOfAutocompletedCells += 1;
+                        if (numberOfAutocompletedCells > MAX_AUTOCOMPLETED_CELLS) {
+                            break;
+                        }
+
                         var cell = new Node("table_cell");
 
                         cell._string_content = "";
@@ -15444,61 +15445,45 @@
         }
     }
 
-    function at_mention(node, entering) {
-        if (entering) {
-            var attrs = this.attrs(node);
+    function at_mention(node) {
+        var attrs = this.attrs(node);
 
-            if (node.mentionName) {
-                attrs.push(["data-mention-name", this.esc(node.mentionName)]);
-            }
-
-            this.tag("span", attrs);
-        } else {
-            this.tag("/span");
+        if (node.mentionName) {
+            attrs.push(["data-mention-name", this.esc(node.mentionName)]);
         }
+
+        this.tag("span", attrs, true);
     }
 
-    function channel_link(node, entering) {
-        if (entering) {
-            var attrs = this.attrs(node);
+    function channel_link(node) {
+        var attrs = this.attrs(node);
 
-            if (node.channelName) {
-                attrs.push(["data-channel-name", this.esc(node.channelName)]);
-            }
-
-            this.tag("span", attrs);
-        } else {
-            this.tag("/span");
+        if (node.channelName) {
+            attrs.push(["data-channel-name", this.esc(node.channelName)]);
         }
+
+        this.tag("span", attrs, true);
     }
 
-    function emoji(node, entering) {
-        if (entering) {
-            var attrs = this.attrs(node);
+    function emoji(node) {
+        var attrs = this.attrs(node);
 
-            if (node.emojiName) {
-                attrs.push(["data-emoji-name", this.esc(node.emojiName)]);
-                attrs.push(["data-literal", this.esc(node.literal)]);
-            }
-
-            this.tag("span", attrs);
-        } else {
-            this.tag("/span");
+        if (node.emojiName) {
+            attrs.push(["data-emoji-name", this.esc(node.emojiName)]);
+            attrs.push(["data-literal", this.esc(node.literal)]);
         }
+
+        this.tag("span", attrs, true);
     }
 
-    function hashtag(node, entering) {
-        if (entering) {
-            var attrs = this.attrs(node);
+    function hashtag(node) {
+        var attrs = this.attrs(node);
 
-            if (node.hashtag) {
-                attrs.push(["data-hashtag", this.esc(node.hashtag)]);
-            }
-
-            this.tag("span", attrs);
-        } else {
-            this.tag("/span");
+        if (node.hashtag) {
+            attrs.push(["data-hashtag", this.esc(node.hashtag)]);
         }
+
+        this.tag("span", attrs, true);
     }
 
     function image$1(node, entering) {

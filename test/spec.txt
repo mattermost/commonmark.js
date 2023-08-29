@@ -696,7 +696,7 @@ Here are some nonentities:
 .
 <p>&amp;nbsp &amp;x; &amp;#; &amp;#x;
 &amp;#87654321;
-&amp;<span data-hashtag="abcdef0">#abcdef0</span>;
+&amp;<span data-hashtag="abcdef0" />;
 &amp;ThisIsNotDefined; &amp;hi?;</p>
 ````````````````````````````````
 
@@ -1150,7 +1150,7 @@ headings:
 #hashtag
 .
 <p>#5 bolt</p>
-<p><span data-hashtag="hashtag">#hashtag</span></p>
+<p><span data-hashtag="hashtag" /></p>
 ````````````````````````````````
 
 
@@ -8878,7 +8878,7 @@ Backslash-escapes do not work inside email autolinks:
 ```````````````````````````````` example
 <foo\+@bar.example.com>
 .
-<p>&lt;foo+<span data-mention-name="bar.example.com">@bar.example.com</span>&gt;</p>
+<p>&lt;foo+<span data-mention-name="bar.example.com" />&gt;</p>
 ````````````````````````````````
 
 
