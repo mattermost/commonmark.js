@@ -63,7 +63,7 @@
     "marked": ">=4.0.10",
     "mem": ">=4.0.0",
     "rollup": "^1.29.0",
-    "rollup-plugin-uglify": "^5.0.2",
+    "rollup-plugin-uglify": "^6.0.4",
     "serialize-javascript": "^6.0.0",
     "showdown": "^2.0.2",
     "uglify-js": "^3.14.5"
