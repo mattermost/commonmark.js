@@ -1,7 +1,7 @@
 {
   "name": "@mattermost/commonmark",
   "description": "the Mattermost fork of a strongly specified, highly compatible variant of Markdown",
-  "version": "0.30.1-0",
+  "version": "0.30.1-1",
   "homepage": "https://commonmark.org",
   "keywords": [
     "markdown",
