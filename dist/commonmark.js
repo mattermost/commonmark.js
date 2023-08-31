@@ -1,4 +1,4 @@
-/* commonmark 0.30.0 https://github.com/commonmark/commonmark.js @license BSD3 */
+/* commonmark 0.30.1-0 https://github.com/commonmark/commonmark.js @license BSD3 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -105,6 +105,7 @@
         this._emojiName = null;
         this._hashtag = null;
         this._latexCode = null;
+        this._isChecked = false;
 
         // used by tables
         this._alignColumns = [];
@@ -259,30 +260,54 @@
         get: function() {
             return this._mentionName;
         },
+        set: function(mentionName) {
+            this._mentionName = mentionName;
+        }
     });
 
     Object.defineProperty(proto, "channelName", {
         get: function() {
             return this._channelName;
         },
+        set: function(channelName) {
+            this._channelName = channelName;
+        }
     });
 
     Object.defineProperty(proto, "emojiName", {
         get: function() {
             return this._emojiName;
         },
+        set: function(emojiName) {
+            this._emojiName = emojiName;
+        }
     });
 
     Object.defineProperty(proto, "hashtag", {
         get: function() {
             return this._hashtag;
         },
+        set: function(hashtag) {
+            this._hashtag = hashtag;
+        }
     });
 
     Object.defineProperty(proto, "latexCode", {
         get: function() {
             return this._latexCode;
         },
+        set: function(latexCode) {
+            this._latexCode = latexCode;
+        }
+    });
+
+    Object.defineProperty(proto, "isChecked", {
+        get: function() {
+            return this._isChecked;
+        },
+        set: function(isChecked) {
+            this._isChecked = isChecked;
+        }
     });
 
     Object.defineProperty(proto, "alignColumns", {

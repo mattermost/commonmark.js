@@ -1,5 +1,13 @@
-commonmark.js
+Mattermost fork of commonmark.js
 =============
+
+This is the fork of [commonmark.js](https://github.com/commonmark/commonmark.js) used by Mattermost which includes Mattermost-specific features and some changes to the CommonMark spec. A non-exhaustive list of the changes are:
+1. Made some changes to how some block elements like list items are continued (or not) after line breaks.
+2. Added new features such as URL autolinking, at-mentions, hashtags, emojis, emoticons, and tables.
+3. Added some fields to the AST to support new node types for the features mentioned above as well as some others introduced via transforms in the Mattermost mobile app.
+4. Added integrated type definitions.
+
+---
 
 [![Build Status](https://github.com/commonmark/commonmark.js/workflows/CI%20tests/badge.svg)](https://github.com/commonmark/commonmark.js/actions)
 [![NPM version](https://img.shields.io/npm/v/commonmark.svg?style=flat)](https://www.npmjs.org/package/commonmark)
@@ -12,6 +20,10 @@ implementations in C and JavaScript.
   [the spec]: http://spec.commonmark.org
 
 For more information, see <http://commonmark.org>.
+
+(**Mattermost**) Note that we diverge from this spec in a few ways.
+These will eventually be more thoroughly documented with our own
+version of the spec, but that has not been done yet.
 
 This repository contains the JavaScript reference implementation.
 It provides a library with functions for parsing CommonMark
@@ -27,7 +39,7 @@ Installing
 
 You can install the library using `npm`:
 
-    npm install commonmark
+    npm install @mattermost/commonmark
 
 This package includes the commonmark library and a
 command-line executable, `commonmark`.
@@ -144,6 +156,10 @@ The parser returns a Node.  The following public properties are defined
   `html_inline`, `link`, `image`, `code`, `document`, `paragraph`,
   `block_quote`, `item`, `list`, `heading`, `code_block`,
   `html_block`, `thematic_break`.
+    - (**Mattermost**) This fork also adds `at_mention`,
+    `channel_link`, `emoji`, `hashtag`, `latex_inline`, 
+    `mention_highlight`, `search_highlight`, `table`, `table_row`,
+    `table_cell`, `edited_indicator`, `checkbox`.
 - `firstChild` (read-only):  a Node or null.
 - `lastChild` (read-only): a Node or null.
 - `next` (read-only): a Node or null.
@@ -162,6 +178,23 @@ The parser returns a Node.  The following public properties are defined
 - `listTight`: `true` if list is tight.
 - `listStart`: a Number, the starting number of an ordered list.
 - `listDelimiter`: a String, either `)` or `.` for an ordered list.
+- (**Mattermost**) `mentionName`: a String containing the
+   at-mentioned user/group or null.
+- (**Mattermost**) `channelName`: a String containing the linked
+   channel or null.
+- (**Mattermost**) `emojiName`: a String containing the name of
+   the emoji or null.
+- (**Mattermost**) `hashtag`: a String containing the hashtag text
+   or null.
+- (**Mattermost**) `latexCode`: a String containing the Latex content
+   of this Node or null.
+- (**Mattermost**) `isChecked`: `true` if this is a checked `checkbox`.
+- (**Mattermost**) `alignColumns`: if this is a `table_row`, an array of
+   Strings containing the alignment of each column.
+- (**Mattermost**) `isHeading`: if this is a `table_row` or `table_cell`,
+   whether or not this is part of the first row of the table.
+- (**Mattermost**) `align`: if this is a `table_cell`, the alignment of
+   this cell, either the empty string, `center`, `left`, or `right`.
 - `onEnter`, `onExit`: Strings, used only for `custom_block` or
   `custom_inline`.
 
