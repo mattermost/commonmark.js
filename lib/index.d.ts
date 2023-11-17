@@ -4,7 +4,7 @@ export type NodeType =
     'text' |'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
     'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block' | 
     'at_mention' | 'channel_link' | 'emoji' | 'hashtag' | 'latex_inline' | 'table' | 'table_row' | 'table_cell' | 'mention_highlight' |
-    'search_highlight' | 'checkbox' | 'edited_indicator';
+    'highlight_without_notification' | 'search_highlight' | 'checkbox' | 'edited_indicator';
 
 export class Node {
     constructor(nodeType: NodeType, sourcepos?: Position);
