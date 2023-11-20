@@ -158,7 +158,7 @@ The parser returns a Node.  The following public properties are defined
   `html_block`, `thematic_break`.
     - (**Mattermost**) This fork also adds `at_mention`,
     `channel_link`, `emoji`, `hashtag`, `latex_inline`, 
-    `mention_highlight`, `search_highlight`, `table`, `table_row`,
+    `mention_highlight`, `highlight_without_notification`, `search_highlight`, `table`, `table_row`,
     `table_cell`, `edited_indicator`, `checkbox`.
 - `firstChild` (read-only):  a Node or null.
 - `lastChild` (read-only): a Node or null.
