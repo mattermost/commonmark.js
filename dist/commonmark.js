@@ -1,4 +1,4 @@
-/* commonmark 0.30.1-1 https://github.com/commonmark/commonmark.js @license BSD3 */
+/* commonmark 0.30.1-2 https://github.com/commonmark/commonmark.js @license BSD3 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -23,6 +23,7 @@
             case "image":
             case "latex_inline":
             case "mention_highlight":
+            case "highlight_without_notification":
             case "search_highlight":
             case "custom_inline":
             case "custom_block":
