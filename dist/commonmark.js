@@ -13579,7 +13579,7 @@
     };
 
     // Attempt to parse an at mention
-    var reAtMention = /^@([a-z][a-z0-9._-]*)/i;
+    var reAtMention = /^@([a-z0-9._-]+)/i;
     var parseAtMention = function(block) {
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link

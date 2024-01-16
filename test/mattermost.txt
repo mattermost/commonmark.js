@@ -683,6 +683,54 @@ This is an @mention123
 ````````````````````````````````
 
 ```````````````````````````````` example
+This is an @123mention
+.
+<p>This is an <span data-mention-name="123mention" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @123
+.
+<p>This is an <span data-mention-name="123" /></p>
+````````````````````````````````
+ 
+```````````````````````````````` example
+This is an @.mention
+.
+<p>This is an <span data-mention-name=".mention" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @.
+.
+<p>This is an <span data-mention-name="." /></p>
+````````````````````````````````
+ 
+```````````````````````````````` example
+This is an @_mention
+.
+<p>This is an <span data-mention-name="_mention" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @_
+.
+<p>This is an <span data-mention-name="_" /></p>
+````````````````````````````````
+ 
+```````````````````````````````` example
+This is an @-mention
+.
+<p>This is an <span data-mention-name="-mention" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
+This is an @-
+.
+<p>This is an <span data-mention-name="-" /></p>
+````````````````````````````````
+
+```````````````````````````````` example
 This is an @mention.
 .
 <p>This is an <span data-mention-name="mention." /></p>
