@@ -14134,11 +14134,7 @@
 
     var reLineEnding = /\r\n|\n|\r/;
 
-    var reTableDelimiter = /^[ \t]{0,3}((?:\|[ \t]*)?:?-+:?[ \t]*(?:\|(?:[ \t]*:?-+:?[ \t]*)?)*\|?)$/;
-
     var reTableRow = /^(\|?)(?:(?:\\\||[^|])*\|?)+$/;
-
-    var reTablePipeSpaceEnding = /\|\s+$/;
 
     var MAX_AUTOCOMPLETED_CELLS = 1000;
 
@@ -14157,10 +14153,6 @@
         } else {
             return -1;
         }
-    };
-
-    var trimSpacesAfterPipe = function(ln) {
-        return ln.replace(reTablePipeSpaceEnding,"|");
     };
 
     // DOC PARSER
@@ -14854,8 +14846,11 @@
         // table
         function(parser, container) {
             if (container.type !== "document") {
+                // @hmhealey We should be able to have a table inside of a list item or block quote to match GitHub
+                // but I'm not sure if the mobile app can render that, so let's not bother with it for now
                 return 0;
             }
+
 
             if (parser.indented) {
                 return 0;
@@ -14866,20 +14861,32 @@
                 return 0;
             }
 
-            // check for a delimiter first since it's stricter than the header row
-            const nextLine = trimSpacesAfterPipe(parser.nextLine);
-            var delimiterMatch = reTableDelimiter.exec(nextLine);
-            if (!delimiterMatch || delimiterMatch[0].indexOf("|") === -1) {
+            const nextColumn = measureNonspaceColumn(parser.nextLine);
+            if (nextColumn - parser.column >= CODE_INDENT || parser.column - nextColumn >= CODE_INDENT) {
+                // the delimiter row must be on the same indentation level as the header row
                 return 0;
             }
 
-            const currentLine = trimSpacesAfterPipe(parser.currentLine);
-            var headerMatch = reTableRow.exec(currentLine.slice(parser.nextNonspace));
+            parser.advanceNextNonspace();
+
+            // check for a delimiter first since it's stricter than the header row
+            const nextLine = parser.nextLine.trim();
+            const delimiterMatch = reTableRow.exec(nextLine);
+            if (!delimiterMatch) {
+                return 0;
+            }
+
+            const delimiterCells = parseDelimiterRow(delimiterMatch[0]);
+            if (!delimiterCells) {
+                return 0;
+            }
+
+            const currentLine = parser.currentLine.slice(parser.nextNonspace).trim();
+            var headerMatch = reTableRow.exec(currentLine);
             if (!headerMatch) {
                 return 0;
             }
 
-            var delimiterCells = parseTableCells(delimiterMatch[1]);
             var headerCells = parseTableCells(headerMatch[0]);
 
             if (delimiterCells.length !== headerCells.length) {
@@ -14938,6 +14945,23 @@
             return 2;
         }
     ];
+
+    const reValidTableDelimiter = /^:?-+:?$/;
+    const parseDelimiterRow = function(row) {
+        if (row.indexOf("|") === -1) {
+            return null;
+        }
+
+        const cells = parseTableCells(row).map((cell) => cell.trim());
+
+        for (const cell of cells) {
+            if (!reValidTableDelimiter.test(cell)) {
+                return null;
+            }
+        }
+
+        return cells;
+    };
 
     var parseTableCells = function(row) {
         // remove starting pipe to make life easier
@@ -15027,6 +15051,27 @@
         this.indent = this.nextNonspaceColumn - this.column;
         this.indented = this.indent >= CODE_INDENT;
     };
+
+    function measureNonspaceColumn(line) {
+        // This code is copied from findNextNonspace above
+        var i = 0;
+        var cols = 0;
+        var c;
+
+        while ((c = line.charAt(i)) !== "") {
+            if (c === " ") {
+                i++;
+                cols++;
+            } else if (c === "\t") {
+                i++;
+                cols += 4 - (cols % 4);
+            } else {
+                break;
+            }
+        }
+
+        return cols;
+    }
 
     // Analyze a line of text and update the document appropriately.
     // We parse markdown text by calling this on each line of input,

@@ -477,8 +477,22 @@ aaa|bbb
 </tr></tbody></table>
 ````````````````````````````````
 
+### Tables with preceding whitespace
+
+A table should be parsed as long as the header row is not more than 3 columns
+indented from the delimiter row.
+
 ```````````````````````````````` example
+ foo|aaa
+---|---
+ 
+  foo|aaa
+---|---
+
    foo|aaa
+---|---
+
+    foo|aaa
 ---|---
 .
 <table>
@@ -488,20 +502,40 @@ aaa|bbb
 <th>aaa</th>
 </tr>
 </thead></table>
-````````````````````````````````
-
-```````````````````````````````` example
-    foo|aaa
----|---
-.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
 <pre><code>foo|aaa
 </code></pre>
 <p>---|---</p>
 ````````````````````````````````
 
+Similarly, a table should be parsed as long as the delimiter row is not more
+than 3 columns indented from the header row.
+
 ```````````````````````````````` example
 foo|aaa
+ ---|---
+ 
+foo|aaa
+  ---|---
+
+foo|aaa
    ---|---
+
+foo|aaa
+    ---|---
 .
 <table>
 <thead>
@@ -510,20 +544,33 @@ foo|aaa
 <th>aaa</th>
 </tr>
 </thead></table>
-````````````````````````````````
-
-```````````````````````````````` example
-foo|aaa
-    ---|---
-.
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>aaa</th>
+</tr>
+</thead></table>
 <p>foo|aaa
 ---|---</p>
 ````````````````````````````````
 
+The same applies to other rows of the table, except incorrect indentation will
+only break the table and not prevent it from being generated at all.
+
 ```````````````````````````````` example
-foo|aaa
----|---
-   123|45
+|foo|aaa|
+ |---|---|
+  |111|222|
+   |333|444|
+    |555|666|
 .
 <table>
 <thead>
@@ -534,26 +581,18 @@ foo|aaa
 </thead>
 <tbody>
 <tr>
-<td>123</td>
-<td>45</td>
-</tr></tbody></table>
-````````````````````````````````
-
-```````````````````````````````` example
-foo|aaa
----|---
-    123|45
-.
-<table>
-<thead>
-<tr>
-<th>foo</th>
-<th>aaa</th>
+<td>111</td>
+<td>222</td>
 </tr>
-</thead></table>
-<pre><code>123|45
+<tr>
+<td>333</td>
+<td>444</td>
+</tr></tbody></table>
+<pre><code>|555|666|
 </code></pre>
 ````````````````````````````````
+
+The whole table can also be slightly indented.
 
 ```````````````````````````````` example
  | A  | B  | C  |
@@ -1164,4 +1203,40 @@ Here's a link to [Freedom Planet 2][].
 <td align="center">r3c1</td>
 <td align="center">r3c2</td>
 </tr></tbody></table>
+````````````````````````````````
+
+### Invalid table (MM-55972/MM-59809)
+
+```````````````````````````````` example
+| A | B | C | | |
+| :--------------------------------: | :----------------------------: | :----------------- --------------: | :-----------: |:-----------: |
+|D | E | F | G | H |
+| | J | K | | |
+.
+<p>| A | B | C | | |
+| <span data-emoji-name="--------------------------------" data-literal=":--------------------------------:" /> | <span data-emoji-name="----------------------------" data-literal=":----------------------------:" /> | :----------------- --------------: | <span data-emoji-name="-----------" data-literal=":-----------:" /> |<span data-emoji-name="-----------" data-literal=":-----------:" /> |
+|D | E | F | G | H |
+| | J | K | | |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+| 그룹명  | 자산합계1) | 주력업종1) 및 자산 | 비주력업종1) 및 자산 | 소속 금융회사2) |        |        |     |  |
+| ---- | ------ | ----------- | ------------ | --------- | ------ | ------ | --- |  |
+| 가나   | 448.7  |             | 보험           | (363.1)   | 여수신‧금투 | (85.2) | 36  |  |
+| 다라   | 150.7  |             | 보험           | (133.2)   | 여수신‧금투 | (15.0) | 24  |  |
+| 마바사 | 133.1  |             | 금투           | (90.4)    | 여수신‧보험 | (39.6) | 124 |  |
+| 아자  | 130.1  |             | 보험           | (115.7)   | 금투     | (14.3) | 11  |  |
+| 차카  | 85.8   |             | 여수신          | (74.7)    | 금투     | (11.0) | 45  |  |
+| 파타   | 69.3   |             | 보험           | (58.7)    | 여수신‧금투 | (10.4) | 16  |  |
+| 하하 | 51.7   |             | 금투           | (43.7)    | 여수신    | (6.6)  | 40  |  |
+.
+<p>| 그룹명  | 자산합계1) | 주력업종1) 및 자산 | 비주력업종1) 및 자산 | 소속 금융회사2) |        |        |     |  |
+| ---- | ------ | ----------- | ------------ | --------- | ------ | ------ | --- |  |
+| 가나   | 448.7  |             | 보험           | (363.1)   | 여수신‧금투 | (85.2) | 36  |  |
+| 다라   | 150.7  |             | 보험           | (133.2)   | 여수신‧금투 | (15.0) | 24  |  |
+| 마바사 | 133.1  |             | 금투           | (90.4)    | 여수신‧보험 | (39.6) | 124 |  |
+| 아자  | 130.1  |             | 보험           | (115.7)   | 금투     | (14.3) | 11  |  |
+| 차카  | 85.8   |             | 여수신          | (74.7)    | 금투     | (11.0) | 45  |  |
+| 파타   | 69.3   |             | 보험           | (58.7)    | 여수신‧금투 | (10.4) | 16  |  |
+| 하하 | 51.7   |             | 금투           | (43.7)    | 여수신    | (6.6)  | 40  |  |</p>
 ````````````````````````````````
