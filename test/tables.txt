@@ -1207,6 +1207,9 @@ Here's a link to [Freedom Planet 2][].
 
 ### Invalid table (MM-55972/MM-59809)
 
+This table is invalid because of the space in the middle of the third column
+of the second line of the table (`:----------------- --------------:`).
+
 ```````````````````````````````` example
 | A | B | C | | |
 | :--------------------------------: | :----------------------------: | :----------------- --------------: | :-----------: |:-----------: |
@@ -1218,6 +1221,9 @@ Here's a link to [Freedom Planet 2][].
 |D | E | F | G | H |
 | | J | K | | |</p>
 ````````````````````````````````
+
+This table is invalid because the last column of the delimiter row has no
+dashes in it (`|  |`).
 
 ```````````````````````````````` example
 | 그룹명  | 자산합계1) | 주력업종1) 및 자산 | 비주력업종1) 및 자산 | 소속 금융회사2) |        |        |     |  |
