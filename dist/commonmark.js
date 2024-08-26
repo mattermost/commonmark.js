@@ -1,4 +1,4 @@
-/* commonmark 0.30.1-2 https://github.com/commonmark/commonmark.js @license BSD3 */
+/* commonmark 0.30.1-3 https://github.com/commonmark/commonmark.js @license BSD3 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -14136,6 +14136,8 @@
 
     var reTableRow = /^(\|?)(?:(?:\\\||[^|])*\|?)+$/;
 
+    var reValidTableDelimiter = /^:?-+:?$/;
+
     var MAX_AUTOCOMPLETED_CELLS = 1000;
 
     // Returns true if string contains only space characters.
@@ -14862,7 +14864,7 @@
             }
 
             const nextColumn = measureNonspaceColumn(parser.nextLine);
-            if (nextColumn - parser.column >= CODE_INDENT || parser.column - nextColumn >= CODE_INDENT) {
+            if (Math.abs(nextColumn - parser.column) >= CODE_INDENT) {
                 // the delimiter row must be on the same indentation level as the header row
                 return 0;
             }
@@ -14946,7 +14948,6 @@
         }
     ];
 
-    const reValidTableDelimiter = /^:?-+:?$/;
     const parseDelimiterRow = function(row) {
         if (row.indexOf("|") === -1) {
             return null;
