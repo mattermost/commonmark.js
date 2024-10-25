@@ -184,6 +184,10 @@ specTests('test/tables.txt', results, function(z) {
         return writer.render(reader.parse(z));
 });
 
+specTests('test/gfm_extensions.txt', results, function(z) {
+        return writer.render(reader.parse(z));
+});
+
 // pathological cases
 cursor.write("Pathological cases:\n");
 

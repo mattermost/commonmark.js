@@ -15809,12 +15809,15 @@
             this.cr();
         } else {
             this.tag("/tr");
+            this.cr();
 
             if (node === node.parent.firstChild) {
                 this.cr(); // we're not consistent about how these tags are laid out because this is what GitHub does
                 this.tag("/thead");
+                this.cr();
             } else if (node === node.parent.lastChild) {
                 this.tag("/tbody");
+                this.cr();
             }
         }
     }
@@ -15949,7 +15952,7 @@
 
         this.indentLevel = 0;
         this.indent = "  ";
-
+        
         this.esc = options.esc || escapeXml;
         // escape html with a custom function
         // else use escapeXml
@@ -16048,7 +16051,7 @@
                         attrs.push(["on_exit", node.onExit]);
                         break;
                 }
-                {
+                if (options.sourcepos) {
                     var pos = node.sourcepos;
                     if (pos) {
                         attrs.push([
