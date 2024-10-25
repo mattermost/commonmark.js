@@ -14905,16 +14905,19 @@
             parser.tip.alignColumns = delimiterCells.map(getCellAlignment);
 
             const headerRow = new Node("table_row", [
-                [this.lineNumber - 1, parser.offset + 1],
-                [this.lineNumber - 1 + headerCharacters, parser.offset + 1], // TODO these are probably wrong
+                [parser.lineNumber - 1, parser.offset + 1],
+                [parser.lineNumber - 1, parser.offset + headerCharacters],
             ]);
             headerRow._string_content = container._string_content.substring(0, headerCharacters);
             headerRow._isHeading = true;
 
             for (let i = 0; i < headerCells.length; i++) {
-                const cell = new Node("table_cell"); // TODO sourcepos
-                cell._string_content = headerCells[i];
+                const cell = new Node("table_cell", [
+                    [parser.lineNumber - 1, headerCells[i].start],
+                    [parser.lineNumber - 1, headerCells[i].end],
+                ]);
 
+                cell._string_content = headerCells[i].contents;
                 cell._align = parser.tip.alignColumns[i];
                 cell._isHeading = true;
 
@@ -14947,15 +14950,19 @@
                 return 0;
             }
 
+            parser.closeUnmatchedBlocks();
             parser.addChild("table_row", parser.nextNonspace);
 
             for (let i = 0; i < cells.length; i++) {
-                parser.addChild("table_cell", parser.nextNonspace);
+                const cell = new Node("table_cell", [
+                    [parser.lineNumber, cells[i].start],
+                    [parser.lineNumber, cells[i].end],
+                ]);
 
-                parser.tip._align = parser.tip.parent.parent.alignColumns[i];
-                parser.tip._string_content = cells[i];
+                cell._string_content = cells[i].contents;
+                cell._align = parser.tip.parent.alignColumns[i];
 
-                parser.advanceNextNonspace();
+                parser.tip.appendChild(cell);
             }
 
             // Mark the rest of the line as read
@@ -14991,7 +14998,11 @@
                 // we found an empty cell with a pipe (cellLength == 0 && pipeLength > 0)
                 const cellContents = unescapePipes(line.substring(offset, offset + cellLength));
 
-                cells.push(cellContents);
+                cells.push({
+                    contents: cellContents,
+                    start: offset,
+                    end: offset + cellLength,
+                });
 
                 offset += cellLength + pipeLength;
             }
@@ -15074,7 +15085,7 @@
     const reValidTableDelimiter = /^[ \t]*:?-+:?[ \t]*$/;
     const validateDelimiterRow = function(cells) {
         for (const cell of cells) {
-            if (!reValidTableDelimiter.test(cell)) {
+            if (!reValidTableDelimiter.test(cell.contents)) {
                 return false;
             }
         }
@@ -15087,15 +15098,15 @@
     };
 
     var getCellAlignment = function(cell) {
-        cell = cell.trim();
+        const cellContents = cell.contents.trim();
 
-        if (cell.charAt(0) === ":") {
-            if (cell.charAt(cell.length - 1) === ":") {
+        if (cellContents.charAt(0) === ":") {
+            if (cellContents.charAt(cellContents.length - 1) === ":") {
                 return "center";
             } else {
                 return "left";
             }
-        } else if (cell.endsWith(":")) {
+        } else if (cellContents.endsWith(":")) {
             return "right";
         } else {
             return "";
