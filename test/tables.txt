@@ -1205,6 +1205,322 @@ Here's a link to [Freedom Planet 2][].
 </tr></tbody></table>
 ````````````````````````````````
 
+### Tables inside of blockquotes
+
+This is a table in a block quote with each line starting with an angle bracket.
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+> | eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr></tbody></table>
+</blockquote>
+````````````````````````````````
+
+Tables can be alongside paragraphs in block quotes.
+
+```````````````````````````````` example
+> This is the text at the start
+>
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+> | eee | fff |
+>
+> This is the text in the middle
+>
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+> | eee | fff |
+>
+> This is the text at the end
+.
+<blockquote>
+<p>This is the text at the start</p>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr></tbody></table>
+<p>This is the text in the middle</p>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr></tbody></table>
+<p>This is the text at the end</p>
+</blockquote>
+````````````````````````````````
+
+At time of writing, GitHub requires that parts of the table in a quote need to
+start with an angle bracket. Any part that isn't following an angle bracket
+will be treated as plain text.
+
+```````````````````````````````` example
+> | aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |
+.
+<blockquote>
+<p>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</p>
+</blockquote>
+````````````````````````````````
+
+```````````````````````````````` example
+> | aaa | bbb |
+  | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<blockquote>
+<p>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</p>
+</blockquote>
+````````````````````````````````
+
+Once the first two rows are after angle brackets, the rest will be a plain text
+outside of the block quote
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+| ccc | ddd |
+| eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead></table>
+</blockquote>
+<p>| ccc | ddd |
+| eee | fff |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead></table>
+</blockquote>
+<p>| ccc | ddd |
+| eee | fff |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+ | eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr></tbody></table>
+</blockquote>
+<p>| eee | fff |</p>
+````````````````````````````````
+
+### Tables inside of lists
+
+Tables can be inside of lists as long as each row of the table is indented enough.
+
+```````````````````````````````` example
+- | aaa | bbb |
+  | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr></tbody></table>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+ - | aaa | bbb |
+   | --- | --- |
+   | ccc | ddd |
+   | eee | fff |
+.
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr></tbody></table>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+1. | aaa | bbb |
+   | --- | --- |
+   | ccc | ddd |
+   | eee | fff |
+.
+<ol>
+<li>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr></tbody></table>
+</li>
+</ol>
+````````````````````````````````
+
+These tables aren't indented far enough.
+
+```````````````````````````````` example
+- | aaa | bbb |
+ | --- | --- |
+ | ccc | ddd |
+ | eee | fff |
+.
+<ul>
+<li>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+ - | aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |
+.
+<ul>
+<li>| aaa | bbb |</li>
+</ul>
+<p>| --- | --- |
+| ccc | ddd |
+| eee | fff |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+1. | aaa | bbb |
+  | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<ol>
+<li>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</li>
+</ol>
+````````````````````````````````
+
 ### Invalid table (MM-55972/MM-59809)
 
 This table is invalid because of the space in the middle of the third column
@@ -1245,4 +1561,18 @@ dashes in it (`|  |`).
 | 차카  | 85.8   |             | 여수신          | (74.7)    | 금투     | (11.0) | 45  |  |
 | 파타   | 69.3   |             | 보험           | (58.7)    | 여수신‧금투 | (10.4) | 16  |  |
 | 하하 | 51.7   |             | 금투           | (43.7)    | 여수신    | (6.6)  | 40  |  |</p>
+````````````````````````````````
+
+### Invalid table (MM-61148)
+
+This obviously isn't a table, but the fix for the previous issue caused it to
+generate an empty table.
+
+```````````````````````````````` example
+some text
+
+|
+.
+<p>some text</p>
+<p>|</p>
 ````````````````````````````````

@@ -14134,10 +14134,6 @@
 
     var reLineEnding = /\r\n|\n|\r/;
 
-    var reTableRow = /^(\|?)(?:(?:\\\||[^|])*\|?)+$/;
-
-    var reValidTableDelimiter = /^:?-+:?$/;
-
     var MAX_AUTOCOMPLETED_CELLS = 1000;
 
     // Returns true if string contains only space characters.
@@ -14190,6 +14186,18 @@
             this.tip._string_content += " ".repeat(charsToTab);
         }
         this.tip._string_content += this.currentLine.slice(this.offset) + "\n";
+    };
+
+    // Change the tip to be of type tag as long as the parent can
+    // contain a block of that type.  Returns whether or not the
+    // type could be changed.
+    var changeTipType = function(tag) {
+        const validChild = this.blocks[this.tip.parent.type].canContain(tag);
+        if (validChild) {
+            this.tip._type = tag;
+        }
+
+        return validChild;
     };
 
     // Add block of type tag as a child of the tip.  If the tip can't
@@ -14520,6 +14528,7 @@
         },
         table: {
             continue: function(parser) {
+                console.log('table continue');
                 if (parser.blank) {
                     // next line is blank so the table has ended
                     return 1;
@@ -14538,9 +14547,6 @@
                 for (var row = block.firstChild; row; row = row.next) {
                     var i = 0;
                     for (var cell = row.firstChild; cell; cell = cell.next) {
-                        // copy column alignment to each cell
-                        cell.align = block.alignColumns[i];
-
                         i += 1;
 
                         // if there's more columns in a row than the header row, GitHub cuts them off
@@ -14847,65 +14853,87 @@
 
         // table
         function(parser, container) {
-            if (container.type !== "document") {
-                // @hmhealey We should be able to have a table inside of a list item or block quote to match GitHub
-                // but I'm not sure if the mobile app can render that, so let's not bother with it for now
+            // Because tables depend on two adjacent lines, the first line is read into a paragraph and then we might turn
+            // that paragraph into a table when we read the second line.
+
+            if (parser.indented || container.type !== "paragraph") {
                 return 0;
             }
 
-
-            if (parser.indented) {
+            if (container._tableVisited) {
                 return 0;
             }
 
-            if (!parser.nextLine) {
-                // tables require at least two rows (header and delimiter)
+            // At this point, we're on the second line of the paragraph, so we can check to see the two lines we've read
+            // are the header row and delimiter row of the table
+
+            // Check for a delimiter first since it's stricter than the header row.
+            const delimiterCells = parseTableRow(parser.currentLine, parser.nextNonspace);
+            if (!delimiterCells || !validateDelimiterRow(delimiterCells)) {
+                // The second line of the paragraph isn't a table row, so this paragraph isn't actually a table
+                container._tableVisited = true;
                 return 0;
             }
 
-            const nextColumn = measureNonspaceColumn(parser.nextLine);
-            if (Math.abs(nextColumn - parser.column) >= CODE_INDENT) {
-                // the delimiter row must be on the same indentation level as the header row
+            // The previous line of text that we've read is stored as the paragraph's _string_content, and that will
+            // contain the header row if this is actually a table
+            const headerCharacters = container._string_content.indexOf('\n'); // TODO this should probably be returned explicilty by parseTableRow
+            const headerCells = parseTableRow(container._string_content.substring(0, container._string_content.indexOf('\n')), 0);
+            if (!headerCells) {
+                // The first line isn't a header row, so this isn't a table
+                container._tableVisited = true;
                 return 0;
             }
-
-            parser.advanceNextNonspace();
-
-            // check for a delimiter first since it's stricter than the header row
-            const nextLine = parser.nextLine.trim();
-            const delimiterMatch = reTableRow.exec(nextLine);
-            if (!delimiterMatch) {
-                return 0;
-            }
-
-            const delimiterCells = parseDelimiterRow(delimiterMatch[0]);
-            if (!delimiterCells) {
-                return 0;
-            }
-
-            const currentLine = parser.currentLine.slice(parser.nextNonspace).trim();
-            var headerMatch = reTableRow.exec(currentLine);
-            if (!headerMatch) {
-                return 0;
-            }
-
-            var headerCells = parseTableCells(headerMatch[0]);
 
             if (delimiterCells.length !== headerCells.length) {
-                // the first two rows must be the same length for this to be considered a table
+                // The first two rows must be the same length for this to be considered a table
+                console.log('  wrong lengths');
+
+                // Track that we've already identified that this paragraph isn't a table, so that we don't check the same
+                // paragraph again
+                container._tableVisited = true;
                 return 0;
             }
 
-            parser.closeUnmatchedBlocks();
+            console.log('  probably table');
+            console.log('    headerCells', headerCells);
+            console.log('    delimiterCells', delimiterCells);
 
-            parser.advanceNextNonspace();
-            parser.addChild("table", parser.offset);
+            // Turn this paragraph into a table if possible
+            if (!parser.changeTipType('table')) {
+                return 0;
+            }
 
-            // store the alignments of the columns and then skip the delimiter line since we've
+            // TODO try inserting header paragraph to match GitHub letting you break from a paragraph into a table with only one newline
+
+            // Store the alignments of the columns and then skip the delimiter line since we've
             // gotten what we need from it
             parser.tip.alignColumns = delimiterCells.map(getCellAlignment);
 
-            parser.skipNextLine();
+            const headerRow = new Node('table_row', [
+                [this.lineNumber - 1, parser.offset + 1],
+                [this.lineNumber - 1 + headerCharacters, parser.offset + 1], // TODO these are probably wrong
+            ]);
+            headerRow._string_content = container._string_content.substring(0, headerCharacters);
+            headerRow._isHeading = true;
+
+            for (let i = 0; i < headerCells.length; i++) {
+                const cell = new Node('table_cell'); // TODO sourcepos
+                cell._string_content = headerCells[i];
+
+                cell._align = parser.tip.alignColumns[i];
+                cell._isHeading = true;
+
+                headerRow.appendChild(cell);
+            }
+
+            parser.tip.appendChild(headerRow);
+
+            // Mark the rest of the line as read
+            parser.advanceOffset(
+                parser.currentLine.length - parser.offset,
+                false
+            );
 
             return 1;
         },
@@ -14920,63 +14948,154 @@
                 return 2;
             }
 
-            var rowMatch = reTableRow.exec(parser.currentLine.slice(parser.nextNonspace));
-            if (!rowMatch) {
+            const cells = parseTableRow(parser.currentLine, parser.nextNonspace);
+            if (!cells) {
                 return 0;
             }
 
-            parser.closeUnmatchedBlocks();
-            parser.advanceNextNonspace();
+            parser.addChild("table_row", parser.nextNonspace);
 
-            parser.addChild("table_row", parser.offset);
+            for (let i = 0; i < cells.length; i++) {
+                parser.addChild("table_cell", parser.nextNonspace);
 
-            // advance past leading | if one exists
-            parser.advanceOffset(rowMatch[1].length, false);
+                parser.tip._align = parser.tip.parent.parent.alignColumns[i];
+                parser.tip._string_content = cells[i];
 
-            // parse the row into cells
-            var cells = parseTableCells(rowMatch[0]);
-            var length = cells.length;
-            for (var i = 0; i < length; i++) {
-                parser.addChild("table_cell", parser.offset);
-
-                parser.tip._string_content = cells[i].trim();
-
-                parser.advanceOffset(cells[i].length + 1);
+                parser.advanceNextNonspace();
             }
+
+            // Mark the rest of the line as read
+            parser.advanceOffset(
+                parser.currentLine.length - parser.offset,
+                false
+            );
 
             return 2;
         }
     ];
 
-    const parseDelimiterRow = function(row) {
-        if (row.indexOf("|") === -1) {
-            return null;
-        }
+    const parseTableRow = function(line, startAt) {
+        // This is attempting to replicate row_from_string from GitHub's Commonmark fork. That function can be found here:
+        // https://github.com/github/cmark-gfm/blob/587a12bb54d95ac37241377e6ddc93ea0e45439b/extensions/table.c#L189
 
-        const cells = parseTableCells(row).map((cell) => cell.trim());
+        let cells = [];
 
-        for (const cell of cells) {
-            if (!reValidTableDelimiter.test(cell)) {
-                return null;
+        let expectMoreCells = true;
+
+        // Start at the current parser position
+        let offset = startAt;
+
+        // Read past the optional leading pipe
+        offset += scanTableCellEnd(line, offset);
+
+        while (offset < line.length && expectMoreCells) {
+            const cellLength = scanTableCell(line, offset);
+            const pipeLength = scanTableCellEnd(line, offset + cellLength);
+
+            console.log('  cell', line.substring(offset, offset + cellLength));
+            console.log('  pipe', line.substring(offset + cellLength, offset + cellLength + pipeLength));
+
+            if (cellLength > 0 || pipeLength > 0) {
+                // We're guaranteed to have found a cell because we either found some cell content (cellLength > 0) or
+                // we found an empty cell with a pipe (cellLength == 0 && pipeLength > 0)
+                const cellContents = unescapePipes(line.substring(offset, offset + cellLength));
+
+                cells.push(cellContents);
+
+                offset += cellLength + pipeLength;
+            }
+
+            if (pipeLength > 0) {
+                expectMoreCells = true;
+            } else {
+                // We've read the last cell, so check if we've reached the end of the row
+                const rowEndLength = scanTableRowEnd(line, offset);
+
+                // TODO there's something in the GH code about the row being part of a preceding paragraph which we may not
+                // need. I think it has to do with GH's behaviour where there's no double-newline needed between a
+                // paragraph and a table which we don't support in Marked or Commonmark.
+
+                if (rowEndLength === -1) ; else {
+                    offset += rowEndLength;
+                }
+
+                expectMoreCells = false;
             }
         }
 
-        return cells;
+        if (offset === line.length) {
+            // We've read the whole line, so it's a valid row
+            return cells;
+        } else {
+            // There's unhandled text here, so it's not actually a table row
+            return null;
+        }
     };
 
-    var parseTableCells = function(row) {
-        // remove starting pipe to make life easier
-        row = row.replace(/^\|/, "");
+    const reTableCell = new RegExp('^([\\\\]' + ESCAPABLE + '|[^|\r\n])+');
+    const scanTableCell = function(line, offset) {
+        // Reads up until a newline or an unescaped pipe and return the number of characters read
+        const match = reTableCell.exec(line.substring(offset));
+        console.log('    reading cell from', line.substring(offset));
+        console.log('        matched', match);
+        if (match) {
+            return match[0].length;
+        } else {
+            // If this doesn't match, it may still be valid because there's an empty table cell or we're at the end of the line
+            return 0;
+        }
+    };
 
-        var reTableCell = /\||((?:\\\||[^|])+)\|?/g;
+    const scanTableCellEnd = function(line, offset) {
+        // Read an optional pipe followed by some amount of optional whitespace and return the number of characters read
+        let i = 0;
 
-        var match;
-        var cells = [];
-        while (match = reTableCell.exec(row)) {
-            cells.push(match[1] || "");
+        if (line.charAt(offset + i) === '|') {
+            i += 1;
         }
 
-        return cells;
+        let c = line.charAt(offset + i);
+        while (c === ' ' || c === '\t' || c === '\v' || c === '\f') {
+            i += 1;
+            c = line.charAt(offset + i);
+        }
+
+        return i;
+    };
+
+    const scanTableRowEnd = function(line, offset) {
+        // Read any amount of optional whitespace and then ensure that we're at the end of the string
+        let i = 0;
+
+        let c = line.charAt(offset + i);
+        while (c === ' ' || c === '\t' || c === '\v' || c === '\f') {
+            i += 1;
+            c = line.charAt(offset + i);
+        }
+
+        if (offset + i === line.length) {
+            // This is the end of the row
+            return i;
+        } else {
+            // There's still more after this which means this isn't actually a table row
+            return -1;
+        }
+    };
+
+    const reValidTableDelimiter = /^[ \t]*:?-+:?[ \t]*$/;
+    const validateDelimiterRow = function(cells) {
+        for (const cell of cells) {
+            if (!reValidTableDelimiter.test(cell)) {
+                console.log('cell `' + cell + '` did not match');
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    const unescapePipes = function(str) {
+        return str.replace('\\|', '|');
     };
 
     var getCellAlignment = function(cell) {
@@ -15053,31 +15172,10 @@
         this.indented = this.indent >= CODE_INDENT;
     };
 
-    function measureNonspaceColumn(line) {
-        // This code is copied from findNextNonspace above
-        var i = 0;
-        var cols = 0;
-        var c;
-
-        while ((c = line.charAt(i)) !== "") {
-            if (c === " ") {
-                i++;
-                cols++;
-            } else if (c === "\t") {
-                i++;
-                cols += 4 - (cols % 4);
-            } else {
-                break;
-            }
-        }
-
-        return cols;
-    }
-
     // Analyze a line of text and update the document appropriately.
     // We parse markdown text by calling this on each line of input,
     // then finalizing the document.
-    var incorporateLine = function(ln, nextLn) {
+    var incorporateLine = function(ln) {
         var all_matched = true;
         var t;
 
@@ -15095,7 +15193,6 @@
         }
 
         this.currentLine = ln;
-        this.nextLine = nextLn;
 
         // For each containing block, try to parse the associated line start.
         // Bail out on failure: container will point to the last matching block.
@@ -15140,7 +15237,7 @@
                 !this.indented && // starts indented code blocks
                 !reMaybeSpecial.test(ln.slice(this.nextNonspace)) && // starts lists, block quotes, etc
                 (container.type !== "table" && container.type !== "table_row") && // start table rows
-                (nextLn && !reMaybeDelimiterRow.test(nextLn.slice(this.nextNonspace))) // starts tables
+                !reMaybeDelimiterRow.test(ln.slice(this.nextNonspace)) // starts tables
             ) {
                 this.advanceNextNonspace();
                 break;
@@ -15235,10 +15332,6 @@
         this.lastLineLength = ln.length;
     };
 
-    var skipNextLine = function() {
-        this.shouldSkipNextLine = true;
-    };
-
     // Finalize a block.  Close it and do any necessary postprocessing,
     // e.g. creating string_content from strings, setting the 'tight'
     // or 'loose' status of a list, and parsing the beginnings
@@ -15289,7 +15382,6 @@
         this.column = 0;
         this.lastMatchedContainer = this.doc;
         this.currentLine = "";
-        this.shouldSkipNextLine = false;
         if (this.options.time) {
             console.time("preparing input");
         }
@@ -15306,11 +15398,7 @@
             console.time("block parsing");
         }
         for (var i = 0; i < len; i++) {
-            if (this.shouldSkipNextLine) {
-                this.shouldSkipNextLine = false;
-                continue;
-            }
-            this.incorporateLine(lines[i], lines[i + 1]);
+            this.incorporateLine(lines[i]);
         }
         while (this.tip) {
             this.finalize(this.tip, len);
@@ -15362,8 +15450,8 @@
             advanceNextNonspace: advanceNextNonspace,
             addLine: addLine,
             addChild: addChild,
+            changeTipType: changeTipType,
             incorporateLine: incorporateLine,
-            skipNextLine: skipNextLine,
             finalize: finalize,
             processInlines: processInlines,
             closeUnmatchedBlocks: closeUnmatchedBlocks,
