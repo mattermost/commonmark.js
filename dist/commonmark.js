@@ -14528,7 +14528,6 @@
         },
         table: {
             continue: function(parser) {
-                console.log('table continue');
                 if (parser.blank) {
                     // next line is blank so the table has ended
                     return 1;
@@ -14877,8 +14876,8 @@
 
             // The previous line of text that we've read is stored as the paragraph's _string_content, and that will
             // contain the header row if this is actually a table
-            const headerCharacters = container._string_content.indexOf('\n'); // TODO this should probably be returned explicilty by parseTableRow
-            const headerCells = parseTableRow(container._string_content.substring(0, container._string_content.indexOf('\n')), 0);
+            const headerCharacters = container._string_content.indexOf("\n"); // TODO this should probably be returned explicilty by parseTableRow
+            const headerCells = parseTableRow(container._string_content.substring(0, container._string_content.indexOf("\n")), 0);
             if (!headerCells) {
                 // The first line isn't a header row, so this isn't a table
                 container._tableVisited = true;
@@ -14887,7 +14886,6 @@
 
             if (delimiterCells.length !== headerCells.length) {
                 // The first two rows must be the same length for this to be considered a table
-                console.log('  wrong lengths');
 
                 // Track that we've already identified that this paragraph isn't a table, so that we don't check the same
                 // paragraph again
@@ -14895,12 +14893,8 @@
                 return 0;
             }
 
-            console.log('  probably table');
-            console.log('    headerCells', headerCells);
-            console.log('    delimiterCells', delimiterCells);
-
             // Turn this paragraph into a table if possible
-            if (!parser.changeTipType('table')) {
+            if (!parser.changeTipType("table")) {
                 return 0;
             }
 
@@ -14910,7 +14904,7 @@
             // gotten what we need from it
             parser.tip.alignColumns = delimiterCells.map(getCellAlignment);
 
-            const headerRow = new Node('table_row', [
+            const headerRow = new Node("table_row", [
                 [this.lineNumber - 1, parser.offset + 1],
                 [this.lineNumber - 1 + headerCharacters, parser.offset + 1], // TODO these are probably wrong
             ]);
@@ -14918,7 +14912,7 @@
             headerRow._isHeading = true;
 
             for (let i = 0; i < headerCells.length; i++) {
-                const cell = new Node('table_cell'); // TODO sourcepos
+                const cell = new Node("table_cell"); // TODO sourcepos
                 cell._string_content = headerCells[i];
 
                 cell._align = parser.tip.alignColumns[i];
@@ -14992,9 +14986,6 @@
             const cellLength = scanTableCell(line, offset);
             const pipeLength = scanTableCellEnd(line, offset + cellLength);
 
-            console.log('  cell', line.substring(offset, offset + cellLength));
-            console.log('  pipe', line.substring(offset + cellLength, offset + cellLength + pipeLength));
-
             if (cellLength > 0 || pipeLength > 0) {
                 // We're guaranteed to have found a cell because we either found some cell content (cellLength > 0) or
                 // we found an empty cell with a pipe (cellLength == 0 && pipeLength > 0)
@@ -15032,12 +15023,10 @@
         }
     };
 
-    const reTableCell = new RegExp('^([\\\\]' + ESCAPABLE + '|[^|\r\n])+');
+    const reTableCell = new RegExp("^([\\\\]" + ESCAPABLE + "|[^|\r\n])+");
     const scanTableCell = function(line, offset) {
         // Reads up until a newline or an unescaped pipe and return the number of characters read
         const match = reTableCell.exec(line.substring(offset));
-        console.log('    reading cell from', line.substring(offset));
-        console.log('        matched', match);
         if (match) {
             return match[0].length;
         } else {
@@ -15050,12 +15039,12 @@
         // Read an optional pipe followed by some amount of optional whitespace and return the number of characters read
         let i = 0;
 
-        if (line.charAt(offset + i) === '|') {
+        if (line.charAt(offset + i) === "|") {
             i += 1;
         }
 
         let c = line.charAt(offset + i);
-        while (c === ' ' || c === '\t' || c === '\v' || c === '\f') {
+        while (c === " " || c === "\t" || c === "\v" || c === "\f") {
             i += 1;
             c = line.charAt(offset + i);
         }
@@ -15068,7 +15057,7 @@
         let i = 0;
 
         let c = line.charAt(offset + i);
-        while (c === ' ' || c === '\t' || c === '\v' || c === '\f') {
+        while (c === " " || c === "\t" || c === "\v" || c === "\f") {
             i += 1;
             c = line.charAt(offset + i);
         }
@@ -15086,7 +15075,6 @@
     const validateDelimiterRow = function(cells) {
         for (const cell of cells) {
             if (!reValidTableDelimiter.test(cell)) {
-                console.log('cell `' + cell + '` did not match');
                 return false;
             }
         }
@@ -15095,7 +15083,7 @@
     };
 
     const unescapePipes = function(str) {
-        return str.replace('\\|', '|');
+        return str.replace("\\|", "|");
     };
 
     var getCellAlignment = function(cell) {
@@ -15957,7 +15945,7 @@
 
         this.indentLevel = 0;
         this.indent = "  ";
-        
+
         this.esc = options.esc || escapeXml;
         // escape html with a custom function
         // else use escapeXml
@@ -16056,7 +16044,7 @@
                         attrs.push(["on_exit", node.onExit]);
                         break;
                 }
-                if (options.sourcepos) {
+                {
                     var pos = node.sourcepos;
                     if (pos) {
                         attrs.push([
