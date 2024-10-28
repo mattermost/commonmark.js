@@ -1,6 +1,6 @@
 The following is a section of
 https://github.com/github/cmark-gfm/blob/587a12bb54d95ac37241377e6ddc93ea0e45439b/test/extensions.txt
-with everything not related to tables taken out. Any other changes are specifically noted.
+with everything not related to tables taken out.
 
 ---
 title: Extensions test
@@ -478,9 +478,7 @@ Here's a link to [Freedom Planet 2][].
 
 ### a table can be recognised when separated from a paragraph of text without an empty line
 
-@hmhealey We differ from GitHub here, so I've skipped this one for the time being.
-
-```````````````````````````````` skipped
+```````````````````````````````` example
 123
 456
 | a | b |

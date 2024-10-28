@@ -1677,3 +1677,75 @@ some text
 <p>some text</p>
 <p>|</p>
 ````````````````````````````````
+
+### Table directly after a text in a list item (MM-46943)
+
+```````````````````````````````` example
+- See table below
+  | First Header  | Second Header |
+  | ------------- | ------------- |
+  | Content Cell  | Content Cell |
+  | Content Cell  | Content Cell |
+- Second item
+.
+<ul>
+<li>See table below
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Second item</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+- See table below
+
+  | First Header  | Second Header |
+  | ------------- | ------------- |
+  | Content Cell  | Content Cell |
+  | Content Cell  | Content Cell |
+- Second item
+.
+<ul>
+<li>
+<p>See table below</p>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Second item</p>
+</li>
+</ul>
+````````````````````````````````
