@@ -42,7 +42,8 @@ foo
 <tr>
 <th>foo</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -63,7 +64,9 @@ foo
 </tr>
 <tr>
 <td>baz</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -76,7 +79,8 @@ foo
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -100,7 +104,9 @@ foo
 <tr>
 <td>baz</td>
 <td>ccc</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Tables without borders
@@ -115,7 +121,8 @@ foo|aaa
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -139,7 +146,9 @@ baz|ccc
 <tr>
 <td>baz</td>
 <td>ccc</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Tables with mixed borders
@@ -153,7 +162,8 @@ baz|ccc
 <tr>
 <th>foo</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -165,7 +175,8 @@ foo|
 <tr>
 <th>foo</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -177,7 +188,8 @@ foo
 <tr>
 <th>foo</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -198,7 +210,9 @@ baz
 </tr>
 <tr>
 <td>baz</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -219,7 +233,9 @@ bar
 </tr>
 <tr>
 <td>baz</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -240,7 +256,9 @@ baz
 </tr>
 <tr>
 <td>baz</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -253,7 +271,8 @@ foo|aaa
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -277,7 +296,9 @@ baz|ccc
 <tr>
 <td>baz</td>
 <td>ccc</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -304,7 +325,9 @@ ee|baz|ff
 <td>ee</td>
 <td>baz</td>
 <td>ff</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Table with alignment
@@ -336,7 +359,9 @@ ee|baz|ff
 <td align="left">3</td>
 <td align="center">2</td>
 <td>1</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Table with uneven rows
@@ -365,7 +390,9 @@ b | c | d | e | f
 <td>b</td>
 <td>c</td>
 <td>d</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Tables followed by other text
@@ -388,7 +415,9 @@ other text
 <tr>
 <td>aaa</td>
 <td>bbb</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 <p>other text</p>
 ````````````````````````````````
 
@@ -411,7 +440,9 @@ aaa|bbb
 <tr>
 <td>aaa</td>
 <td>bbb</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 <ol>
 <li>other text</li>
 <li>other text</li>
@@ -436,7 +467,9 @@ aaa|bbb
 <tr>
 <td>aaa</td>
 <td>bbb</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -455,7 +488,9 @@ aaa|bbb
 <tr>
 <td>aaa</td>
 <td>bbb</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -474,7 +509,9 @@ aaa|bbb
 <tr>
 <td>aaa</td>
 <td>bbb</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Tables with preceding whitespace
@@ -501,21 +538,24 @@ indented from the delimiter row.
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <table>
 <thead>
 <tr>
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <table>
 <thead>
 <tr>
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <pre><code>foo|aaa
 </code></pre>
 <p>---|---</p>
@@ -543,21 +583,24 @@ foo|aaa
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <table>
 <thead>
 <tr>
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <table>
 <thead>
 <tr>
 <th>foo</th>
 <th>aaa</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <p>foo|aaa
 ---|---</p>
 ````````````````````````````````
@@ -587,7 +630,9 @@ only break the table and not prevent it from being generated at all.
 <tr>
 <td>333</td>
 <td>444</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 <pre><code>|555|666|
 </code></pre>
 ````````````````````````````````
@@ -618,7 +663,9 @@ The whole table can also be slightly indented.
 <td align="left">2</td>
 <td align="left">Name</td>
 <td align="left">Server</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Tables with escaped pipes
@@ -644,7 +691,9 @@ The whole table can also be slightly indented.
 <tr>
 <td>b|z</td>
 <td>cc|</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ```````````````````````````````` example
@@ -668,7 +717,9 @@ b\|z|cc\|
 <tr>
 <td>b|z</td>
 <td>cc|</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 @hmhealey - The following section is copied from GitHub's tests for cmark available at
@@ -699,7 +750,9 @@ Here's a well-formed table, doing everything it should.
 <tr>
 <td>mno</td>
 <td>pqr</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 We're going to mix up the table now; we'll demonstrate that inline formatting
@@ -732,7 +785,9 @@ Hi!
 <tr>
 <td>But <em><strong>inline elements do</strong></em>.</td>
 <td>x</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 <p>Hi!</p>
 ````````````````````````````````
 
@@ -764,20 +819,23 @@ Here we demonstrate some edge cases about what is and isn't a table.
 <th>Just enough table</th>
 <th>to be considered table</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <p>| ---- | --- |</p>
 <table>
 <thead>
 <tr>
 <th>x</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 <table>
 <thead>
 <tr>
 <th>xyz</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 A "simpler" table, GFM style:
@@ -798,7 +856,9 @@ xyz | ghi
 <tr>
 <td>xyz</td>
 <td>ghi</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 We are making the parser slighly more lax here. Here is a table with spaces at
@@ -830,7 +890,9 @@ Hi!
 <tr>
 <td>But <em><strong>inline elements do</strong></em>.</td>
 <td>x</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 <p>Hi!</p>
 ````````````````````````````````
 
@@ -858,7 +920,9 @@ fff | ggg | hhh | iii | jjj
 <td align="center">hhh</td>
 <td>iii</td>
 <td align="right">jjj</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Table cell count mismatches
@@ -908,7 +972,9 @@ than the header are truncated.
 <td>1</td>
 <td>2</td>
 <td>3</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Embedded pipes
@@ -946,7 +1012,9 @@ Tables with embedded pipes could be tricky.
 <tr>
 <td>don't <strong>_reparse_</strong></td>
 <td></td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Oddly-formatted markers
@@ -962,7 +1030,8 @@ This shouldn't assert.
 <tr>
 <th>a</th>
 </tr>
-</thead></table>
+</thead>
+</table>
 ````````````````````````````````
 
 ### Escaping
@@ -1013,7 +1082,9 @@ This shouldn't assert.
 <tr>
 <td>\a</td>
 <td><code>\a</code></td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 <p>\ <code>\\</code></p>
 <p>\\ <code>\\\\</code></p>
 <p>_ <code>\_</code></p>
@@ -1041,7 +1112,9 @@ This shouldn't assert.
 </tr>
 <tr>
 <td>ok <br> sure</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Reference-style links
@@ -1065,7 +1138,9 @@ Here's a link to [Freedom Planet 2][].
 <tbody>
 <tr>
 <td>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a> in a table row.</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Empty cells
@@ -1088,7 +1163,9 @@ Here's a link to [Freedom Planet 2][].
 <td>d</td>
 <td></td>
 <td>e</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Interaction with emphasis
@@ -1109,7 +1186,9 @@ Here's a link to [Freedom Planet 2][].
 <tr>
 <td><em><strong>(a)</strong></em></td>
 <td></td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Table without space at the end
@@ -1140,7 +1219,9 @@ Here's a link to [Freedom Planet 2][].
 <tr>
 <td align="center">r3c1</td>
 <td align="center">r3c2</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Table with space at the end
@@ -1171,7 +1252,9 @@ Here's a link to [Freedom Planet 2][].
 <tr>
 <td align="center">r3c1</td>
 <td align="center">r3c2</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
 ````````````````````````````````
 
 ### Table with multiple spaces at the end
@@ -1202,7 +1285,341 @@ Here's a link to [Freedom Planet 2][].
 <tr>
 <td align="center">r3c1</td>
 <td align="center">r3c2</td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Tables inside of blockquotes
+
+This is a table in a block quote with each line starting with an angle bracket.
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+> | eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+````````````````````````````````
+
+Tables can be alongside paragraphs in block quotes.
+
+```````````````````````````````` example
+> This is the text at the start
+>
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+> | eee | fff |
+>
+> This is the text in the middle
+>
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+> | eee | fff |
+>
+> This is the text at the end
+.
+<blockquote>
+<p>This is the text at the start</p>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr>
+</tbody>
+</table>
+<p>This is the text in the middle</p>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr>
+</tbody>
+</table>
+<p>This is the text at the end</p>
+</blockquote>
+````````````````````````````````
+
+At time of writing, GitHub requires that parts of the table in a quote need to
+start with an angle bracket. Any part that isn't following an angle bracket
+will be treated as plain text.
+
+```````````````````````````````` example
+> | aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |
+.
+<blockquote>
+<p>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</p>
+</blockquote>
+````````````````````````````````
+
+```````````````````````````````` example
+> | aaa | bbb |
+  | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<blockquote>
+<p>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</p>
+</blockquote>
+````````````````````````````````
+
+Once the first two rows are after angle brackets, the rest will be a plain text
+outside of the block quote
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+| ccc | ddd |
+| eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+</table>
+</blockquote>
+<p>| ccc | ddd |
+| eee | fff |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+</table>
+</blockquote>
+<p>| ccc | ddd |
+| eee | fff |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+> | aaa | bbb |
+> | --- | --- |
+> | ccc | ddd |
+ | eee | fff |
+.
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>| eee | fff |</p>
+````````````````````````````````
+
+### Tables inside of lists
+
+Tables can be inside of lists as long as each row of the table is indented enough.
+
+```````````````````````````````` example
+- | aaa | bbb |
+  | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+ - | aaa | bbb |
+   | --- | --- |
+   | ccc | ddd |
+   | eee | fff |
+.
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+1. | aaa | bbb |
+   | --- | --- |
+   | ccc | ddd |
+   | eee | fff |
+.
+<ol>
+<li>
+<table>
+<thead>
+<tr>
+<th>aaa</th>
+<th>bbb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ccc</td>
+<td>ddd</td>
+</tr>
+<tr>
+<td>eee</td>
+<td>fff</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+````````````````````````````````
+
+These tables aren't indented far enough.
+
+```````````````````````````````` example
+- | aaa | bbb |
+ | --- | --- |
+ | ccc | ddd |
+ | eee | fff |
+.
+<ul>
+<li>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+ - | aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |
+.
+<ul>
+<li>| aaa | bbb |</li>
+</ul>
+<p>| --- | --- |
+| ccc | ddd |
+| eee | fff |</p>
+````````````````````````````````
+
+```````````````````````````````` example
+1. | aaa | bbb |
+  | --- | --- |
+  | ccc | ddd |
+  | eee | fff |
+.
+<ol>
+<li>| aaa | bbb |
+| --- | --- |
+| ccc | ddd |
+| eee | fff |</li>
+</ol>
 ````````````````````````````````
 
 ### Invalid table (MM-55972/MM-59809)
@@ -1245,4 +1662,90 @@ dashes in it (`|  |`).
 | 차카  | 85.8   |             | 여수신          | (74.7)    | 금투     | (11.0) | 45  |  |
 | 파타   | 69.3   |             | 보험           | (58.7)    | 여수신‧금투 | (10.4) | 16  |  |
 | 하하 | 51.7   |             | 금투           | (43.7)    | 여수신    | (6.6)  | 40  |  |</p>
+````````````````````````````````
+
+### Invalid table (MM-61148)
+
+This obviously isn't a table, but the fix for the previous issue caused it to
+generate an empty table.
+
+```````````````````````````````` example
+some text
+
+|
+.
+<p>some text</p>
+<p>|</p>
+````````````````````````````````
+
+### Table directly after a text in a list item (MM-46943)
+
+```````````````````````````````` example
+- See table below
+  | First Header  | Second Header |
+  | ------------- | ------------- |
+  | Content Cell  | Content Cell |
+  | Content Cell  | Content Cell |
+- Second item
+.
+<ul>
+<li>See table below
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Second item</li>
+</ul>
+````````````````````````````````
+
+```````````````````````````````` example
+- See table below
+
+  | First Header  | Second Header |
+  | ------------- | ------------- |
+  | Content Cell  | Content Cell |
+  | Content Cell  | Content Cell |
+- Second item
+.
+<ul>
+<li>
+<p>See table below</p>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Second item</p>
+</li>
+</ul>
 ````````````````````````````````

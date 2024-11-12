@@ -1,0 +1,529 @@
+The following is a section of
+https://github.com/github/cmark-gfm/blob/587a12bb54d95ac37241377e6ddc93ea0e45439b/test/extensions.txt
+with everything not related to tables taken out.
+
+---
+title: Extensions test
+author: Yuki Izumi
+version: 0.1
+date: '2016-08-31'
+license: '[CC-BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)'
+...
+
+## Tables
+
+Here's a well-formed table, doing everything it should.
+
+```````````````````````````````` example
+| abc | def |
+| --- | --- |
+| ghi | jkl |
+| mno | pqr |
+.
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghi</td>
+<td>jkl</td>
+</tr>
+<tr>
+<td>mno</td>
+<td>pqr</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+We're going to mix up the table now; we'll demonstrate that inline formatting
+works fine, but block elements don't.  You can also have empty cells, and the
+textual alignment of the columns is shown to be irrelevant.
+
+```````````````````````````````` example
+Hello!
+
+| _abc_ | セン |
+| ----- | ---- |
+| 1. Block elements inside cells don't work. | |
+| But _**inline elements do**_. | x |
+
+Hi!
+.
+<p>Hello!</p>
+<table>
+<thead>
+<tr>
+<th><em>abc</em></th>
+<th>セン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Block elements inside cells don't work.</td>
+<td></td>
+</tr>
+<tr>
+<td>But <em><strong>inline elements do</strong></em>.</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<p>Hi!</p>
+````````````````````````````````
+
+Here we demonstrate some edge cases about what is and isn't a table.
+
+```````````````````````````````` example
+| Not enough table | to be considered table |
+
+| Not enough table | to be considered table |
+| Not enough table | to be considered table |
+
+| Just enough table | to be considered table |
+| ----------------- | ---------------------- |
+
+| ---- | --- |
+
+|x|
+|-|
+
+| xyz |
+| --- |
+.
+<p>| Not enough table | to be considered table |</p>
+<p>| Not enough table | to be considered table |
+| Not enough table | to be considered table |</p>
+<table>
+<thead>
+<tr>
+<th>Just enough table</th>
+<th>to be considered table</th>
+</tr>
+</thead>
+</table>
+<p>| ---- | --- |</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>xyz</th>
+</tr>
+</thead>
+</table>
+````````````````````````````````
+
+A "simpler" table, GFM style:
+
+```````````````````````````````` example
+abc | def
+--- | ---
+xyz | ghi
+.
+<table>
+<thead>
+<tr>
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xyz</td>
+<td>ghi</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+We are making the parser slighly more lax here. Here is a table with spaces at
+the end:
+
+```````````````````````````````` example
+Hello!
+
+| _abc_ | セン |
+| ----- | ---- |
+| this row has a space at the end | | 
+| But _**inline elements do**_. | x |
+
+Hi!
+.
+<p>Hello!</p>
+<table>
+<thead>
+<tr>
+<th><em>abc</em></th>
+<th>セン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>this row has a space at the end</td>
+<td></td>
+</tr>
+<tr>
+<td>But <em><strong>inline elements do</strong></em>.</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<p>Hi!</p>
+````````````````````````````````
+
+Table alignment:
+
+```````````````````````````````` example
+aaa | bbb | ccc | ddd | eee
+:-- | --- | :-: | --- | --:
+fff | ggg | hhh | iii | jjj
+.
+<table>
+<thead>
+<tr>
+<th align="left">aaa</th>
+<th>bbb</th>
+<th align="center">ccc</th>
+<th>ddd</th>
+<th align="right">eee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">fff</td>
+<td>ggg</td>
+<td align="center">hhh</td>
+<td>iii</td>
+<td align="right">jjj</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Table cell count mismatches
+
+The header and delimiter row must match.
+
+```````````````````````````````` example
+| a | b | c |
+| --- | --- |
+| this | isn't | okay |
+.
+<p>| a | b | c |
+| --- | --- |
+| this | isn't | okay |</p>
+````````````````````````````````
+
+But any of the body rows can be shorter. Rows longer
+than the header are truncated.
+
+```````````````````````````````` example
+| a | b | c |
+| --- | --- | ---
+| x
+| a | b
+| 1 | 2 | 3 | 4 | 5 |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a</td>
+<td>b</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Embedded pipes
+
+Tables with embedded pipes could be tricky.
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+| Escaped pipes are \|okay\|. | Like \| this. |
+| Within `\|code\| is okay` too. |
+| _**`c\|`**_ \| complex
+| don't **\_reparse\_**
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escaped pipes are |okay|.</td>
+<td>Like | this.</td>
+</tr>
+<tr>
+<td>Within <code>|code| is okay</code> too.</td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong><code>c|</code></strong></em> | complex</td>
+<td></td>
+</tr>
+<tr>
+<td>don't <strong>_reparse_</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Oddly-formatted markers
+
+This shouldn't assert.
+
+```````````````````````````````` example
+| a |
+--- |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+</tr>
+</thead>
+</table>
+````````````````````````````````
+
+### Escaping
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+| \\ | `\\` |
+| \\\\ | `\\\\` |
+| \_ | `\_` |
+| \| | `\|` |
+| \a | `\a` |
+
+\\ `\\`
+
+\\\\ `\\\\`
+
+\_ `\_`
+
+\| `\|`
+
+\a `\a`
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td><code>\\</code></td>
+</tr>
+<tr>
+<td>\\</td>
+<td><code>\\\\</code></td>
+</tr>
+<tr>
+<td>_</td>
+<td><code>\_</code></td>
+</tr>
+<tr>
+<td>|</td>
+<td><code>|</code></td>
+</tr>
+<tr>
+<td>\a</td>
+<td><code>\a</code></td>
+</tr>
+</tbody>
+</table>
+<p>\ <code>\\</code></p>
+<p>\\ <code>\\\\</code></p>
+<p>_ <code>\_</code></p>
+<p>| <code>\|</code></p>
+<p>\a <code>\a</code></p>
+````````````````````````````````
+
+### Embedded HTML
+
+```````````````````````````````` example
+| a |
+| --- |
+| <strong>hello</strong> |
+| ok <br> sure |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hello</strong></td>
+</tr>
+<tr>
+<td>ok <br> sure</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Reference-style links
+
+```````````````````````````````` example
+Here's a link to [Freedom Planet 2][].
+
+| Here's a link to [Freedom Planet 2][] in a table header. |
+| --- |
+| Here's a link to [Freedom Planet 2][] in a table row. |
+
+[Freedom Planet 2]: http://www.freedomplanet2.com/
+.
+<p>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a> in a table header.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Here's a link to <a href="http://www.freedomplanet2.com/">Freedom Planet 2</a> in a table row.</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Sequential cells
+
+```````````````````````````````` example
+| a | b | c |
+| --- | --- | --- |
+| d || e |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td></td>
+<td>e</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### Interaction with emphasis
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+|***(a)***|
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em><strong>(a)</strong></em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+### a table can be recognised when separated from a paragraph of text without an empty line
+
+```````````````````````````````` example
+123
+456
+| a | b |
+| ---| --- |
+d | e
+.
+<p>123
+456</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td>e</td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
+
+## Interop
+
+Autolink and tables.
+
+```````````````````````````````` example
+| a | b |
+| --- | --- |
+| https://github.com www.github.com | http://pokemon.com |
+.
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com">https://github.com</a> <a href="http://www.github.com">www.github.com</a></td>
+<td><a href="http://pokemon.com">http://pokemon.com</a></td>
+</tr>
+</tbody>
+</table>
+````````````````````````````````
