@@ -1,4 +1,4 @@
-/* commonmark 0.30.1-4 https://github.com/commonmark/commonmark.js @license BSD3 */
+/* commonmark 0.31.2-1 https://github.com/commonmark/commonmark.js @license BSD3 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -87,8 +87,6 @@
         this._prev = null;
         this._next = null;
         this._sourcepos = sourcepos;
-        this._lastLineBlank = false;
-        this._lastLineChecked = false;
         this._open = true;
         this._string_content = null;
         this._literal = null;
@@ -7573,9 +7571,9 @@
     var ATTRIBUTE = "(?:" + "\\s+" + ATTRIBUTENAME + ATTRIBUTEVALUESPEC + "?)";
     var OPENTAG = "<" + TAGNAME + ATTRIBUTE + "*" + "\\s*/?>";
     var CLOSETAG = "</" + TAGNAME + "\\s*[>]";
-    var HTMLCOMMENT = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
+    var HTMLCOMMENT = "<!-->|<!--->|<!--[\\s\\S]*?-->";
     var PROCESSINGINSTRUCTION = "[<][?][\\s\\S]*?[?][>]";
-    var DECLARATION = "<![A-Z]+" + "\\s+[^>]*>";
+    var DECLARATION = "<![A-Za-z]+" + "[^>]*>";
     var CDATA = "<!\\[CDATA\\[[\\s\\S]*?\\]\\]>";
     var HTMLTAG =
         "(?:" +
@@ -7607,7 +7605,7 @@
         if (s.charCodeAt(0) === C_BACKSLASH) {
             return s.charAt(1);
         } else {
-            return lib_7(s);
+            return lib_6(s);
         }
     };
 
@@ -12677,23 +12675,25 @@
     var reHtmlTag$1 = reHtmlTag;
 
     var rePunctuation = new RegExp(
-        /^[!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E42\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDF3C-\uDF3E]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]/
-    );
+        /^[!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~\p{P}\p{S}]/u);
 
     var reLinkSize = /^=(\d*)(?:x(\d*))?/;
 
     var reLinkTitle = new RegExp(
         '^(?:"(' +
-            ESCAPED_CHAR +
-            '|[^"\\x00])*"' +
-            "|" +
-            "'(" +
-            ESCAPED_CHAR +
-            "|[^'\\x00])*'" +
-            "|" +
-            "\\((" +
-            ESCAPED_CHAR +
-            "|[^()\\x00])*\\))"
+        ESCAPED_CHAR +
+        '|\\\\[^\\\\]' +
+        '|[^\\\\"\\x00])*"' +
+        "|" +
+        "'(" +
+        ESCAPED_CHAR +
+        '|\\\\[^\\\\]' +
+        "|[^\\\\'\\x00])*'" +
+        "|" +
+        "\\((" +
+        ESCAPED_CHAR +
+        '|\\\\[^\\\\]' +
+        "|[^\\\\()\\x00])*\\))"
     );
 
     var reLinkDestinationBraces = /^(?:<(?:[^<>\n\\\x00]|\\.)*>)/;
@@ -12761,7 +12761,7 @@
     // Matches a string of non-special characters.
     var reMain = XRegExp.cache('^[\\s\\S]+?(?=[\\n`\\[\\]\\\\!<&*_\'"@:;xX~#$]|[a-z][a-z0-9.+-]{1,31}:|www\\d{0,3}\\.|[' + emailValidCharacters + ".]{1,64}@|$)");
 
-    var text = function(s) {
+    var text = function (s) {
         var node = new Node("text");
         node._literal = s;
         return node;
@@ -12770,7 +12770,7 @@
     // normalize a reference in reference link (remove []s, trim,
     // collapse internal space, unicode case fold.
     // See commonmark/commonmark.js#168.
-    var normalizeReference = function(string) {
+    var normalizeReference = function (string) {
         return string
             .slice(1, string.length - 1)
             .trim()
@@ -12787,7 +12787,7 @@
 
     // If re matches at current position in the subject, advance
     // position in subject and return the match; otherwise return null.
-    var match = function(re) {
+    var match = function (re) {
         var m = this.matchRegex(re);
         if (m === null) {
             return null;
@@ -12796,7 +12796,7 @@
         }
     };
 
-    var matchRegex = function(re) {
+    var matchRegex = function (re) {
         var m = re.exec(this.subject.slice(this.pos));
         if (m === null) {
             return null;
@@ -12806,7 +12806,7 @@
         }
     };
 
-    var tryMatch = function(re) {
+    var tryMatch = function (re) {
         var m = re.exec(this.subject.slice(this.pos));
         if (m === null) {
             return null;
@@ -12815,22 +12815,23 @@
         }
     };
 
-    var acceptMatch = function(m) {
+    var acceptMatch = function (m) {
         this.pos += m.index + m[0].length;
     };
 
     // Returns the code for the character at the current subject position, or -1
     // there are no more characters.
-    var peek = function() {
+    // This function must be non-BMP aware because the Unicode category of its result is used.
+    var peek = function () {
         if (this.pos < this.subject.length) {
-            return this.subject.charCodeAt(this.pos);
+            return this.subject.codePointAt(this.pos);
         } else {
             return -1;
         }
     };
 
     // Parse zero or more space characters, including at most one newline
-    var spnl = function() {
+    var spnl = function () {
         this.match(reSpnl);
         return true;
     };
@@ -12841,7 +12842,7 @@
 
     // Attempt to parse backticks, adding either a backtick code span or a
     // literal sequence of backticks.
-    var parseBackticks = function(block) {
+    var parseBackticks = function (block) {
         var ticks = this.match(reTicksHere);
         if (ticks === null) {
             return false;
@@ -12885,7 +12886,7 @@
     // character, a hard line break (if the backslash is followed by a newline),
     // or a literal backslash to the block's children.  Assumes current character
     // is a backslash.
-    var parseBackslash = function(block) {
+    var parseBackslash = function (block) {
         var subj = this.subject;
         var node;
         this.pos += 1;
@@ -12903,7 +12904,7 @@
     };
 
     // Attempt to parse an autolink (URL or email in pointy brackets).
-    var parseAutolink = function(block) {
+    var parseAutolink = function (block) {
         var m;
         var dest;
         var node;
@@ -12929,7 +12930,7 @@
     };
 
     // Attempt to parse a raw HTML tag.
-    var parseHtmlTag = function(block) {
+    var parseHtmlTag = function (block) {
         var m = this.match(reHtmlTag$1);
         if (m === null) {
             return false;
@@ -12945,7 +12946,7 @@
     // the number of delimiters and whether they are positioned such that
     // they can open and/or close emphasis or strong emphasis.  A utility
     // function for strong/emph parsing.
-    var scanDelims = function(cc) {
+    var scanDelims = function (cc) {
         var numdelims = 0;
         var char_before, char_after, cc_after;
         var startpos = this.pos;
@@ -12970,7 +12971,7 @@
             return null;
         }
 
-        char_before = startpos === 0 ? "\n" : this.subject.charAt(startpos - 1);
+        char_before = previousChar(this.subject, startpos);
 
         cc_after = this.peek();
         if (cc_after === -1) {
@@ -13003,11 +13004,30 @@
             can_close = right_flanking;
         }
         this.pos = startpos;
-        return { numdelims: numdelims, can_open: can_open, can_close: can_close };
+        return {numdelims: numdelims, can_open: can_open, can_close: can_close};
+
+        function previousChar(str, pos) {
+            if (pos === 0) {
+                return "\n";
+            }
+            var previous_cc = str.charCodeAt(pos - 1);
+            // not low surrogate (BMP)
+            if ((previous_cc & 0xfc00) !== 0xdc00) {
+                return str.charAt(pos - 1);
+            }
+            // returns NaN if out of range
+            var two_previous_cc = str.charCodeAt(pos - 2);
+            // NaN & 0xfc00 = 0
+            // checks if 2 previous char is high surrogate
+            if ((two_previous_cc & 0xfc00) !== 0xd800) {
+                return previous_char;
+            }
+            return str.slice(pos - 2, pos);
+        }
     };
 
     // Handle a delimiter marker for emphasis, quotes, or deleted text.
-    var handleDelim = function(cc, block) {
+    var handleDelim = function (cc, block) {
         var res = this.scanDelims(cc);
         if (!res) {
             return false;
@@ -13050,7 +13070,7 @@
         return true;
     };
 
-    var removeDelimiter = function(delim) {
+    var removeDelimiter = function (delim) {
         if (delim.previous !== null) {
             delim.previous.next = delim.next;
         }
@@ -13062,14 +13082,14 @@
         }
     };
 
-    var removeDelimitersBetween = function(bottom, top) {
+    var removeDelimitersBetween = function (bottom, top) {
         if (bottom.next !== top) {
             bottom.next = top;
             top.previous = bottom;
         }
     };
 
-    var processEmphasis = function(stack_bottom) {
+    var processEmphasis = function (stack_bottom) {
         var opener, closer, old_closer;
         var opener_inl, closer_inl;
         var tempstack;
@@ -13080,7 +13100,7 @@
         var openers_bottom_index;
         var odd_match = false;
 
-        for (var i = 0; i < 8; i++) {
+        for (var i = 0; i < 14; i++) {
             openers_bottom[i] = stack_bottom;
         }
         // find first closer above stack_bottom:
@@ -13098,19 +13118,20 @@
                 opener = closer.previous;
                 opener_found = false;
                 switch (closercc) {
-                   case C_SINGLEQUOTE:
-                     openers_bottom_index = 0;
-                     break;
-                   case C_DOUBLEQUOTE:
-                     openers_bottom_index = 1;
-                     break;
-                   case C_UNDERSCORE:
-                     openers_bottom_index = 2;
-                     break;
-                   case C_ASTERISK:
-                     openers_bottom_index = 3 + (closer.can_open ? 3 : 0)
-                                              + (closer.origdelims % 3);
-                     break;
+                    case C_SINGLEQUOTE:
+                        openers_bottom_index = 0;
+                        break;
+                    case C_DOUBLEQUOTE:
+                        openers_bottom_index = 1;
+                        break;
+                    case C_UNDERSCORE:
+                        openers_bottom_index = 2 + (closer.can_open ? 3 : 0)
+                            + (closer.origdelims % 3);
+                        break;
+                    case C_ASTERISK:
+                        openers_bottom_index = 8 + (closer.can_open ? 3 : 0)
+                            + (closer.origdelims % 3);
+                        break;
                 }
                 while (
                     opener !== null &&
@@ -13247,7 +13268,7 @@
         }
     };
 
-    var parseLinkSize = function() {
+    var parseLinkSize = function () {
         var size_matches = this.match(reLinkSize);
 
         if (size_matches === null) {
@@ -13272,7 +13293,7 @@
 
     // Attempt to parse link title (sans quotes), returning the string
     // or null if no match.
-    var parseLinkTitle = function() {
+    var parseLinkTitle = function () {
         var title = this.match(reLinkTitle);
         if (title === null) {
             return null;
@@ -13284,7 +13305,7 @@
 
     // Attempt to parse link destination, returning the string or
     // null if no match.
-    var parseLinkDestination = function() {
+    var parseLinkDestination = function () {
         var res = this.match(reLinkDestinationBraces);
         if (res === null) {
             if (this.peek() === C_LESSTHAN) {
@@ -13334,7 +13355,7 @@
     };
 
     // Attempt to parse a link label, returning number of characters parsed.
-    var parseLinkLabel = function() {
+    var parseLinkLabel = function () {
         var m = this.match(reLinkLabel);
         if (m === null || m.length > 1001) {
             return 0;
@@ -13344,7 +13365,7 @@
     };
 
     // Add open bracket to delimiter stack and add a text node to block's children.
-    var parseOpenBracket = function(block) {
+    var parseOpenBracket = function (block) {
         var startpos = this.pos;
         this.pos += 1;
 
@@ -13358,7 +13379,7 @@
 
     // IF next character is [, and ! delimiter to delimiter stack and
     // add a text node to block's children.  Otherwise just add a text node.
-    var parseBang = function(block) {
+    var parseBang = function (block) {
         var startpos = this.pos;
         this.pos += 1;
         if (this.peek() === C_OPEN_BRACKET) {
@@ -13379,7 +13400,7 @@
     // stack.  Add either a link or image, or a plain [ character,
     // to block's children.  If there is a matching delimiter,
     // remove it from the delimiter stack.
-    var parseCloseBracket = function(block) {
+    var parseCloseBracket = function (block) {
         var startpos;
         var is_image;
         var dest;
@@ -13509,7 +13530,7 @@
         }
     };
 
-    var addBracket = function(node, index, image) {
+    var addBracket = function (node, index, image) {
         if (this.brackets !== null) {
             this.brackets.bracketAfter = true;
         }
@@ -13523,15 +13544,15 @@
         };
     };
 
-    var removeBracket = function() {
+    var removeBracket = function () {
         this.brackets = this.brackets.previous;
     };
 
     // Attempt to parse an entity.
-    var parseEntity = function(block) {
+    var parseEntity = function (block) {
         var m;
         if ((m = this.match(reEntityHere))) {
-            block.appendChild(text(lib_7(m)));
+            block.appendChild(text(lib_6(m)));
             return true;
         } else {
             return false;
@@ -13540,7 +13561,7 @@
 
     // Attempt to parse a url
     var reUrl = XRegExp.cache('^(?:[A-Za-z][A-Za-z\\d-.+]*:(?:\\/{1,3}|[\\pL\\d%])|www\\d{0,3}[.]|[\\pL\\d.\\-]+[.]\\pL{2,4}\\/)(?:\\[[\\da-f:]+\\]|[^\\s`!()\\[\\]{;:\'",<>?«»“”‘’*_]|[*_]+(?=[^_*\\s])|[`!\\[\\]{;:\'",<>?«»“”‘’](?=[^\\s()<>])|\\((?:[^\\s()<>]|(?:\\([^\\s()<>]+\\)))*\\))+', 'i');
-    var parseUrl = function(block) {
+    var parseUrl = function (block) {
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link
             return false;
@@ -13580,7 +13601,7 @@
 
     // Attempt to parse an at mention
     var reAtMention = /^@([a-z][a-z0-9._-]*)/i;
-    var parseAtMention = function(block) {
+    var parseAtMention = function (block) {
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link
             return false;
@@ -13607,7 +13628,7 @@
 
     // Attempt to parse a channel link
     var reChannelLink = /^~([a-z0-9_-]+)/i;
-    var parseChannelLink = function(block) {
+    var parseChannelLink = function (block) {
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link
             return false;
@@ -13634,7 +13655,7 @@
 
     // Attempt to parse a named emoji
     var reEmoji = /^:([a-z0-9_\-+]+):\B/i;
-    var parseEmoji = function(block) {
+    var parseEmoji = function (block) {
         var m;
         if ((m = this.tryMatch(reEmoji))) {
             // Only allow emojis after non-word characters
@@ -13677,7 +13698,7 @@
         "heart",
         "broken_heart"
     ];
-    var parseEmoticon = function(block) {
+    var parseEmoticon = function (block) {
         var m;
         if ((m = this.tryMatch(reEmoticon))) {
             // Only allow emoticons after whitespace or a delimiter
@@ -13705,7 +13726,7 @@
     };
 
     var reEmail = XRegExp.cache("^" + emailStartPattern + "[\\pL\\d.\\-]+[.]\\pL{2,4}(?=$|[^\\p{L}])");
-    var parseEmail = function(block) {
+    var parseEmail = function (block) {
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link
             return false;
@@ -13735,7 +13756,7 @@
     };
 
     var reHashtag = XRegExp.cache("^#(\\pL[\\pL\\d\\-_.]*[\\pL\\d])");
-    var parseHashtag = function(block) {
+    var parseHashtag = function (block) {
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link
             return false;
@@ -13764,7 +13785,7 @@
     };
 
     var reInlineLatex = /^\$([^\$\n]+)\$(?!\w)/;
-    var parseInlineLatex = function(block) {
+    var parseInlineLatex = function (block) {
 
         if (this.brackets) {
             // Don't perform autolinking while inside an explicit link
@@ -13796,7 +13817,7 @@
 
     // Parse a run of ordinary characters, or a single character with
     // a special meaning in markdown, as a plain string.
-    var parseString = function(block) {
+    var parseString = function (block) {
         var m;
         if ((m = this.match(reMain))) {
             if (this.options.smart) {
@@ -13804,7 +13825,7 @@
                     text(
                         m
                             .replace(reEllipses, "\u2026")
-                            .replace(reDash, function(chars) {
+                            .replace(reDash, function (chars) {
                                 var enCount = 0;
                                 var emCount = 0;
                                 if (chars.length % 3 === 0) {
@@ -13840,7 +13861,7 @@
 
     // Parse a newline.  If it was preceded by two spaces, return a hard
     // line break; otherwise a soft line break.
-    var parseNewline = function(block) {
+    var parseNewline = function (block) {
         this.pos += 1; // assume we're at a \n
         // check previous node for trailing spaces
         var lastc = block._lastChild;
@@ -13860,7 +13881,7 @@
     };
 
     // Attempt to parse a link reference, modifying refmap.
-    var parseReference = function(s, refmap) {
+    var parseReference = function (s, refmap) {
         this.subject = s;
         this.pos = 0;
         var rawlabel;
@@ -13900,7 +13921,6 @@
             title = this.parseLinkTitle();
         }
         if (title === null) {
-            title = "";
             // rewind before spaces
             this.pos = beforetitle;
         }
@@ -13908,13 +13928,13 @@
         // make sure we're at line end:
         var atLineEnd = true;
         if (this.match(reSpaceAtEndOfLine) === null) {
-            if (title === "") {
+            if (title === null) {
                 atLineEnd = false;
             } else {
                 // the potential title we found is not at the line end,
                 // but it could still be a legal link reference if we
                 // discard the title
-                title = "";
+                title = null;
                 // rewind before spaces
                 this.pos = beforetitle;
                 // and instead check if the link URL is at the line end
@@ -13935,7 +13955,7 @@
         }
 
         if (!refmap[normlabel]) {
-            refmap[normlabel] = { destination: dest, title: title };
+            refmap[normlabel] = {destination: dest, title: title === null ? "" : title};
         }
         return this.pos - startpos;
     };
@@ -13943,7 +13963,7 @@
     // Parse the next inline element in subject, advancing subject position.
     // On success, add the result to block's children and return true.
     // On failure, return false.
-    var parseInline = function(block) {
+    var parseInline = function (block) {
         var res = false;
         var c = this.peek();
         if (c === -1) {
@@ -14024,14 +14044,39 @@
 
     // Parse string content in block into inline children,
     // using refmap to resolve references.
-    var parseInlines = function(block) {
-        this.subject = block._string_content.trim();
+    var parseInlines = function (block) {
+        // String.protoype.trim() removes non-ASCII whitespaces, vertical tab, form feed and so on.
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim#return_value
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#white_space
+        // Removes only ASCII tab and space.
+        this.subject = trim(block._string_content);
         this.pos = 0;
         this.delimiters = null;
         this.brackets = null;
-        while (this.parseInline(block)) {}
+        while (this.parseInline(block)) { }
         block._string_content = null; // allow raw string to be garbage collected
         this.processEmphasis(null);
+
+        function trim(str) {
+            var start = 0;
+            for (; start < str.length; start++) {
+                if (!isSpace(str.charCodeAt(start))) {
+                    break;
+                }
+            }
+            var end = str.length - 1;
+            for (; end >= start; end--) {
+                if (!isSpace(str.charCodeAt(end))) {
+                    break;
+                }
+            }
+            return str.slice(start, end + 1);
+
+            function isSpace(c) {
+                // U+0020 = space, U+0009 = tab, U+000A = LF, U+000D = CR
+                return c === 0x20 || c === 9 || c === 0xa || c === 0xd;
+            }
+        }
     };
 
     // The InlineParser object.
@@ -14097,9 +14142,9 @@
         /^<(?:script|pre|textarea|style)(?:\s|>|$)/i,
         /^<!--/,
         /^<[?]/,
-        /^<![A-Z]/,
+        /^<![A-Za-z]/,
         /^<!\[CDATA\[/,
-        /^<[/]?(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[123456]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)(?:\s|[/]?[>]|$)/i,
+        /^<[/]?(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[123456]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|section|search|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)(?:\s|[/]?[>]|$)/i,
         new RegExp("^(?:" + OPENTAG + "|" + CLOSETAG + ")\\s*$", "i")
     ];
 
@@ -14128,7 +14173,7 @@
 
     var reCodeFence = /^`{3,}(?!.*`)|^~{3,}/;
 
-    var reClosingCodeFence = /^(?:`{3,}|~{3,})(?= *$)/;
+    var reClosingCodeFence = /^(?:`{3,}|~{3,})(?=[ \t]*$)/;
 
     var reSetextHeadingLine = /^(?:=+|-+)[ \t]*$/;
 
@@ -14157,23 +14202,10 @@
 
     // These are methods of a Parser object, defined below.
 
-    // Returns true if block ends with a blank line, descending if needed
-    // into lists and sublists.
+    // Returns true if block ends with a blank line.
     var endsWithBlankLine = function(block) {
-        while (block) {
-            if (block._lastLineBlank) {
-                return true;
-            }
-            var t = block.type;
-            if (!block._lastLineChecked && (t === "list" || t === "item")) {
-                block._lastLineChecked = true;
-                block = block._lastChild;
-            } else {
-                block._lastLineChecked = true;
-                break;
-            }
-        }
-        return false;
+        return block.next &&
+            block.sourcepos[1][0] !== block.next.sourcepos[0][0] - 1;
     };
 
     // Add a line to the block at the tip.  We assume the tip
@@ -14316,6 +14348,50 @@
         }
     };
 
+    // Remove link reference definitions from given tree.
+    var removeLinkReferenceDefinitions = function(parser, tree) {
+        var event, node;
+        var walker = tree.walker();
+        var emptyNodes = [];
+
+        while ((event = walker.next())) {
+            node = event.node;
+            if (event.entering && node.type === "paragraph") {
+                var pos;
+                var hasReferenceDefs = false;
+
+                // Try parsing the beginning as link reference definitions;
+                // Note that link reference definitions must be the beginning of a
+                // paragraph node since link reference definitions cannot interrupt
+                // paragraphs.
+                while (
+                    peek$1(node._string_content, 0) === C_OPEN_BRACKET$1 &&
+                        (pos = parser.inlineParser.parseReference(
+                            node._string_content,
+                            parser.refmap
+                        ))
+                ) {
+                    const removedText = node._string_content.slice(0, pos);
+
+                    node._string_content = node._string_content.slice(pos);
+                    hasReferenceDefs = true;
+
+                    const lines = removedText.split("\n");
+
+                    // -1 for final newline.
+                    node.sourcepos[0][0] += lines.length - 1;
+                }
+                if (hasReferenceDefs && isBlank(node._string_content)) {
+                    emptyNodes.push(node);
+                }
+            }
+        }
+
+        for (node of emptyNodes) {
+            node.unlink();
+        }
+    };
+
     // 'finalize' is run when the block is closed.
     // 'continue' is run to check whether the block is continuing
     // at a certain line and offset (e.g. whether a block quote
@@ -14326,7 +14402,8 @@
             continue: function() {
                 return 0;
             },
-            finalize: function() {
+            finalize: function(parser, block) {
+                removeLinkReferenceDefinitions(parser, block);
                 return;
             },
             canContain: function(t) {
@@ -14342,7 +14419,7 @@
                 var item = block._firstChild;
                 while (item) {
                     // check for non-final list item ending with blank line:
-                    if (endsWithBlankLine(item) && item._next) {
+                    if (item._next && endsWithBlankLine(item)) {
                         block._listData.tight = false;
                         break;
                     }
@@ -14351,8 +14428,8 @@
                     var subitem = item._firstChild;
                     while (subitem) {
                         if (
-                            endsWithBlankLine(subitem) &&
-                            (item._next || subitem._next)
+                            subitem._next &&
+                            endsWithBlankLine(subitem)
                         ) {
                             block._listData.tight = false;
                             break;
@@ -14361,6 +14438,7 @@
                     }
                     item = item._next;
                 }
+                block.sourcepos[1] = block._lastChild.sourcepos[1];
             },
             canContain: function(t) {
                 return t === "item";
@@ -14415,7 +14493,16 @@
                 }
                 return 0;
             },
-            finalize: function() {
+            finalize: function(parser, block) {
+                if (block._lastChild) {
+                    block.sourcepos[1] = block._lastChild.sourcepos[1];
+                } else {
+                    // Empty list item
+                    block.sourcepos[1][0] = block.sourcepos[0][0];
+                    block.sourcepos[1][1] =
+                        block._listData.markerOffset + block._listData.padding;
+                }
+
                 return;
             },
             canContain: function(t) {
@@ -14497,10 +14584,17 @@
                     block._literal = rest;
                 } else {
                     // indented
-                    block._literal = block._string_content.replace(
-                        /(\n *)+$/,
-                        "\n"
-                    );
+                    var lines = block._string_content.split("\n");
+                    // Note that indented code block cannot be empty, so
+                    // lines.length cannot be zero.
+                    while (/^[ \t]*$/.test(lines[lines.length - 1])) {
+                        lines.pop();
+                    }
+                    block._literal = lines.join("\n") + "\n";
+                    block.sourcepos[1][0] =
+                        block.sourcepos[0][0] + lines.length - 1;
+                    block.sourcepos[1][1] =
+                        block.sourcepos[0][1] + lines[lines.length - 1].length - 1;
                 }
                 block._string_content = null; // allow GC
             },
@@ -14518,7 +14612,7 @@
                     : 0;
             },
             finalize: function(parser, block) {
-                block._literal = block._string_content.replace(/(\n *)+$/, "");
+                block._literal = block._string_content.replace(/\n$/, '');
                 block._string_content = null; // allow GC
             },
             canContain: function() {
@@ -14605,24 +14699,8 @@
             continue: function(parser) {
                 return parser.blank ? 1 : 0;
             },
-            finalize: function(parser, block) {
-                var pos;
-                var hasReferenceDefs = false;
-
-                // try parsing the beginning as link reference definitions:
-                while (
-                    peek$1(block._string_content, 0) === C_OPEN_BRACKET$1 &&
-                    (pos = parser.inlineParser.parseReference(
-                        block._string_content,
-                        parser.refmap
-                    ))
-                ) {
-                    block._string_content = block._string_content.slice(pos);
-                    hasReferenceDefs = true;
-                }
-                if (hasReferenceDefs && isBlank(block._string_content)) {
-                    block.unlink();
-                }
+            finalize: function() {
+                return;
             },
             canContain: function() {
                 return false;
@@ -15295,32 +15373,8 @@
 
             // finalize any blocks not matched
             this.closeUnmatchedBlocks();
-            if (this.blank && container.lastChild) {
-                container.lastChild._lastLineBlank = true;
-            }
 
             t = container.type;
-
-            // Block quote lines are never blank as they start with >
-            // and we don't count blanks in fenced code for purposes of tight/loose
-            // lists or breaking out of lists.  We also don't set _lastLineBlank
-            // on an empty list item, or if we just closed a fenced block.
-            var lastLineBlank =
-                this.blank &&
-                !(
-                    t === "block_quote" ||
-                    (t === "code_block" && container._isFenced) ||
-                    (t === "item" &&
-                        !container._firstChild &&
-                        container.sourcepos[0][0] === this.lineNumber)
-                );
-
-            // propagate lastLineBlank up through parents:
-            var cont = container;
-            while (cont) {
-                cont._lastLineBlank = lastLineBlank;
-                cont = cont._parent;
-            }
 
             if (this.blocks[t].acceptsLines) {
                 this.addLine();
@@ -15741,7 +15795,11 @@
         var info_words = node.info ? node.info.split(/\s+/) : [],
             attrs = this.attrs(node);
         if (info_words.length > 0 && info_words[0].length > 0) {
-            attrs.push(["class", "language-" + this.esc(info_words[0])]);
+            var cls = this.esc(info_words[0]);
+            if (!/^language-/.exec(cls)) {
+              cls = "language-" + cls;
+            }
+            attrs.push(["class", cls]);
         }
         this.cr();
         this.tag("pre");

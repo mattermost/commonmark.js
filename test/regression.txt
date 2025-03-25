@@ -208,3 +208,338 @@ https://talk.commonmark.org/t/link-label-collapse-all-internal-whitespace/3919/5
 .
 <p><a href="/url" title="title">foo</a></p>
 ````````````````````````````````
+
+Issue #258
+
+```````````````````````````````` example
+```
+abc
+```     
+.
+<pre><code>abc
+</code></pre>
+````````````````````````````````
+
+`<!doctype` is case-insensitive
+```````````````````````````````` example
+<!docType html>
+.
+<!docType html>
+````````````````````````````````
+
+Declarations don't need spaces, according to the spec (cmark#456)
+```````````````````````````````` example
+x <!A>
+.
+<p>x <!A></p>
+````````````````````````````````
+
+Block-quoted blank line shouldn't make parent list loose.
+```````````````````````````````` example
+## Case 1
+
+- > a
+  >
+- b
+
+
+## Case 2
+
+- > - a
+  >
+- b
+
+
+## Case 3
+
+- > > a
+  >
+- b
+
+
+## Case 4
+
+- > # a
+  >
+- b
+
+
+## Case 5
+
+- ```
+  The following line is part of code block.
+
+- b
+
+## Case 6
+
+-     The following line is **not** part of code block.
+      
+- b
+
+## Case 7
+
+- <pre>The following line is part of HTML block.
+
+- </pre>
+- b
+.
+<h2>Case 1</h2>
+<ul>
+<li>
+<blockquote>
+<p>a</p>
+</blockquote>
+</li>
+<li>b</li>
+</ul>
+<h2>Case 2</h2>
+<ul>
+<li>
+<blockquote>
+<ul>
+<li>a</li>
+</ul>
+</blockquote>
+</li>
+<li>b</li>
+</ul>
+<h2>Case 3</h2>
+<ul>
+<li>
+<blockquote>
+<blockquote>
+<p>a</p>
+</blockquote>
+</blockquote>
+</li>
+<li>b</li>
+</ul>
+<h2>Case 4</h2>
+<ul>
+<li>
+<blockquote>
+<h1>a</h1>
+</blockquote>
+</li>
+<li>b</li>
+</ul>
+<h2>Case 5</h2>
+<ul>
+<li>
+<pre><code>The following line is part of code block.
+
+</code></pre>
+</li>
+<li>b</li>
+</ul>
+<h2>Case 6</h2>
+<ul>
+<li>
+<pre><code>The following line is **not** part of code block.
+</code></pre>
+</li>
+<li>
+<p>b</p>
+</li>
+</ul>
+<h2>Case 7</h2>
+<ul>
+<li>
+<pre>The following line is part of HTML block.
+
+</li>
+<li>
+</pre>
+</li>
+<li>b</li>
+</ul>
+````````````````````````````````
+
+Link reference definitions are blocks when checking list tightness.
+```````````````````````````````` example
+## Case 1
+
+- [aaa]: /
+
+  [aaa]: /
+- b
+
+
+## Case 2
+
+- a
+
+  [aaa]: /
+- b
+
+
+## Case 3
+
+- [aaa]: /
+
+  a
+- b
+.
+<h2>Case 1</h2>
+<ul>
+<li></li>
+<li>
+<p>b</p>
+</li>
+</ul>
+<h2>Case 2</h2>
+<ul>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+</li>
+</ul>
+<h2>Case 3</h2>
+<ul>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+</li>
+</ul>
+````````````````````````````````
+
+An underscore that is not part of a delimiter should not prevent another
+pair of underscores from forming part of their own.
+```````````````````````````````` example
+__!_!__
+
+__!x!__
+
+**!*!**
+
+---
+
+_*__*_*
+
+_*xx*_*
+
+_*__-_-
+
+_*xx-_-
+.
+<p><strong>!_!</strong></p>
+<p><strong>!x!</strong></p>
+<p><strong>!*!</strong></p>
+<hr />
+<p><em><em>__</em></em>*</p>
+<p><em><em>xx</em></em>*</p>
+<p><em>*__-</em>-</p>
+<p><em>*xx-</em>-</p>
+````````````````````````````````
+
+#277:
+```````````````````````````````` example
+```language-r
+x <- 1
+```
+
+```r
+x <- 1
+```
+.
+<pre><code class="language-r">x &lt;- 1
+</code></pre>
+<pre><code class="language-r">x &lt;- 1
+</code></pre>
+````````````````````````````````
+
+#278
+```````````````````````````````` example
+&parag;
+
+&para
+
+&para;
+.
+<p>&amp;parag;</p>
+<p>&amp;para</p>
+<p>¶</p>
+````````````````````````````````
+
+#281
+```````````````````````````````` example
+[test]:example
+""third [test]
+.
+<p>&quot;&quot;third <a href="example">test</a></p>
+````````````````````````````````
+
+#283
+```````````````````````````````` example
+x<!x>
+
+x<!>
+.
+<p>x<!x></p>
+<p>x&lt;!&gt;</p>
+````````````````````````````````
+
+#285
+```````````````````````````````` example
+foo <!-- test --->
+
+foo <!-- test ---->
+
+foo <!----->
+
+foo <!-- test --> more -->
+.
+<p>foo <!-- test ---></p>
+<p>foo <!-- test ----></p>
+<p>foo <!-----></p>
+<p>foo <!-- test --> more --&gt;</p>
+````````````````````````````````
+
+#261
+```````````````````````````````` example
+Vertical Tab
+
+Form Feed
+
+ NBSP (U+00A0) NBSP 
+
+ Em Space (U+2003) Em Space 
+
+ Line Separator (U+2028) Line Separator 
+
+ Paragraph Separator (U+2029) Paragraph Separator 
+
+　全角スペース (U+3000) 全形空白　
+
+﻿ZWNBSP (U+FEFF) ZWNBSP﻿
+.
+<p>Vertical Tab</p>
+<p>Form Feed</p>
+<p> NBSP (U+00A0) NBSP </p>
+<p> Em Space (U+2003) Em Space </p>
+<p> Line Separator (U+2028) Line Separator </p>
+<p> Paragraph Separator (U+2029) Paragraph Separator </p>
+<p>　全角スペース (U+3000) 全形空白　</p>
+<p>﻿ZWNBSP (U+FEFF) ZWNBSP﻿</p>
+````````````````````````````````
+
+#296
+```````````````````````````````` example
+a**a∇**a
+
+a**∇a**a
+
+a**a𝜵**a
+
+a**𝜵a**a
+.
+<p>a**a∇**a</p>
+<p>a**∇a**a</p>
+<p>a**a𝜵**a</p>
+<p>a**𝜵a**a</p>
+````````````````````````````````
